@@ -9,8 +9,14 @@ import { FaqBlock } from "./components/FaqBlock";
 import { FenceList } from "shared/components/FenceList";
 import { PlaceCard } from "entities/place/ui/ui";
 import { placesMock } from "entities/place/config/mock";
+import { useNavigate } from "react-router-dom";
+import { routes } from "pages/Routing";
+import { useTranslation } from "entities/language/lib";
 
 export const MainPage = () => {
+  const navigate = useNavigate();
+  const { $t } = useTranslation();
+
   return (
     <div
       className={classNames(
@@ -27,7 +33,7 @@ export const MainPage = () => {
         <Lines.Container>
           <Lines.Line isRtl withStar hasInnerGutters />
           <span className="text-2xl font-light bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text text-fill-transparent text-accent">
-            Выберите страну:
+            {$t("pages.main.chooseCountryText")}
           </span>
           <FaqBlock className="flex-grow basis-0">
             <Lines.Line hasInnerGutters />
@@ -36,7 +42,13 @@ export const MainPage = () => {
         <FenceList
           className="w-full max-w-2xl"
           items={placesMock}
-          render={(item) => <PlaceCard {...item} />}
+          render={(item) => (
+            <PlaceCard
+              {...item}
+              key={item.slug}
+              onClick={() => navigate(`${routes.place}/${item.slug}`)}
+            />
+          )}
         />
       </div>
     </div>

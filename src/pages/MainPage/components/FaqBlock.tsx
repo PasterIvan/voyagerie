@@ -1,6 +1,6 @@
 import classNames from "classnames";
+import { useTranslation } from "entities/language/lib";
 import { ReactNode } from "react";
-import { Lines } from "shared/components/Lines";
 import { useHover } from "shared/lib/hooks/useHover";
 import { ChatIcon } from "../config/images/ChatIcon";
 
@@ -8,10 +8,10 @@ export const FaqBlock: React.FC<{
   className?: string;
   children: ReactNode;
 }> = ({ className, children }) => {
+  const { $t } = useTranslation();
+
   const [refText, isHoveredText] = useHover();
   const [refCircle, isHoveredCircle] = useHover();
-
-  const isHovered = isHoveredCircle || isHoveredText;
 
   return (
     <div className={classNames(className, "flex  items-center")}>
@@ -21,14 +21,16 @@ export const FaqBlock: React.FC<{
           ref={refText}
           className="cursor-pointer text-lg text-light text-right pr-4"
         >
-          <div className={"font-light"}>Сомневаетесь?</div>
+          <div className={"font-light"}>
+            {$t("pages.main.supportText.line1")}
+          </div>
           <div
             className={classNames(
               "font-medium",
               (isHoveredText || isHoveredCircle) && "text-accent"
             )}
           >
-            Подскажем.
+            {$t("pages.main.supportText.line2")}
           </div>
         </div>
         <ChatIcon

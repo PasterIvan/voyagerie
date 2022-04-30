@@ -1,4 +1,4 @@
-import { EMAIL, PHONE } from "./config";
+import { EMAIL, PHONE } from "./config/constants";
 
 export const sharedConfig = {
   Emai: EMAIL,

@@ -4,6 +4,8 @@ import { ReactComponent as Sun } from "../config/images/sun.svg";
 import { ReactComponent as Sea } from "../config/images/sea.svg";
 import plural from "plural-ru";
 import { useHover } from "shared/lib/hooks/useHover";
+import React from "react";
+import { useTranslation } from "entities/language/lib";
 
 const mathSignSymbols: Record<number, string> = {
   "1": "+",
@@ -14,7 +16,8 @@ const mathSignSymbols: Record<number, string> = {
 export const PlaceCard: React.FC<
   {
     className?: string;
-  } & PlaceType
+  } & PlaceType &
+    React.HTMLAttributes<HTMLDivElement>
 > = ({
   className,
   name,
@@ -22,7 +25,9 @@ export const PlaceCard: React.FC<
   hotelsNumber,
   image,
   waterTemperature,
+  ...props
 }) => {
+  const { $i18n } = useTranslation();
   const [ref, isHovered] = useHover();
   return (
     <div
@@ -32,6 +37,7 @@ export const PlaceCard: React.FC<
         "cursor-pointer relative w-full h-60 rounded-sm border border-accent overflow-hidden",
         className
       )}
+      {...props}
     >
       <img
         className={classNames(
@@ -54,7 +60,7 @@ export const PlaceCard: React.FC<
         </div>
       </div>
       <div className="absolute left-5 bottom-5">
-        <div className="text-[32px] text-light font-medium">{name}</div>
+        <div className="text-[32px] text-light font-medium">{name[$i18n]}</div>
         <div className="text-accent">
           {hotelsNumber} {plural(hotelsNumber, "отель", "отеля", "отелей")}
         </div>

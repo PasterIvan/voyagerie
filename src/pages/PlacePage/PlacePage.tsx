@@ -1,6 +1,10 @@
 import classNames from "classnames";
+import { useParams } from "react-router-dom";
 
 export const PlacePage = () => {
+  const { id } = useParams();
+  console.log('id', id);
+
   return (
     <div
       className={classNames(

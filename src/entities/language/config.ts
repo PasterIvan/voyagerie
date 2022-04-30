@@ -1,10 +1,10 @@
 import { LanguageType } from "./models";
 
 const LANGUAGES: LanguageType[] = [
-  { label: "English", short: "Eng", code: "US" },
-  { label: "Deutsche", short: "Deu", code: "DE" },
-  { label: "Русский", short: "Рус", code: "RU" },
-  { label: "Française", short: "Fr", code: "FR" },
+  { label: "English", short: "Eng", code: "US", key: "en" },
+  { label: "Deutsche", short: "Deu", code: "DE", key: "de" },
+  { label: "Русский", short: "Рус", code: "RU", key: "ru" },
+  { label: "Française", short: "Fr", code: "FR", key: "fr" },
 ];
 
 const DEFAULT_LANGUAGE: LanguageType = LANGUAGES[2];

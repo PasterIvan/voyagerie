@@ -19,12 +19,12 @@ export const ChatIcon = React.forwardRef<SVGSVGElement, PropsType>(
         {...props}
       >
         <linearGradient id="circleGradient1" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#FAE4BC" />
-          <stop offset="100%" stop-color="#D6A072" />
+          <stop offset="0%" stopColor="#FAE4BC" />
+          <stop offset="100%" stopColor="#D6A072" />
         </linearGradient>
         <linearGradient id="circleGradient2" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#D6A072" />
-          <stop offset="100%" stop-color="#FAE4BC" />
+          <stop offset="0%" stopColor="#D6A072" />
+          <stop offset="100%" stopColor="#FAE4BC" />
         </linearGradient>
         <circle
           fill={isHovered ? "url(#circleGradient2)" : "url(#circleGradient1)"}
@@ -51,8 +51,8 @@ export const ChatIcon = React.forwardRef<SVGSVGElement, PropsType>(
             y2="96"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#FAE4BC" />
-            <stop offset="1" stop-color="#D6A072" />
+            <stop stopColor="#FAE4BC" />
+            <stop offset="1" stopColor="#D6A072" />
           </linearGradient>
         </defs>
       </svg>
