@@ -1,8 +1,9 @@
 import "./styles/index.scss";
-import { ReactComponent as Logo } from "./assets/logo.svg";
+import { Routing } from "../pages/Routing";
+import { withProviders } from "./providers";
 
 function App() {
-  return <Logo />;
+  return <Routing />;
 }
 
-export default App;
+export default withProviders(App);
