@@ -13,27 +13,25 @@ const Container: React.FC<{ children: ReactNode; className?: string }> = ({
   );
 };
 
-type LineProps = (
-  | { withStar: true; isRtl?: boolean }
-  | { withStar?: false }
-) & {
+type LineProps = {
   hasInnerGutters?: boolean;
   noGutters?: boolean;
+  starPosition?: "left" | "right" | "none";
 };
 
-const Line: React.FC<{
-  className?: string;
-  hasInnerGutters?: boolean;
-  noGutters?: boolean;
-  isRtl?: boolean;
-  withStar?: boolean;
-}> = ({
+const Line: React.FC<
+  {
+    className?: string;
+  } & LineProps
+> = ({
   className,
-  withStar = false,
   noGutters = false,
   hasInnerGutters = false,
-  isRtl = false,
+  starPosition = "none",
 }) => {
+  const withStar = starPosition !== "none";
+  const isRtl = starPosition === "right";
+
   return !isRtl ? (
     <>
       <hr
@@ -87,13 +85,14 @@ const HorizontalLine: React.FC<
   {
     children: ReactNode;
     className?: string;
-  } & LineProps
-> = ({ children, className, ...props }) => {
+    withStar?: boolean;
+  } & Omit<LineProps, "starPosition">
+> = ({ children, className, withStar, ...props }) => {
   return (
     <Container className={className}>
-      <Line isRtl {...props} />
+      <Line starPosition={withStar ? "right" : undefined} {...props} />
       {children}
-      <Line {...props} />
+      <Line starPosition={withStar ? "left" : undefined} {...props} />
     </Container>
   );
 };
@@ -102,4 +101,5 @@ export const Lines = {
   Container,
   HorizontalLine,
   Line,
+  Star,
 };

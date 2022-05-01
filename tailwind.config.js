@@ -18,6 +18,8 @@ module.exports = {
       },
     },
     colors: {
+      "transparent": 'transparent',
+      "current": 'currentColor',
       "accent": "#EFCFA5",
       "accent-dark": "#EBC99E",
       "brown-dark": "#796A57",
@@ -29,5 +31,7 @@ module.exports = {
       "black": "#000000"
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

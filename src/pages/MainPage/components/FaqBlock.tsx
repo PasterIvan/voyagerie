@@ -6,8 +6,9 @@ import { ChatIcon } from "../config/images/ChatIcon";
 
 export const FaqBlock: React.FC<{
   className?: string;
-  children: ReactNode;
-}> = ({ className, children }) => {
+  elementClassName?: string;
+  children?: ReactNode;
+}> = ({ className, elementClassName, children }) => {
   const { $t } = useTranslation();
 
   const [refText, isHoveredText] = useHover();
@@ -16,7 +17,7 @@ export const FaqBlock: React.FC<{
   return (
     <div className={classNames(className, "flex  items-center")}>
       {children}
-      <div className="flex items-center -mr-[3.25rem]">
+      <div className={classNames("flex items-center", elementClassName)}>
         <div
           ref={refText}
           className="cursor-pointer text-lg text-light text-right pr-4"
@@ -27,7 +28,7 @@ export const FaqBlock: React.FC<{
           <div
             className={classNames(
               "font-medium",
-              (isHoveredText || isHoveredCircle) && "text-accent"
+              isHoveredText && "text-accent"
             )}
           >
             {$t("pages.main.supportText.line2")}

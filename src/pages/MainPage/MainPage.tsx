@@ -7,11 +7,11 @@ import { MainText } from "./components/MainText";
 import { Lines } from "shared/components/Lines";
 import { FaqBlock } from "./components/FaqBlock";
 import { FenceList } from "shared/components/FenceList";
-import { PlaceCard } from "entities/place/ui/ui";
-import { placesMock } from "entities/place/config/mock";
+import { placesMock } from "shared/api/placesMock";
 import { useNavigate } from "react-router-dom";
 import { routes } from "pages/Routing";
 import { useTranslation } from "entities/language/lib";
+import { PlaceCard } from "entities/place/ui";
 
 export const MainPage = () => {
   const navigate = useNavigate();
@@ -31,11 +31,14 @@ export const MainPage = () => {
         </Lines.HorizontalLine>
         <MainText className="pt-16 pb-8" />
         <Lines.Container>
-          <Lines.Line isRtl withStar hasInnerGutters />
+          <Lines.Line starPosition="right" hasInnerGutters />
           <span className="text-2xl font-light bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text text-fill-transparent text-accent">
             {$t("pages.main.chooseCountryText")}
           </span>
-          <FaqBlock className="flex-grow basis-0">
+          <FaqBlock
+            className="flex-grow basis-0"
+            elementClassName="-mr-[3.25rem]"
+          >
             <Lines.Line hasInnerGutters />
           </FaqBlock>
         </Lines.Container>

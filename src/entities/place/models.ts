@@ -1,6 +1,7 @@
 import { createEvent, createStore } from "effector";
+import { HotelType } from "entities/hostels/models";
 import { Locales } from "shared/config/constants";
-import { placesMock } from "./config/mock";
+import { placeMock, placesMock } from "../../shared/api/placesMock";
 
 export type PlaceType = {
   name: Record<Locales, string>;
@@ -11,7 +12,18 @@ export type PlaceType = {
   slug: string;
 };
 
+export type PlaceOverviewType = PlaceType & {
+  hotels: HotelType[];
+  totalHotelsNumber: number;
+};
+
+const setPlace = createEvent<PlaceOverviewType>();
 const setPlaces = createEvent<PlaceType[]>();
+
+export const $place = createStore<PlaceOverviewType | null>(null).on(
+  setPlace,
+  (_, places) => places
+);
 
 export const $places = createStore<PlaceType[]>([]).on(
   setPlaces,
@@ -20,7 +32,9 @@ export const $places = createStore<PlaceType[]>([]).on(
 
 //TODO: Dev only
 setPlaces(placesMock);
+setPlace(placeMock);
 
 export const events = {
+  setPlace,
   setPlaces,
 };
