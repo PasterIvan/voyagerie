@@ -89,7 +89,7 @@ export const PlaceCard: React.FC<
   waterTemperature,
   ...props
 }) => {
-  const { $i18n } = useTranslation();
+  const { $i18n, $t } = useTranslation();
   const [ref, isHovered] = useHover();
   return (
     <div
@@ -118,7 +118,8 @@ export const PlaceCard: React.FC<
       <div className="absolute left-5 bottom-5">
         <div className="text-[32px] text-light font-medium">{name[$i18n]}</div>
         <div className="text-accent">
-          {hotelsNumber} {plural(hotelsNumber, "отель", "отеля", "отелей")}
+          {hotelsNumber}{" "}
+          {plural(hotelsNumber, ...$t("pages.place.hotelsPlural"))}
         </div>
       </div>
     </div>

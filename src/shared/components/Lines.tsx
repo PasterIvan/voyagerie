@@ -17,6 +17,7 @@ type LineProps = {
   hasInnerGutters?: boolean;
   noGutters?: boolean;
   starPosition?: "left" | "right" | "none";
+  starClassName?: string;
 };
 
 const Line: React.FC<
@@ -25,6 +26,7 @@ const Line: React.FC<
   } & LineProps
 > = ({
   className,
+  starClassName,
   noGutters = false,
   hasInnerGutters = false,
   starPosition = "none",
@@ -43,12 +45,13 @@ const Line: React.FC<
             "ml-2": hasInnerGutters,
             "mr-2": hasInnerGutters && !withStar,
           },
-          "text-accent/25 flex-grow"
+          "flex-grow"
         )}
       />
       {withStar && (
         <Star
           className={classNames(
+            starClassName,
             !noGutters && "translate-x-[51%]",
             "opacity-25"
           )}
@@ -60,6 +63,7 @@ const Line: React.FC<
       {withStar && (
         <Star
           className={classNames(
+            starClassName,
             !noGutters && "-translate-x-[51%]",
             "opacity-25"
           )}
@@ -74,7 +78,7 @@ const Line: React.FC<
             "mr-2": hasInnerGutters,
             "ml-2": hasInnerGutters && !withStar,
           },
-          "text-accent/25 flex-grow"
+          "flex-grow"
         )}
       />
     </>

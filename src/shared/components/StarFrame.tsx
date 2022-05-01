@@ -34,16 +34,16 @@ export const StarFrame = React.forwardRef<HTMLDivElement, StarFrameProps>(
         className={classNames("relative border border-accent", className)}
       >
         {topLeft && (
-          <Star className="z-10 absolute left-0 top-0 -translate-x-[51%] -translate-y-[51%]" />
+          <Star className="z-10 absolute left-0 top-0 -translate-x-[51%] -translate-y-[51%] text-accent" />
         )}
         {bottomLeft && (
-          <Star className="z-10 absolute left-0 bottom-0 -translate-x-[51%] translate-y-[51%]" />
+          <Star className="z-10 absolute left-0 bottom-0 -translate-x-[51%] translate-y-[51%] text-accent" />
         )}
         {topRight && (
-          <Star className="z-10 absolute right-0 top-0 translate-x-[51%] -translate-y-[51%]" />
+          <Star className="z-10 absolute right-0 top-0 translate-x-[51%] -translate-y-[51%] text-accent" />
         )}
         {bottomRight && (
-          <Star className="z-10 absolute right-0 bottom-0 translate-x-[51%] translate-y-[51%]" />
+          <Star className="z-10 absolute right-0 bottom-0 translate-x-[51%] translate-y-[51%] text-accent" />
         )}
         {children}
       </div>

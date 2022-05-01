@@ -39,6 +39,11 @@ export const de: LocaleObject = {
         "Wenn das Hotel, das Sie suchen, nicht in der Liste ist, schreiben Sie uns und wir werden Ihnen einen Vorschlag machen.",
       button: "Kontaktieren Sie uns",
     },
+    hostel: {
+      restuartants: "Restaurants",
+      health: "Sport und Gesundheit",
+      children: "Für Kinder",
+    },
   },
   currencyConfig: {
     locale: "de-DE",

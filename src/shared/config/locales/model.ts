@@ -29,6 +29,11 @@ export type LocaleObject = {
       suggestion: string;
       button: string;
     };
+    hostel: {
+      restuartants: string;
+      health: string;
+      children: string;
+    }
   };
   currencyConfig: {
     locale: string;

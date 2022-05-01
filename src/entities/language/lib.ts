@@ -9,11 +9,14 @@ export const useTranslation = () => {
   const language = useStore($currentLanguage);
   const locale = useMemo(() => locales[language.key], [language]);
   const translateFunction = useCallback(
-    (path: Paths<LocaleObject>): string => {
+    (path: Paths<LocaleObject>): any => {
       try {
-        return path
+        return (path as any)
           .split(".")
-          .reduce((obj, key) => (obj as any)[key], locale) as unknown as string;
+          .reduce(
+            (obj: any, key: string | number) => (obj as any)[key],
+            locale
+          ) as unknown as string;
       } catch {
         return path;
       }

@@ -22,7 +22,7 @@ export const PlacePage = () => {
   const [ref, isFocused] = useFocus();
 
   const place = useStore($place);
-  const { $i18n } = useTranslation();
+  const { $t, $i18n } = useTranslation();
   const navigate = useNavigate();
 
   const handleHostelClick = useCallback(
@@ -57,20 +57,20 @@ export const PlacePage = () => {
           <div className="w-full flex items-start justify-between">
             <div className="text-light flex flex-col">
               <span className="text-lg font-normal">
-                Мы отобрали
+                {$t("pages.place.title.text1")}
                 {place.totalHotelsNumber
-                  ? ` из ${place.totalHotelsNumber}`
+                  ? ` ${$t("pages.place.title.insert")} ${
+                      place.totalHotelsNumber
+                    }`
                   : ""}{" "}
-                самые лучшие
+                {$t("pages.place.title.text2")}
               </span>
               <span className="text-light text-5xl font-medium">
                 {!isNaN(place.hotelsNumber as number) &&
                   place.hotelsNumber !== null &&
                   `${place.hotelsNumber} ${plural(
                     place.hotelsNumber,
-                    "отель",
-                    "отеля",
-                    "отелей"
+                    ...$t("pages.place.hotelsPlural")
                   )}`}
               </span>
             </div>
@@ -93,7 +93,7 @@ export const PlacePage = () => {
               ref={ref}
               type="text"
               className="placeholder-accent/50 focus:ring-accent/50 focus:border-accent/50 rounded border border-accent/50 text-accent pl-10  px-4 py-3 h-12 w-full bg-transparent"
-              placeholder="Поиск по названию"
+              placeholder={$t("pages.place.search.placeholder")}
             />
           </div>
           {beforeSuggestion.map((hostel) => (
@@ -106,12 +106,9 @@ export const PlacePage = () => {
           ))}
           <div className="w-full mb-8 items-center bg-accent rounded flex p-6">
             <img src={chillLogo} className="opacity-50" />
-            <span className="pl-6 text-lg">
-              Если отеля, который вы ищете нет в списке, напишите нам, и мы
-              сделаем вам предложение.
-            </span>
+            <span className="pl-6 text-lg">{$t("pages.place.suggestion")}</span>
             <button className="bg-black text-lg font-medium rounded h-full text-light hover:text-accent text-center px-6 whitespace-nowrap">
-              Свяжитесь с нами
+              {$t("pages.place.button")}
             </button>
           </div>
           {afterSuggestion.map((hostel) => (

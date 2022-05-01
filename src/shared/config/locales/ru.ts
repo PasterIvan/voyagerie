@@ -39,6 +39,11 @@ export const ru: LocaleObject = {
         "Если отеля, который вы ищете нет в списке, напишите нам, и мы сделаем вам предложение.",
       button: "Свяжитесь с нами",
     },
+    hostel: {
+      restuartants: "Рестораны",
+      health: "Спорт и оздоровление",
+      children: "Для детей",
+    },
   },
   currencyConfig: {
     locale: "ru-RU",

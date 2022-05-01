@@ -1,4 +1,5 @@
 import { createEvent, createStore } from "effector";
+import { hotelsMock } from "shared/api/hotelsMock";
 import { Locales } from "shared/config/constants";
 
 export type HotelType = {
@@ -12,14 +13,17 @@ export type HotelType = {
 };
 
 export type HotelOverviewType = {
+  slug: string;
   image: string;
   name: Record<Locales, string>;
   place: Record<Locales, string>;
   description: Record<Locales, string>;
-  restorans: Record<Locales, string>;
-  health: Record<Locales, string>;
-  child: Record<Locales, string>;
-  images: string[];
+  content: {
+    restorans: Record<Locales, string>;
+    health: Record<Locales, string>;
+    child: Record<Locales, string>;
+  };
+  gallery: string[];
 };
 
 const setHostel = createEvent<HotelOverviewType>();
@@ -28,3 +32,6 @@ export const $hostel = createStore<HotelOverviewType | null>(null).on(
   setHostel,
   (_, hostel) => hostel
 );
+
+//TODO: Dev only
+setHostel(hotelsMock);

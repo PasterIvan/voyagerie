@@ -59,8 +59,8 @@ export const HostelCard: React.FC<
         <span className="text-accent font-medium text-[2rem]">
           {name[$i18n]}
         </span>
-        <Lines.HorizontalLine className="mt-auto mb-2">
-          <Lines.Star className="opacity-25" />
+        <Lines.HorizontalLine className="mt-auto mb-2 text-accent/25">
+          <Lines.Star className="text-accent opacity-25" />
         </Lines.HorizontalLine>
         <div className="flex items-center">
           <span className="text-accent opacity-50 pr-4">Трансфер</span>

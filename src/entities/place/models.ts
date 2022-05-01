@@ -1,7 +1,7 @@
 import { createEvent, createStore } from "effector";
 import { HotelType } from "entities/hostels/models";
+import { placesMock, placeMock } from "shared/api/placesMock";
 import { Locales } from "shared/config/constants";
-import { placeMock, placesMock } from "../../shared/api/placesMock";
 
 export type PlaceType = {
   name: Record<Locales, string>;

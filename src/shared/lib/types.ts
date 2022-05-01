@@ -5,9 +5,13 @@ export type Paths<
 > = T extends object
   ? {
       [K in keyof T]: K extends string | number
-        ? T[K] extends object
-          ? Paths<T[K], `${C}${K}`>
-          : `${C}${K}`
+        ?
+            | (T[K] extends Array<any>
+                ? `${C}${K}`
+                : T[K] extends object
+                ? Paths<T[K], `${C}${K}`>
+                : `${C}${K}`)
+            | `${C}${K}`
         : never;
     }[keyof T]
   : never;

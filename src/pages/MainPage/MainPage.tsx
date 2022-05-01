@@ -7,11 +7,11 @@ import { MainText } from "./components/MainText";
 import { Lines } from "shared/components/Lines";
 import { FaqBlock } from "./components/FaqBlock";
 import { FenceList } from "shared/components/FenceList";
-import { placesMock } from "shared/api/placesMock";
 import { useNavigate } from "react-router-dom";
 import { routes } from "pages/Routing";
 import { useTranslation } from "entities/language/lib";
 import { PlaceCard } from "entities/place/ui";
+import { placesMock } from "shared/api/placesMock";
 
 export const MainPage = () => {
   const navigate = useNavigate();
@@ -26,12 +26,22 @@ export const MainPage = () => {
       <div className="w-[927px] border-accent/25 border-x flex flex-col items-center mr-28">
         <ContactsBlock className="w-[450px]" />
         <Logo className="w-[450px] pt-6 h-auto" />
-        <Lines.HorizontalLine withStar hasInnerGutters className="pt-16">
+        <Lines.HorizontalLine
+          withStar
+          hasInnerGutters
+          className="pt-16 text-accent/25"
+          starClassName="text-accent"
+        >
           <HorizontalButtons />
         </Lines.HorizontalLine>
         <MainText className="pt-16 pb-8" />
         <Lines.Container>
-          <Lines.Line starPosition="right" hasInnerGutters />
+          <Lines.Line
+            className="text-accent/25"
+            starClassName="text-accent"
+            starPosition="right"
+            hasInnerGutters
+          />
           <span className="text-2xl font-light bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text text-fill-transparent text-accent">
             {$t("pages.main.chooseCountryText")}
           </span>
@@ -39,7 +49,7 @@ export const MainPage = () => {
             className="flex-grow basis-0"
             elementClassName="-mr-[3.25rem]"
           >
-            <Lines.Line hasInnerGutters />
+            <Lines.Line className="text-accent/25" hasInnerGutters />
           </FaqBlock>
         </Lines.Container>
         <FenceList
