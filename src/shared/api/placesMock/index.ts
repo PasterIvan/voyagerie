@@ -54,7 +54,7 @@ export const placeMock: PlaceOverviewType = {
   waterTemperature: 25,
   hotels: [
     {
-      minutes: 2,
+      time: 2,
       image: image4,
       name: {
         ru: "Отель в Мальдивах",
@@ -67,7 +67,7 @@ export const placeMock: PlaceOverviewType = {
       slug: "maldives-hotel",
     },
     {
-      minutes: 16,
+      time: 16,
       image: image4,
       name: {
         ru: "Отель в Сейшелах",

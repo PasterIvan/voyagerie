@@ -7,17 +7,26 @@ import plural from "plural-ru";
 import { transferIcons } from "./config";
 import { useHover } from "shared/lib/hooks/useHover";
 
+const pluralConfig: Record<HotelType["timeType"], [string, string, string]> = {
+  minutes: ["минут", "минуты", "минут"],
+  hours: ["часов", "часа", "часов"],
+  days: ["день", "дня", "дней"],
+  nights: ["ночь", "ночи", "ночей"],
+  weeks: ["неделя", "недели", "недель"],
+};
+
 export const HostelCard: React.FC<
   { className?: string; onClick?: (slug: string) => void } & HotelType
 > = ({
   className,
   image,
   name,
-  minutes,
+  time,
   cost,
   transferType,
   slug,
   onClick,
+  timeType,
 }) => {
   const [ref, isHovered] = useHover();
   const { $i18n } = useTranslation();
@@ -57,7 +66,7 @@ export const HostelCard: React.FC<
           <span className="text-accent opacity-50 pr-4">Трансфер</span>
           <Icon className="mr-2" />
           <span className="text-accent">
-            {minutes} {plural(minutes, "минута", "минуты", "минут")}
+            {time} {plural(time, ...pluralConfig[timeType])}
           </span>
           <span className="text-lg font-medium text-light ml-auto">
             от{" "}

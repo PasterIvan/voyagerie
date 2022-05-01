@@ -1,3 +1,6 @@
+import { HotelType } from "entities/hostels/models";
+import { string } from "yup";
+
 export type LocaleObject = {
   pages: {
     main: {
@@ -15,5 +18,20 @@ export type LocaleObject = {
         line2: string;
       };
     };
+    place: {
+      title: { text1: string; insert: string; text2: string };
+      hotelsPlural: [string, string, string];
+      search: { placeholder: string };
+      card: {
+        transfer: string;
+        time: Record<HotelType["timeType"], string>;
+      };
+      suggestion: string;
+      button: string;
+    };
+  };
+  currencyConfig: {
+    locale: string;
+    currency: string;
   };
 };

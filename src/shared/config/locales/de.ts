@@ -17,5 +17,31 @@ export const de: LocaleObject = {
         line2: "Rufen Sie uns an",
       },
     },
+    place: {
+      title: {
+        text1: "Wir haben",
+        insert: "von",
+        text2: "die besten",
+      },
+      hotelsPlural: ["hotel", "hotels", "hotels"],
+      search: { placeholder: "Suche nach Hotelname" },
+      card: {
+        transfer: "Transfer",
+        time: {
+          minutes: "minuten",
+          hours: "stunden",
+          days: "tage",
+          nights: "nächte",
+          weeks: "wochen",
+        },
+      },
+      suggestion:
+        "Wenn das Hotel, das Sie suchen, nicht in der Liste ist, schreiben Sie uns und wir werden Ihnen einen Vorschlag machen.",
+      button: "Kontaktieren Sie uns",
+    },
+  },
+  currencyConfig: {
+    locale: "de-DE",
+    currency: "EUR",
   },
 };

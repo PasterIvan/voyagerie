@@ -17,5 +17,31 @@ export const ru: LocaleObject = {
         line2: "Позвоните нам",
       },
     },
+    place: {
+      title: {
+        text1: "Мы отобрали",
+        insert: "из",
+        text2: "самые лучшие",
+      },
+      hotelsPlural: ["отель", "отеля", "отелей"],
+      search: { placeholder: "Поиск по названию" },
+      card: {
+        transfer: "Трансфер",
+        time: {
+          minutes: "минут",
+          hours: "часов",
+          days: "дней",
+          nights: "ночей",
+          weeks: "недель",
+        },
+      },
+      suggestion:
+        "Если отеля, который вы ищете нет в списке, напишите нам, и мы сделаем вам предложение.",
+      button: "Свяжитесь с нами",
+    },
+  },
+  currencyConfig: {
+    locale: "ru-RU",
+    currency: "RUB",
   },
 };

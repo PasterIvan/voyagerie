@@ -2,19 +2,19 @@ import { ReactComponent as Star } from "app/assets/images/star.svg";
 import classNames from "classnames";
 import React from "react";
 
-type StarFrame = {
+export type StarFrameProps = {
   className?: string;
   topLeft?: boolean;
   bottomLeft?: boolean;
   topRight?: boolean;
   bottomRight?: boolean;
   children?: React.ReactNode;
-} & React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
+} & Omit<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  "ref"
 >;
 
-export const StarFrame = React.forwardRef<HTMLDivElement, StarFrame>(
+export const StarFrame = React.forwardRef<HTMLDivElement, StarFrameProps>(
   (
     {
       className,
@@ -24,7 +24,7 @@ export const StarFrame = React.forwardRef<HTMLDivElement, StarFrame>(
       bottomRight = true,
       children,
       ...props
-    }: StarFrame,
+    }: StarFrameProps,
     ref
   ) => {
     return (
@@ -34,16 +34,16 @@ export const StarFrame = React.forwardRef<HTMLDivElement, StarFrame>(
         className={classNames("relative border border-accent", className)}
       >
         {topLeft && (
-          <Star className="absolute left-0 top-0 -translate-x-[51%] -translate-y-[51%]" />
+          <Star className="z-10 absolute left-0 top-0 -translate-x-[51%] -translate-y-[51%]" />
         )}
         {bottomLeft && (
-          <Star className="absolute left-0 bottom-0 -translate-x-[51%] translate-y-[51%]" />
+          <Star className="z-10 absolute left-0 bottom-0 -translate-x-[51%] translate-y-[51%]" />
         )}
         {topRight && (
-          <Star className="absolute right-0 top-0 translate-x-[51%] -translate-y-[51%]" />
+          <Star className="z-10 absolute right-0 top-0 translate-x-[51%] -translate-y-[51%]" />
         )}
         {bottomRight && (
-          <Star className="absolute right-0 bottom-0 translate-x-[51%] translate-y-[51%]" />
+          <Star className="z-10 absolute right-0 bottom-0 translate-x-[51%] translate-y-[51%]" />
         )}
         {children}
       </div>

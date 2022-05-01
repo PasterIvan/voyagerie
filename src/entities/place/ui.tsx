@@ -66,7 +66,7 @@ export const TemperatureCard: React.FC<{
       >
         <img
           src={seaIcon}
-          className={classNames("inline mr-1", sizeClasses[size].icon)}
+          className={classNames("inline", sizeClasses[size].icon)}
         />
         {mathSignSymbols[Math.sign(waterTemperature)]}
         {waterTemperature}℃
