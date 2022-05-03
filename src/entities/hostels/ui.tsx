@@ -42,16 +42,14 @@ export const HostelCard: React.FC<
       onClick={() => onClick?.(slug)}
       className={classNames(
         className,
-        "flex w-full h-48 rounded bg-accent-dark/10",
-        isHovered && "hover:bg-accent-dark/20"
+        "group flex w-full h-48 rounded bg-accent-dark/10 hover:bg-accent-dark/20"
       )}
     >
       <div className="rounded overflow-hidden w-60 m-4 mr-6">
         <img
           src={image}
           className={classNames(
-            "transition-transform duration-500 object-cover h-full w-full",
-            isHovered && "scale-110"
+            "transition-transform duration-500 object-cover h-full w-full group-hover:scale-110"
           )}
         />
       </div>

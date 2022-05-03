@@ -12,6 +12,7 @@ export const placesMock: PlaceType[] = [
     hotelsNumber: 36,
     name: { ru: "Мальдивы", de: "Maldives", en: "Maldives", fr: "Maldives" },
     slug: "maldives",
+    countryCode: "mv",
   },
   {
     image: image2,
@@ -25,6 +26,7 @@ export const placesMock: PlaceType[] = [
       fr: "Seychelles",
     },
     slug: "seychelles",
+    countryCode: "sc",
   },
   {
     image: image3,
@@ -33,6 +35,7 @@ export const placesMock: PlaceType[] = [
     hotelsNumber: 15,
     name: { ru: "Турция", de: "Turkey", en: "Turkey", fr: "Turkey" },
     slug: "turkey",
+    countryCode: "tr",
   },
   {
     image: image1,
@@ -41,10 +44,12 @@ export const placesMock: PlaceType[] = [
     hotelsNumber: 36,
     name: { ru: "Мальдивы", de: "Maldives", en: "Maldives", fr: "Maldives" },
     slug: "maldives2",
+    countryCode: "mv",
   },
 ];
 
 export const placeMock: PlaceOverviewType = {
+  countryCode: "mv",
   totalHotelsNumber: 860,
   airTemperature: 28,
   hotelsNumber: 36,

@@ -1,17 +1,19 @@
+import { RoutesPaths } from "../constants";
 import { LocaleObject } from "./model";
 
 export const fr: LocaleObject = {
   pages: {
     main: {
       slogan: {
-        line1: { text1: "Nous offrons", text2: "les meilleurs prix" },
+        line1: { text1: "Les meilleurs prix", text2: "et plein" },
         line2: {
-          text1: "et",
-          text2: "support complet",
+          text1: "d'assistance",
+          text2: "par les hôtels luxueux",
         },
+
         line3: "par des routes luxueuses.",
       },
-      chooseCountryText: "Choisissez le pays:",
+      chooseCountryText: "Choisissez votre pays",
       supportText: {
         line1: "Êtes-vous confus?",
         line2: "Appelez-nous",
@@ -43,10 +45,16 @@ export const fr: LocaleObject = {
       restuartants: "Restaurants",
       health: "Sport et santé",
       children: "Pour les enfants",
+      galery: "Galerie d'hôtel",
     },
   },
   currencyConfig: {
     locale: "fr-FR",
     currency: "EUR",
+  },
+  navbarRoutes: {
+    [RoutesPaths.Main]: "Accueil",
+    [RoutesPaths.Place]: "Pays",
+    [RoutesPaths.Help]: "Aide",
   },
 };

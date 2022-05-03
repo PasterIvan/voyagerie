@@ -45,5 +45,5 @@ export const hotelsMock: HotelOverviewType = {
       fr: "<p>Services pour enfants à St. Petersburg</p>",
     },
   },
-  gallery: [image2, image3, image4],
+  gallery: [image2, image3, image4, image2, image3],
 };

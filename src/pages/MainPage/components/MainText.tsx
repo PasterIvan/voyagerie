@@ -9,25 +9,20 @@ export const MainText: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <div
       className={classNames(
-        "text-[32px] font-light text-light leading-10 flex flex-col items-center justify-center",
+        "text-5xl font-semibold text-light leading-[53px] text-center",
         className
       )}
     >
-      <div>
-        {$t("pages.main.slogan.line1.text1")}{" "}
-        <span className="font-medium underline thicknes decoration-1 underline-offset-8 decoration-accent hover:text-accent cursor-pointer">
-          {$t("pages.main.slogan.line1.text2")}
-          <Info className="inline ml-2 -mt-3" />
-        </span>
-      </div>
-      <div>
-        {$t("pages.main.slogan.line2.text1")}{" "}
-        <span className="font-medium underline thicknes decoration-1 underline-offset-8 decoration-blue-accent hover:text-blue-accent cursor-pointer">
-          {$t("pages.main.slogan.line2.text2")}
-          <Message className="inline ml-2 -mt-1" />
-        </span>
-      </div>
-      <div> {$t("pages.main.slogan.line3")}</div>
+      <span className="relative font-medium underline thicknes decoration-1 underline-offset-2 decoration-accent text-accent hover:text-light cursor-pointer">
+        {$t("pages.main.slogan.line1.text1")}
+        <Info className="absolute inline top-0 -right-4" />
+      </span>{" "}
+      {$t("pages.main.slogan.line1.text2")}{" "}
+      <span className="relative font-medium underline thicknes decoration-1 underline-offset-2 decoration-blue-accent text-blue-accent hover:text-light cursor-pointer">
+        {$t("pages.main.slogan.line2.text1")}
+        <Message className="absolute inline top-0 -right-4" />
+      </span>{" "}
+      {$t("pages.main.slogan.line2.text2")} {$t("pages.main.slogan.line3")}
     </div>
   );
 };

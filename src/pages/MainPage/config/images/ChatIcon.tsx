@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 type PropsType = {
@@ -9,10 +10,10 @@ export const ChatIcon = React.forwardRef<SVGSVGElement, PropsType>(
   ({ className, isHovered, ...props }, ref) => {
     return (
       <svg
-        className={className}
-        width="96"
-        height="96"
-        viewBox="0 0 96 96"
+        className={classNames("transition-all duration-500", className)}
+        width="56"
+        height="56"
+        viewBox="0 0 56 56"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         ref={ref}
@@ -27,19 +28,21 @@ export const ChatIcon = React.forwardRef<SVGSVGElement, PropsType>(
           <stop offset="100%" stopColor="#FAE4BC" />
         </linearGradient>
         <circle
-          fill={isHovered ? "url(#circleGradient2)" : "url(#circleGradient1)"}
-          cx="48"
-          cy="48"
-          r="48"
+          fill={isHovered ? "black" : "url(#circleGradient1)"}
+          cx="28"
+          cy="28"
+          r="28"
         />
-        <g opacity="0.5">
+        <g>
           <path
-            d="M62.2041 50.5029V33.0247C62.2041 30.2614 60.0324 28 57.3787 28H28.8253C26.1717 28 24 30.2614 24 33.0247V50.5091C24 53.26 26.1479 55.509 28.7837 55.5338L28.0221 60.2983C27.9388 60.8002 28.4564 61.1719 28.8789 60.9179L37.8394 55.5338H57.3787C60.0324 55.5338 62.2041 53.2662 62.2041 50.5029Z"
-            fill="#180F0B"
+            d="M36.0122 29.3766V19.7636C36.0122 18.2438 34.8178 17 33.3583 17H17.6539C16.1944 17 15 18.2438 15 19.7636V29.38C15 30.893 16.1813 32.13 17.631 32.1436L17.2122 34.7641C17.1663 35.0401 17.451 35.2446 17.6834 35.1049L22.6117 32.1436H33.3583C34.8178 32.1436 36.0122 30.8964 36.0122 29.3766Z"
+            fill={isHovered ? "white" : "#1C1A19"}
+            fillOpacity={isHovered ? undefined : "0.5"}
           />
           <path
-            d="M67.7887 40H65.4484V50.222C65.4484 54.7 61.8527 58.3441 57.4343 58.3441H38.6938V59.0976C38.6938 61.4447 40.5892 63.3656 42.9051 63.3656H59.933L67.74 67.93C68.1117 68.1461 68.5566 67.8311 68.4896 67.405L67.8253 63.3594C70.1229 63.3409 72 61.4323 72 59.0976V44.2679C72 41.9209 70.1046 40 67.7887 40Z"
-            fill="#180F0B"
+            d="M39.0837 23.6H37.7966V29.2221C37.7966 31.685 35.8189 33.6892 33.3888 33.6892H23.0815V34.1037C23.0815 35.3946 24.124 36.451 25.3977 36.451H34.7631L39.0569 38.9615C39.2614 39.0804 39.5061 38.9071 39.4692 38.6727L39.1038 36.4476C40.3675 36.4374 41.3999 35.3878 41.3999 34.1037V25.9473C41.3999 24.6565 40.3575 23.6 39.0837 23.6Z"
+            fill={isHovered ? "white" : "#1C1A19"}
+            fillOpacity={isHovered ? undefined : "0.5"}
           />
         </g>
         <defs>

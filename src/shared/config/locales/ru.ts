@@ -1,17 +1,18 @@
+import { RoutesPaths } from "../constants";
 import { LocaleObject } from "./model";
 
 export const ru: LocaleObject = {
   pages: {
     main: {
       slogan: {
-        line1: { text1: "Мы предлагаем", text2: "лучшие цены" },
+        line1: { text1: "Лучшие цены", text2: "и полное" },
         line2: {
-          text1: "и",
-          text2: "полное сопровождение",
+          text1: "сопровождение",
+          text2: "по люксовым",
         },
-        line3: "по люксовым направлениям.",
+        line3: "направлениям",
       },
-      chooseCountryText: "Выберите страну:",
+      chooseCountryText: "Выберите вашу страну",
       supportText: {
         line1: "Сомневаетесь?",
         line2: "Позвоните нам",
@@ -43,10 +44,16 @@ export const ru: LocaleObject = {
       restuartants: "Рестораны",
       health: "Спорт и оздоровление",
       children: "Для детей",
+      galery: "Фотографии отеля",
     },
   },
   currencyConfig: {
     locale: "ru-RU",
     currency: "RUB",
+  },
+  navbarRoutes: {
+    [RoutesPaths.Main]: "Главная",
+    [RoutesPaths.Place]: "Cтраны",
+    [RoutesPaths.Help]: "Помощь",
   },
 };

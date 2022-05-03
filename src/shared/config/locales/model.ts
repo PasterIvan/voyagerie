@@ -1,5 +1,5 @@
 import { HotelType } from "entities/hostels/models";
-import { string } from "yup";
+import { RoutesPaths } from "../constants";
 
 export type LocaleObject = {
   pages: {
@@ -33,10 +33,12 @@ export type LocaleObject = {
       restuartants: string;
       health: string;
       children: string;
-    }
+      galery: string;
+    };
   };
   currencyConfig: {
     locale: string;
     currency: string;
   };
+  navbarRoutes: { [Key in RoutesPaths]?: string };
 };

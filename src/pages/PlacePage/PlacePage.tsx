@@ -5,7 +5,6 @@ import { $place } from "entities/place/models";
 // import { useParams } from "react-router-dom";
 import { StarFrameProps } from "shared/components/StarFrame";
 import plural from "plural-ru";
-import { TemperatureCard } from "entities/place/ui";
 import { ReactComponent as SerchLogo } from "app/assets/images/search.svg";
 import { useFocus } from "shared/lib/hooks/useFocus";
 import { FaqBlock } from "pages/MainPage/components/FaqBlock";
@@ -14,8 +13,9 @@ import { HostelCard } from "entities/hostels/ui";
 import chillLogo from "./config/images/chill.svg";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { routes } from "pages/Routing";
 import { ImageWithLogo } from "shared/components/ImageWithStarFrame";
+import { TemperatureCard } from "shared/components/TemperatureCard/TemperatureCard";
+import { RoutesPaths } from "shared/config/constants";
 
 export const PlacePage = () => {
   // const { id } = useParams();
@@ -27,7 +27,7 @@ export const PlacePage = () => {
 
   const handleHostelClick = useCallback(
     (slug: string) => {
-      navigate(`${routes.hostel}/${slug}`);
+      navigate(`${RoutesPaths.Hostel}/${slug}`);
     },
     [navigate]
   );
@@ -45,7 +45,7 @@ export const PlacePage = () => {
         "background flex justify-center bg-black-background"
       )}
     >
-      <div className="w-[927px] border-accent/25 border-x flex flex-col items-center mr-28">
+      <div className="border-accent/25 border-x flex flex-col items-center mr-28">
         <ImageWithLogo
           name={place.name[$i18n]}
           src={place.image}

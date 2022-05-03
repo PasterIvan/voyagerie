@@ -10,6 +10,7 @@ export type PlaceType = {
   airTemperature: number;
   waterTemperature: number;
   slug: string;
+  countryCode: string;
 };
 
 export type PlaceOverviewType = PlaceType & {

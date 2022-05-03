@@ -27,5 +27,6 @@ export const useTranslation = () => {
   return {
     $t: translateFunction,
     $i18n: language.key,
+    language,
   };
 };

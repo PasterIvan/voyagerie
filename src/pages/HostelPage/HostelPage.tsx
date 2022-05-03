@@ -3,8 +3,11 @@ import { useStore } from "effector-react";
 import { $hostel } from "entities/hostels/models";
 import { useTranslation } from "entities/language/lib";
 import { FaqBlock } from "pages/MainPage/components/FaqBlock";
+import { useState } from "react";
 import { ImageWithLogo } from "shared/components/ImageWithStarFrame";
 import { Lines } from "shared/components/Lines";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const HostelPage = () => {
   const hostel = useStore($hostel);
@@ -20,7 +23,7 @@ export const HostelPage = () => {
         "background flex justify-center bg-black-background px-8"
       )}
     >
-      <div className="w-[927px] border-accent/25 border-x flex flex-col items-center mr-28">
+      <div className="border-accent/25 border-x flex flex-col items-center mr-28">
         <ImageWithLogo src={hostel.image} />
         <div className="p-10 w-full">
           <div className="w-full text-accent text-lg font-light">
@@ -36,30 +39,30 @@ export const HostelPage = () => {
           <Lines.HorizontalLine className="my-6 text-accent/25">
             <Lines.Star />
           </Lines.HorizontalLine>
-          <div className="grid grid-rows-[1/4]">
-            <div className="w-1/4 text-accent text-lg font-medium">
+          <div className="grid grid-cols-4 gap-y-6">
+            <div className="col-span-1 text-accent text-lg font-medium">
               {$t("pages.hostel.restuartants")}
             </div>
             <div
-              className="text-light text-sm flex-grow"
+              className="col-span-3 text-light text-sm flex-grow"
               dangerouslySetInnerHTML={{
                 __html: hostel.content.restorans[$i18n],
               }}
             />
-            <div className="w-1/4 text-accent text-lg font-medium">
+            <div className="col-span-1 text-accent text-lg font-medium">
               {$t("pages.hostel.health")}
             </div>
             <div
-              className="text-light text-sm flex-grow"
+              className="col-span-3 text-light text-sm flex-grow"
               dangerouslySetInnerHTML={{
                 __html: hostel.content.health[$i18n],
               }}
             />
-            <div className="w-1/4 text-accent text-lg font-medium">
+            <div className="col-span-1 text-accent text-lg font-medium">
               {$t("pages.hostel.children")}
             </div>
             <div
-              className="text-light text-sm flex-grow"
+              className="col-span-3 text-light text-sm flex-grow"
               dangerouslySetInnerHTML={{
                 __html: hostel.content.child[$i18n],
               }}
@@ -68,7 +71,16 @@ export const HostelPage = () => {
           <Lines.HorizontalLine className="my-6 text-accent/25">
             <Lines.Star />
           </Lines.HorizontalLine>
-          <div className="w-full flex justify-between"></div>
+          <div className="text-accent text-lg font-medium pb-6">
+            {$t("pages.hostel.galery")}
+          </div>
+          <Swiper slidesPerView={3.4} className="h-40" spaceBetween={20}>
+            {hostel.gallery.map((image, idx) => (
+              <SwiperSlide className="rounded overflow-hidden" key={idx}>
+                <img className="w-full h-full object-cover" src={image} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
           <Lines.HorizontalLine className="my-6 text-accent/25">
             <Lines.Star />
           </Lines.HorizontalLine>
