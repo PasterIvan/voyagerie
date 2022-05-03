@@ -44,11 +44,13 @@ export const de: LocaleObject = {
       button: "Kontaktieren Sie uns",
     },
     hostel: {
-      name: "Hotel",
-      restuartants: "Restaurants",
-      health: "Sport und Gesundheit",
-      children: "Für Kinder",
-      galery: "Fotos des Hotels",
+      labels: {
+        name: "Hotel",
+        restuartants: "Restaurants",
+        health: "Sport und Gesundheit",
+        children: "Für Kinder",
+        galery: "Fotos des Hotels",
+      },
     },
   },
   currencyConfig: {

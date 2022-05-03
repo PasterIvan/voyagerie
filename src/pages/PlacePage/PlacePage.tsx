@@ -79,7 +79,7 @@ export const PlacePage = () => {
         >
           <div className="flex flex-col items-center justify-center">
             <Flag code={place.countryCode} className="w-12 h-12 mx-auto" />
-            <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item">
+            <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item text-center">
               {place.name[$i18n]}
             </div>
             <div className="w-full text-light text-base font-normal pt-6 whitespace-nowrap">
@@ -122,7 +122,7 @@ export const PlacePage = () => {
               placeholder={$t("pages.place.search.placeholder")}
             />
           </div>
-          {beforeSuggestion.map((hostel, i) => (
+          {beforeSuggestion.map((hostel) => (
             <HostelCard
               onClick={handleHostelClick}
               key={hostel.slug}
@@ -131,7 +131,7 @@ export const PlacePage = () => {
             />
           ))}
           <div className="flex-grow w-full items-center rounded px-6 py-7">
-            <div className="grid grid-cols-[100px_auto] grid-rows-[auto_auto] ml-auto w-1/2 items-center bg-accent rounded p-6 pr-16">
+            <div className="grid grid-cols-[70px_auto] grid-rows-[auto_auto] ml-auto w-1/2 items-center bg-accent rounded p-6 pr-16">
               <img src={chillLogo} className="opacity-50" />
               <div className="text-base">{$t("pages.place.suggestion")} </div>
               <div />

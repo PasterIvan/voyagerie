@@ -1,10 +1,11 @@
 import React from "react";
 import { useHover } from "shared/lib/hooks/useHover";
+import { boolean } from "yup";
 
-export const ArrowDown = React.forwardRef<
+export const ArrowUp = React.forwardRef<
   SVGSVGElement,
-  { className?: string } & React.SVGProps<SVGSVGElement>
->(function ArrowDown({ className, ...props }, forwardedRef) {
+  { className?: string; canHover?: boolean } & React.SVGProps<SVGSVGElement>
+>(function ArrowDown({ className, canHover = true, ...props }, forwardedRef) {
   const [hoverRef, isHovered] = useHover();
   return (
     <svg
@@ -26,17 +27,20 @@ export const ArrowDown = React.forwardRef<
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <circle
-        fill={isHovered ? "url(#paint0_linear_408_73)" : "none"}
-        cx="28"
-        cy="28"
-        r="28"
+      <rect
+        x="57.5"
+        y="57.5"
+        width="57"
+        height="57"
+        rx="28.5"
+        transform="rotate(-180 57.5 57.5)"
         stroke="white"
         strokeOpacity="0.2"
+        fill={canHover && isHovered ? "url(#paint0_linear_408_73)" : "none"}
       />
       <path
-        d="M39.6665 29L37.7865 27.12L30.3332 34.56V18.3333H27.6665V34.56L20.2132 27.12L18.3332 29L28.9998 39.6666L39.6665 29Z"
-        fill={isHovered ? "#826C55" : "white"}
+        d="M18.3335 28.9998L20.2135 30.8798L27.6668 23.4398V39.6665H30.3335V23.4398L37.7868 30.8798L39.6668 28.9998L29.0002 18.3332L18.3335 28.9998Z"
+        fill={canHover && isHovered ? "#826C55" : "white"}
       />
       <defs>
         <linearGradient

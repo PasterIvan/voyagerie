@@ -7,7 +7,7 @@ import { useTranslation } from "entities/language/lib";
 import { PlaceCard } from "entities/place/ui";
 import { placesMock } from "shared/api/placesMock";
 
-import { ArrowDown } from "./config/images/ArrowDown";
+import { ArrowUp } from "../../app/assets/images/ArrowUp";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { useRef } from "react";
@@ -40,8 +40,8 @@ export const MainPage = () => {
           ref={headerRef}
           className="min-h-[500px] h-screen max-h-[1000px]"
           leftBottomElement={
-            <ArrowDown
-              className="cursor-pointer"
+            <ArrowUp
+              className="cursor-pointer rotate-180"
               onClick={() => scrollToPlaces()}
             />
           }
@@ -50,7 +50,7 @@ export const MainPage = () => {
               autoPlay
               muted
               loop
-              className="object-cover"
+              className="object-cover h-full w-full"
               src="https://dl.dropboxusercontent.com/s/qli8luo7yveajm5/production%20ID_4069480.mp4?dl=0"
             />
           }

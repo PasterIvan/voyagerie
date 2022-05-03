@@ -87,11 +87,19 @@ const Line: React.FC<
 
 const HorizontalLine: React.FC<
   {
-    children: ReactNode;
+    children?: ReactNode;
     className?: string;
     withStar?: boolean;
   } & Omit<LineProps, "starPosition">
 > = ({ children, className, withStar, ...props }) => {
+  if (!children) {
+    return (
+      <Container className={className}>
+        <Line starPosition={withStar ? "right" : undefined} {...props} />
+      </Container>
+    );
+  }
+
   return (
     <Container className={className}>
       <Line starPosition={withStar ? "right" : undefined} {...props} />

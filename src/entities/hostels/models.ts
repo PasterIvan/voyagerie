@@ -14,10 +14,12 @@ export type HotelType = {
 
 export type HotelOverviewType = {
   slug: string;
+  placeSlug: string;
   image: string;
   name: Record<Locales, string>;
   place: Record<Locales, string>;
   description: Record<Locales, string>;
+  countryCode: string;
   content: {
     restorans: Record<Locales, string>;
     health: Record<Locales, string>;
@@ -35,3 +37,7 @@ export const $hostel = createStore<HotelOverviewType | null>(null).on(
 
 //TODO: Dev only
 setHostel(hotelsMock);
+
+export const events = {
+  setHostel,
+};

@@ -34,7 +34,15 @@ export const Navbar = ({ className }: { className?: string }) => {
         className
       )}
     >
-      <Logo className="w-44 h-auto mr-auto col-span-1" />
+      <Logo
+        className={classNames(
+          pathname !== RoutesPaths.Main && "cursor-pointer",
+          "w-44 h-auto mr-auto col-span-1 "
+        )}
+        onClick={() =>
+          pathname !== RoutesPaths.Main && navigate(RoutesPaths.Main)
+        }
+      />
       <div className="flex col-span-1 self-center mx-auto">
         {navigateRoutesConfig.map((config) => (
           <div

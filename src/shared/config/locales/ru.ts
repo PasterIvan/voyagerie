@@ -44,11 +44,13 @@ export const ru: LocaleObject = {
       button: "Свяжитесь с нами",
     },
     hostel: {
-      name: "Отель",
-      restuartants: "Рестораны",
-      health: "Спорт и оздоровление",
-      children: "Для детей",
-      galery: "Фотографии отеля",
+      labels: {
+        name: "Про отель",
+        restuartants: "Рестораны",
+        health: "Спорт и оздоровление",
+        children: "Для детей",
+        galery: "Фотографии отеля",
+      },
     },
   },
   currencyConfig: {

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Breadcrumb = ({
@@ -11,9 +12,8 @@ export const Breadcrumb = ({
   return (
     <span className="text-light text-base font-semibold">
       {items.map((item, i) => (
-        <>
+        <React.Fragment key={item.name}>
           <span
-            key={item.name}
             className={classNames(
               item.route && "hover:text-accent cursor-pointer"
             )}
@@ -22,7 +22,7 @@ export const Breadcrumb = ({
             {item.name}
           </span>
           {i !== items.length - 1 && " / "}
-        </>
+        </React.Fragment>
       ))}
     </span>
   );

@@ -53,3 +53,41 @@ code {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
+
+.content-editor {
+  & > .ql-align-center {
+    text-align: center;
+  }
+  & > .ql-align-justify {
+    text-align: justify;
+  }
+
+  & > h2 {
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  & > h3 {
+    margin-bottom: 15px;
+  }
+
+  & > p,
+  & > blockquote,
+  & > pre,
+  & > ol,
+  & > ul {
+    &:not(:first-child) {
+      line-height: 1.5;
+      margin-top: 15px;
+    }
+  }
+  & > ol {
+    padding-left: 15px;
+  }
+  & > p + h3,
+  p + h2 {
+    &:not(:first-child) {
+      margin-top: 25px;
+    }
+  }
+}

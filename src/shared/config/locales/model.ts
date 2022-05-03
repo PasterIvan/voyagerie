@@ -33,11 +33,13 @@ export type LocaleObject = {
       button: string;
     };
     hostel: {
-      name: string;
-      restuartants: string;
-      health: string;
-      children: string;
-      galery: string;
+      labels: {
+        name: string;
+        restuartants: string;
+        health: string;
+        children: string;
+        galery: string;
+      };
     };
   };
   currencyConfig: {

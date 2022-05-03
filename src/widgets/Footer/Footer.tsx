@@ -4,7 +4,7 @@ import { useTranslation } from "entities/language/lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EMAIL, PHONE, RoutesPaths } from "shared/config/constants";
 import Flag from "react-world-flags";
-import { ArrowDown } from "pages/MainPage/config/images/ArrowDown";
+import { ArrowUp } from "app/assets/images/ArrowUp";
 import { switchLanguagesConfig, switchLanguagesModel } from "entities/language";
 import { EmailSmall } from "./config/EmailSmall";
 import { PhoneSmall } from "./config/PhoneSmall";
@@ -38,9 +38,9 @@ export const Footer = () => {
     <div className="relative bg-black grid grid-cols-2 grid-rows-[157px_216px_134px_75px] px-8 items-center">
       <Lines className="z-0 absolute left-0 top-0" />
       <div className="z-10 h-full w-full col-span-2 row-span-1 grid grid-cols-3 items-center border-b border-b-light/20 pb-2">
-        <ArrowDown
+        <ArrowUp
           onClick={() => onScrollToTop()}
-          className="cursor-pointer col-span-1 rotate-180"
+          className="cursor-pointer col-span-1"
         />
         <Logo className="inline w-72 h-20 items-center mx-auto" />
       </div>
