@@ -4,7 +4,7 @@ import { $hostel } from "entities/hostels/models";
 import { useTranslation } from "entities/language/lib";
 import { FaqBlock } from "pages/MainPage/components/FaqBlock";
 import { useState } from "react";
-import { ImageWithLogo } from "shared/components/ImageWithStarFrame";
+import { ImageWithStarFrame } from "shared/components/ImageWithStarFrame";
 import { Lines } from "shared/components/Lines";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,7 +24,7 @@ export const HostelPage = () => {
       )}
     >
       <div className="border-accent/25 border-x flex flex-col items-center mr-28">
-        <ImageWithLogo src={hostel.image} />
+        <ImageWithStarFrame src={hostel.image} />
         <div className="p-10 w-full">
           <div className="w-full text-accent text-lg font-light">
             {hostel.place[$i18n]}

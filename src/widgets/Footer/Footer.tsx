@@ -11,26 +11,35 @@ import { PhoneSmall } from "./config/PhoneSmall";
 import { createEvent } from "effector";
 
 import { ReactComponent as Lines } from "./config/lines-footer.svg";
+import { navigateRoutesConfig } from "widgets/Navbar/Navbar";
+import { useEffect } from "react";
 
-export const onArrayDown = createEvent();
-
-const navibarConfig: { route: RoutesPaths; className?: string }[] = [
-  { route: RoutesPaths.Main },
-  { route: RoutesPaths.Place },
-  { route: RoutesPaths.Help },
-];
+export const onScrollToTop = createEvent();
 
 export const Footer = () => {
   const { $t, language } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handler = onScrollToTop.watch(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    return () => {
+      handler();
+    };
+  }, []);
+
   return (
     <div className="relative bg-black grid grid-cols-2 grid-rows-[157px_216px_134px_75px] px-8 items-center">
       <Lines className="z-0 absolute left-0 top-0" />
       <div className="z-10 h-full w-full col-span-2 row-span-1 grid grid-cols-3 items-center border-b border-b-light/20 pb-2">
         <ArrowDown
-          onClick={() => onArrayDown()}
+          onClick={() => onScrollToTop()}
           className="cursor-pointer col-span-1 rotate-180"
         />
         <Logo className="inline w-72 h-20 items-center mx-auto" />
@@ -40,16 +49,19 @@ export const Footer = () => {
           Навигация
         </span>
         <div>
-          {navibarConfig.map((config) => (
+          {navigateRoutesConfig.map((config) => (
             <div
-              onClick={() => navigate(config.route)}
-              key={config.route}
+              onClick={() => {
+                config.route && navigate(config.route);
+                config.onClick && config.onClick();
+              }}
+              key={config.key}
               className={classNames(
-                "text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
-                pathname === config.route && "underline bg-gradient-to-t"
+                "text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
+                pathname === config.key && "underline"
               )}
             >
-              {$t("navbarRoutes")[config.route]}
+              {$t("navbarRoutes")[config.key]}
             </div>
           ))}
         </div>
@@ -64,8 +76,8 @@ export const Footer = () => {
               onClick={() => switchLanguagesModel.events.switchLanguage(config)}
               key={config.key}
               className={classNames(
-                "text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
-                language.key === config.key && "underline bg-gradient-to-t"
+                "text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
+                language.key === config.key && "underline"
               )}
             >
               <Flag className="inline h-4 w-4 pb-1" code={config.code} />{" "}

@@ -10,26 +10,24 @@ import { placesMock } from "shared/api/placesMock";
 import { ArrowDown } from "./config/images/ArrowDown";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
-import { useEffect, useRef } from "react";
-import { onArrayDown } from "widgets/Footer/Footer";
+import { useRef } from "react";
+import { useGate } from "effector-react";
+import { mainGate, scrollToPlaces } from "./models";
 
 export const MainPage = () => {
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handler = onArrayDown.watch(() => {
+  useGate(mainGate, {
+    scrollToPlacesHandler: () =>
       window.scrollTo({
-        top: 0,
+        top:
+          (headerRef.current?.offsetTop ?? 0) +
+          (headerRef.current?.offsetHeight ?? 0),
         behavior: "smooth",
-      });
-    });
-
-    return () => {
-      handler();
-    };
-  }, []);
+      }),
+  });
 
   return (
     <div
@@ -37,18 +35,14 @@ export const MainPage = () => {
     >
       <div className="flex flex-col items-center w-full">
         <Header
+          childrenClassName="flex flex-col justify-around"
+          containerClassName="rounded-b-2xl border border-light/20 p-4"
           ref={headerRef}
           className="min-h-[500px] h-screen max-h-[1000px]"
           leftBottomElement={
             <ArrowDown
-              onClick={() => {
-                window.scrollTo({
-                  top:
-                    (headerRef.current?.offsetTop ?? 0) +
-                    (headerRef.current?.offsetHeight ?? 0),
-                  behavior: "smooth",
-                });
-              }}
+              className="cursor-pointer"
+              onClick={() => scrollToPlaces()}
             />
           }
           absoluteElementsElement={
@@ -61,9 +55,9 @@ export const MainPage = () => {
             />
           }
         >
-          <MainText className="mx-auto max-w-[850px] item self-center" />
-          <button className="mx-auto uppercase text-xs font-bold w-56 h-14 self-center bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500">
-            Оставить заявку
+          <MainText className="mx-auto max-w-[850px] item" />
+          <button className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500">
+            {$t("pages.main.button")}
           </button>
         </Header>
         <div className="p-4 pb-32 w-full">

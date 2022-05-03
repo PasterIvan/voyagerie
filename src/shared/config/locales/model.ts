@@ -4,6 +4,7 @@ import { RoutesPaths } from "../constants";
 export type LocaleObject = {
   pages: {
     main: {
+      name: string;
       slogan: {
         line1: { text1: string; text2: string };
         line2: {
@@ -13,12 +14,14 @@ export type LocaleObject = {
         line3: string;
       };
       chooseCountryText: string;
+      button: string;
       supportText: {
         line1: string;
         line2: string;
       };
     };
     place: {
+      name: string;
       title: { text1: string; insert: string; text2: string };
       hotelsPlural: [string, string, string];
       search: { placeholder: string };
@@ -30,6 +33,7 @@ export type LocaleObject = {
       button: string;
     };
     hostel: {
+      name: string;
       restuartants: string;
       health: string;
       children: string;

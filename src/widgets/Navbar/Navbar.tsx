@@ -5,11 +5,21 @@ import { useTranslation } from "entities/language/lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PHONE, RoutesPaths } from "shared/config/constants";
 import Flag from "react-world-flags";
+import { mainPageModel } from "pages/MainPage";
 
-const navibarConfig: { route: RoutesPaths; className?: string }[] = [
-  { route: RoutesPaths.Main },
-  { route: RoutesPaths.Place },
-  { route: RoutesPaths.Help },
+export const navigateRoutesConfig: {
+  key: RoutesPaths;
+  route?: RoutesPaths;
+  className?: string;
+  onClick?: () => void;
+}[] = [
+  { key: RoutesPaths.Main, route: RoutesPaths.Main },
+  {
+    key: RoutesPaths.Place,
+    route: RoutesPaths.Main,
+    onClick: () => mainPageModel.events.scrollToPlaces(),
+  },
+  { key: RoutesPaths.Help, route: RoutesPaths.Help },
 ];
 
 export const Navbar = ({ className }: { className?: string }) => {
@@ -26,16 +36,19 @@ export const Navbar = ({ className }: { className?: string }) => {
     >
       <Logo className="w-44 h-auto mr-auto col-span-1" />
       <div className="flex col-span-1 self-center mx-auto">
-        {navibarConfig.map((config) => (
+        {navigateRoutesConfig.map((config) => (
           <div
-            onClick={() => navigate(config.route)}
-            key={config.route}
+            onClick={() => {
+              config.route && navigate(config.route);
+              config.onClick && config.onClick();
+            }}
+            key={config.key}
             className={classNames(
-              "text-xs font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
-              pathname === config.route && "underline bg-gradient-to-t"
+              "text-xs font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
+              pathname === config.key && "underline"
             )}
           >
-            {$t("navbarRoutes")[config.route]}
+            {$t("navbarRoutes")[config.key]}
           </div>
         ))}
       </div>

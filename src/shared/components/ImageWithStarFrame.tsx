@@ -2,7 +2,7 @@ import { ReactComponent as LogoSmall } from "app/assets/images/logo-small.svg";
 import classNames from "classnames";
 import { StarFrame, StarFrameProps } from "./StarFrame";
 
-export const ImageWithLogo = ({
+export const ImageWithStarFrame = ({
   src,
   name,
   frameProps,
@@ -17,7 +17,10 @@ export const ImageWithLogo = ({
     <StarFrame {...frameProps} className="relative mt-16 h-60 w-full">
       <div className="w-full h-full overflow-hidden">
         <img
-          className={classNames(animated ? "moving-block" : "w-full h-full", "max-w-none  object-cover")}
+          className={classNames(
+            animated ? "moving-block" : "w-full h-full",
+            "max-w-none  object-cover"
+          )}
           src={src}
         />
       </div>

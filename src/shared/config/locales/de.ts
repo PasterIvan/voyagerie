@@ -4,6 +4,8 @@ import { LocaleObject } from "./model";
 export const de: LocaleObject = {
   pages: {
     main: {
+      name: "Startseite",
+      button: "Anfrage senden",
       slogan: {
         line1: { text1: "Beste Preise", text2: "und vollständig" },
         line2: {
@@ -19,6 +21,7 @@ export const de: LocaleObject = {
       },
     },
     place: {
+      name: "Länder",
       title: {
         text1: "Wir haben",
         insert: "von",
@@ -41,6 +44,7 @@ export const de: LocaleObject = {
       button: "Kontaktieren Sie uns",
     },
     hostel: {
+      name: "Hotel",
       restuartants: "Restaurants",
       health: "Sport und Gesundheit",
       children: "Für Kinder",

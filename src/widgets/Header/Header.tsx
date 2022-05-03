@@ -11,6 +11,8 @@ type HeaderProps = {
   leftBottomElement?: ReactNode;
   absoluteElementsElement?: ReactNode;
   className?: string;
+  containerClassName?: string;
+  childrenClassName?: string;
   withOverlay?: boolean;
 };
 
@@ -21,6 +23,8 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
       leftBottomElement,
       absoluteElementsElement,
       className,
+      containerClassName,
+      childrenClassName,
       withOverlay = true,
     },
     ref
@@ -42,11 +46,18 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           {absoluteElementsElement}
         </div>
 
-        <div className="z-10 rounded-b-2xl w-full border grid grid-cols-2 grid-rows-[auto_60px] border-light/20 p-4 flex-grow">
-          <div className="w-full h-full flex flex-col justify-around col-span-2 row-span-1">
+        <div
+          className={classNames(
+            containerClassName,
+            "z-10 w-full grid grid-cols-2 grid-rows-[auto_60px] flex-grow"
+          )}
+        >
+          <div
+            className={classNames(childrenClassName, "col-span-2 row-span-1")}
+          >
             {children}
           </div>
-          <div className="cursor-pointer col-span-1 row-span-1 self-end">
+          <div className="col-span-1 row-span-1 self-end">
             {leftBottomElement}
           </div>
           <FaqBlock className="ml-auto col-span-1 row-span-1 self-end" />
