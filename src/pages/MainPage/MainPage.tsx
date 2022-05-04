@@ -4,15 +4,16 @@ import { MainText } from "./components/MainText";
 import { FenceList } from "shared/components/FenceList";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "entities/language/lib";
-import { PlaceCard } from "entities/place/ui";
-import { placesMock } from "shared/api/placesMock";
+import { LocationCard } from "entities/location/ui";
+import { locationsMock } from "shared/api/locationsMock";
 
 import { ArrowUp } from "../../app/assets/images/ArrowUp";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { useRef } from "react";
 import { useGate } from "effector-react";
-import { mainGate, scrollToPlaces } from "./models";
+import { mainGate } from "./models";
+import { mainPageModel } from ".";
 
 export const MainPage = () => {
   const navigate = useNavigate();
@@ -20,13 +21,14 @@ export const MainPage = () => {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   useGate(mainGate, {
-    scrollToPlacesHandler: () =>
+    scrollToLocationsHandler: () => {
       window.scrollTo({
         top:
           (headerRef.current?.offsetTop ?? 0) +
           (headerRef.current?.offsetHeight ?? 0),
         behavior: "smooth",
-      }),
+      });
+    },
   });
 
   return (
@@ -42,7 +44,7 @@ export const MainPage = () => {
           leftBottomElement={
             <ArrowUp
               className="cursor-pointer rotate-180"
-              onClick={() => scrollToPlaces()}
+              onClick={() => mainPageModel.events.scrollToLocations()}
             />
           }
           absoluteElementsElement={
@@ -67,12 +69,14 @@ export const MainPage = () => {
             </div>
             <FenceList
               className="w-full gap-4 pt-20"
-              items={placesMock}
+              items={locationsMock}
               render={(item) => (
-                <PlaceCard
+                <LocationCard
                   {...item}
                   key={item.slug}
-                  onClick={() => navigate(`${RoutesPaths.Place}/${item.slug}`)}
+                  onClick={() =>
+                    navigate(`${RoutesPaths.Location}/${item.slug}`)
+                  }
                 />
               )}
             />

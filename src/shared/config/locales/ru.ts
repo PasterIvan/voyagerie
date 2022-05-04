@@ -20,7 +20,7 @@ export const ru: LocaleObject = {
         line2: "Позвоните нам",
       },
     },
-    place: {
+    location: {
       name: "Страны",
       title: {
         text1: "Мы отобрали",
@@ -43,7 +43,7 @@ export const ru: LocaleObject = {
         "Если отеля, который вы ищете нет в списке, напишите нам, и мы сделаем вам предложение.",
       button: "Свяжитесь с нами",
     },
-    hostel: {
+    place: {
       labels: {
         name: "Про отель",
         restuartants: "Рестораны",
@@ -59,7 +59,7 @@ export const ru: LocaleObject = {
   },
   navbarRoutes: {
     [RoutesPaths.Main]: "Главная",
-    [RoutesPaths.Place]: "Cтраны",
+    [RoutesPaths.Location]: "Cтраны",
     [RoutesPaths.Help]: "Помощь",
   },
 };

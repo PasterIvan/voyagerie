@@ -1,63 +1,96 @@
 import classNames from "classnames";
-import { PlaceType } from "./models";
-
-import plural from "plural-ru";
-import { useHover } from "shared/lib/hooks/useHover";
-import React from "react";
 import { useTranslation } from "entities/language/lib";
-import Flag from "react-world-flags";
-import { ArrowIcon } from "./config/Arrow";
+import { Lines } from "shared/components/Lines";
+import { StarFrame } from "shared/components/StarFrame";
+import { $place, PlaceType } from "./models";
+import plural from "plural-ru";
+import { transferIcons } from "./config";
+import { useHover } from "shared/lib/hooks/useHover";
+import { ArrowIcon } from "entities/location/config/Arrow";
+
+const pluralConfig: Record<PlaceType["timeType"], [string, string, string]> = {
+  minutes: ["минут", "минуты", "минут"],
+  hours: ["часов", "часа", "часов"],
+  days: ["день", "дня", "дней"],
+  nights: ["ночь", "ночи", "ночей"],
+  weeks: ["неделя", "недели", "недель"],
+};
 
 export const PlaceCard: React.FC<
   {
     className?: string;
-  } & PlaceType &
-    React.HTMLAttributes<HTMLDivElement>
+    onClick?: (slug: string) => void;
+    bottomBorder?: boolean;
+    topBorder?: boolean;
+  } & PlaceType
 > = ({
   className,
-  name,
-  airTemperature,
-  hotelsNumber,
   image,
-  waterTemperature,
-  countryCode,
-  ...props
+  name,
+  time,
+  cost,
+  transferType,
+  slug,
+  onClick,
+  timeType,
+  bottomBorder = true,
+  topBorder = false,
 }) => {
-  const { $i18n, $t } = useTranslation();
   const [ref, isHovered] = useHover();
+  const { $t, $i18n } = useTranslation();
+
+  const Icon = transferIcons[transferType];
+
   return (
     <div
       ref={ref}
+      onClick={() => onClick?.(slug)}
       className={classNames(
-        //TODO: Borders should be gradient
-        "group cursor-pointer relative w-full h-[25rem] rounded-lg border border-transparent hover:border-accent overflow-hidden",
-        className
+        className,
+        "px-7 group w-full h-80 rounded hover:bg-gradient-to-b from-[#115B74]"
       )}
-      {...props}
     >
-      <img
+      <div
         className={classNames(
-          "transition-transform duration-500 w-full h-full object-cover group-hover:scale-110"
+          bottomBorder && "border-b border-b-light/20",
+          topBorder && "border-t border-t-light/20",
+          "py-7 w-full h-full grid grid-cols-[1fr_1fr] relative"
         )}
-        alt={name[$i18n]}
-        src={image}
-      />
-      <div className="absolute h-full w-full top-0 left-0 bg-gradient-to-b from-black/0 to-black opacity-75" />
-      <ArrowIcon
-        isHovered={isHovered}
-        pathClassName="group-hover:text-[#826C55] text-light"
-        className="absolute bottom-4 right-4"
-      />
-      <div className="absolute left-5 bottom-5 grid grid-cols-[40px_auto] grid-rows-[auto_auto] gap-x-3 gap-y-1 max-w-[80%]">
-        <Flag code={countryCode} className="h-full w-full" />
-        <div className="text-[32px] text-light font-medium leading-none">
-          {name[$i18n]}
+      >
+        <div className="col-span-1 rounded overflow-hidden w-[448px]">
+          <img
+            src={image}
+            className={classNames(
+              "transition-transform duration-500 object-cover h-full w-full group-hover:scale-110"
+            )}
+          />
         </div>
-        <div />
-        <div className="text-accent leading-none">
-          {hotelsNumber}{" "}
-          {plural(hotelsNumber, ...$t("pages.place.hotelsPlural"))}
+        <div className="col-span-1 max-w-md">
+          <span className="text-light font-medium text-[2rem] leading-none">
+            {name[$i18n]}
+          </span>
+          <div className="py-6 flex items-center">
+            <span className="text-accent pr-4">
+              {$t("pages.location.card.transfer")}
+            </span>
+            <Icon className="mr-2" />
+            <span className="text-accent">
+              {time} {plural(time, ...pluralConfig[timeType])}
+            </span>
+          </div>
+          <span className="text-base font-medium text-light ml-auto">
+            от{" "}
+            {cost.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+          </span>
         </div>
+        <ArrowIcon
+          isHovered={isHovered}
+          className="absolute right-0 top-7"
+          pathClassName="group-hover:text-[#826C55] text-light"
+        />
       </div>
     </div>
   );

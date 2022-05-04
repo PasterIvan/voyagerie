@@ -21,7 +21,7 @@ export const fr: LocaleObject = {
         line2: "Appelez-nous",
       },
     },
-    place: {
+    location: {
       name: "Pays",
       title: {
         text1: "Nous avons choisi",
@@ -44,7 +44,7 @@ export const fr: LocaleObject = {
         "Si l'hôtel que vous recherchez n'est pas dans la liste, écrivez-nous et nous vous proposerons une proposition.",
       button: "Contactez-nous",
     },
-    hostel: {
+    place: {
       labels: {
         name: "Hôtel",
         restuartants: "Restaurants",
@@ -60,7 +60,7 @@ export const fr: LocaleObject = {
   },
   navbarRoutes: {
     [RoutesPaths.Main]: "Accueil",
-    [RoutesPaths.Place]: "Pays",
+    [RoutesPaths.Location]: "Pays",
     [RoutesPaths.Help]: "Aide",
   },
 };

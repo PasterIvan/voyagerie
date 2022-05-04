@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const Breadcrumb = ({
   items,
 }: {
-  items: { name: string; route?: string }[];
+  items: { name: string; route?: string; onClick?: () => void }[];
 }) => {
   const navigate = useNavigate();
 
@@ -17,7 +17,10 @@ export const Breadcrumb = ({
             className={classNames(
               item.route && "hover:text-accent cursor-pointer"
             )}
-            onClick={() => item.route && navigate(item.route)}
+            onClick={() => {
+              item.route && navigate(item.route);
+              item.onClick?.();
+            }}
           >
             {item.name}
           </span>

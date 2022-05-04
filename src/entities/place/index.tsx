@@ -1,7 +1,6 @@
-import { $places, events } from "./models";
+import { $place, events } from "./models";
 
 export const placeModel = {
-  $places,
+  $place,
   events,
 };
-

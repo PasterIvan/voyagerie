@@ -15,9 +15,9 @@ export const navigateRoutesConfig: {
 }[] = [
   { key: RoutesPaths.Main, route: RoutesPaths.Main },
   {
-    key: RoutesPaths.Place,
+    key: RoutesPaths.Location,
     route: RoutesPaths.Main,
-    onClick: () => mainPageModel.events.scrollToPlaces(),
+    onClick: mainPageModel.events.scrollToLocations,
   },
   { key: RoutesPaths.Help, route: RoutesPaths.Help },
 ];

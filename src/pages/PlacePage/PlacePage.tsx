@@ -1,49 +1,58 @@
 import classNames from "classnames";
 import { useStore } from "effector-react";
+import { $place, PlaceOverviewType } from "entities/place/models";
 import { useTranslation } from "entities/language/lib";
-import { $place } from "entities/place/models";
-// import { useParams } from "react-router-dom";
-import { StarFrameProps } from "shared/components/StarFrame";
-import plural from "plural-ru";
-import { ReactComponent as SerchLogo } from "app/assets/images/search.svg";
-import { useFocus } from "shared/lib/hooks/useFocus";
-import { HostelCard } from "entities/hostels/ui";
-
-import chillLogo from "./config/images/chill.svg";
-import { useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { RoutesPaths } from "shared/config/constants";
-import { Header } from "widgets/Header/Header";
-import Flag from "react-world-flags";
+import { useRef, useState } from "react";
 import { Breadcrumb } from "shared/components/Breadcrumb";
+import { Lines } from "shared/components/Lines";
+import { RoutesPaths } from "shared/config/constants";
+import { LocaleObject } from "shared/config/locales/model";
+import { Paths } from "shared/lib/types";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Header } from "widgets/Header/Header";
+
+import { ReactComponent as BedIcon } from "./config/bed-icon.svg";
+import { ReactComponent as Health } from "./config/health-icon.svg";
+import { ReactComponent as Child } from "./config/child-icon.svg";
+import { ReactComponent as Restautants } from "./config/restautants-icon.svg";
+import { ReactComponent as Galery } from "./config/galery-icon.svg";
+import { ArrowUp } from "app/assets/images/ArrowUp";
+import { mainPageModel } from "pages/MainPage";
+
+const fieldsResource: {
+  localePath: Paths<LocaleObject>;
+  objectKey: keyof PlaceOverviewType["content"];
+  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+}[] = [
+  {
+    localePath: "pages.place.labels.children",
+    objectKey: "child",
+    Icon: Child,
+  },
+  {
+    localePath: "pages.place.labels.restuartants",
+    objectKey: "restorans",
+    Icon: Restautants,
+  },
+  {
+    localePath: "pages.place.labels.health",
+    objectKey: "health",
+    Icon: Health,
+  },
+];
+
+const SLIDES_COUNT = 3.4;
 
 export const PlacePage = () => {
   // const { id } = useParams();
-  const [ref, isFocused] = useFocus();
-
   const place = useStore($place);
   const { $t, $i18n } = useTranslation();
-  const navigate = useNavigate();
 
-  const handleHostelClick = useCallback(
-    (slug: string) => {
-      navigate(`${RoutesPaths.Hostel}/${slug}`);
-    },
-    [navigate]
-  );
+  const [swiper, setSwiper] = useState<any>(null);
+  const swiperRef = useRef<any>(null);
 
-  const [beforeSuggestion, afterSuggestion] = useMemo(() => {
-    const hostels = place?.hotels ?? [];
-
-    const firstElement = hostels.slice(0, 1);
-    const lastElement = hostels.slice(-1);
-    const middleArray = hostels.slice(0, -1);
-
-    return [
-      firstElement.concat(middleArray.slice(1, 3)),
-      middleArray.slice(3, -1).concat(lastElement),
-    ];
-  }, [place?.hotels]);
+  const chooseHandler = () => {};
 
   if (!place) return null;
 
@@ -60,8 +69,13 @@ export const PlacePage = () => {
               items={[
                 { name: $t("pages.main.name"), route: RoutesPaths.Main },
                 {
-                  name: $t("pages.place.name"),
+                  name: $t("pages.location.name"),
                   route: RoutesPaths.Main,
+                  onClick: () => mainPageModel.events.scrollToLocations(),
+                },
+                {
+                  name: place.location[$i18n],
+                  route: `${RoutesPaths.Location}/${place.locationSlug}`,
                 },
                 {
                   name: place.name[$i18n],
@@ -69,7 +83,7 @@ export const PlacePage = () => {
               ]}
             />
           }
-          childrenClassName="flex justify-center"
+          childrenClassName="flex flex-col justify-around"
           absoluteElementsElement={
             <img
               className="max-w-none moving-block object-cover"
@@ -77,79 +91,91 @@ export const PlacePage = () => {
             />
           }
         >
-          <div className="flex flex-col items-center justify-center">
-            <Flag code={place.countryCode} className="w-12 h-12 mx-auto" />
-            <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item text-center">
-              {place.name[$i18n]}
-            </div>
-            <div className="w-full text-light text-base font-normal pt-6 whitespace-nowrap">
-              <div className="pl-[50%]">
-                {$t("pages.place.title.text1")}
-                {place.totalHotelsNumber
-                  ? ` ${$t("pages.place.title.insert")} ${
-                      place.totalHotelsNumber
-                    }`
-                  : ""}{" "}
-              </div>
-              <div className="pl-[50%] whitespace-nowrap">
-                {$t("pages.place.title.text2")}{" "}
-                <span className="bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text hover:text-fill-transparent text-accent">
-                  {!isNaN(place.hotelsNumber as number) &&
-                    place.hotelsNumber !== null &&
-                    `${place.hotelsNumber} ${plural(
-                      place.hotelsNumber,
-                      ...$t("pages.place.hotelsPlural")
-                    )}`}
-                </span>
-              </div>
-            </div>
+          <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item text-center leading-[70px]">
+            {place.name[$i18n]}
           </div>
+          <button
+            onClick={chooseHandler}
+            className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+          >
+            {$t("pages.main.button")}
+          </button>
         </Header>
-        <div className="pt-5 w-full flex flex-col">
-          <div className="mx-auto w-[292px] relative mb-5">
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <SerchLogo
-                className={classNames(
-                  "text-accent",
-                  !isFocused ? "opacity-50" : "opacity-75"
-                )}
-              />
+        <div className="w-full px-4 pt-10">
+          <div className="text-light flex-grow w-full grid grid-cols-2 rounded px-6 pb-10 items-start">
+            <div className="text-base font-extrabold uppercase flex items-center">
+              <BedIcon className="inline mr-3" />
+              {$t("pages.place.labels.name")}
             </div>
-            <input
-              ref={ref}
-              type="text"
-              className="text-xs bg-light rounded-full font-bold uppercase placeholder-[#C4C4C4] focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] pr-10 px-4 py-3 h-12 w-full bg-transparent"
-              placeholder={$t("pages.place.search.placeholder")}
+            <div
+              className="content-editor text-2xl"
+              dangerouslySetInnerHTML={{
+                __html: place.description[$i18n],
+              }}
             />
           </div>
-          {beforeSuggestion.map((hostel) => (
-            <HostelCard
-              onClick={handleHostelClick}
-              key={hostel.slug}
-              {...hostel}
-              className="cursor-pointer"
-            />
-          ))}
-          <div className="flex-grow w-full items-center rounded px-6 py-7">
-            <div className="grid grid-cols-[70px_auto] grid-rows-[auto_auto] ml-auto w-1/2 items-center bg-accent rounded p-6 pr-16">
-              <img src={chillLogo} className="opacity-50" />
-              <div className="text-base">{$t("pages.place.suggestion")} </div>
-              <div />
-              <div className="font-extrabold uppercase text-xs underline pt-3 cursor-pointer hover:no-underline">
-                {$t("pages.main.supportText.line2")}
+          <div className="grid grid-cols-3 gap-x-4">
+            {fieldsResource.map(({ localePath, objectKey, Icon }) => (
+              <div
+                key={objectKey}
+                className="bg-light/10 rounded-2xl p-7 text-light "
+              >
+                <div className="uppercase font-extrabold text-base pb-7 flex items-center">
+                  <Icon className="mr-3" /> {$t(localePath)}
+                </div>
+                <div
+                  className="text-base content-editor"
+                  dangerouslySetInnerHTML={{
+                    __html: place.content[objectKey][$i18n],
+                  }}
+                />
               </div>
-            </div>
+            ))}
           </div>
-          {afterSuggestion.map((hostel, i) => (
-            <HostelCard
-              topBorder={i === 0}
-              bottomBorder={i !== afterSuggestion.length - 1}
-              onClick={handleHostelClick}
-              key={hostel.slug}
-              {...hostel}
-              className="cursor-pointer"
+          <Lines.HorizontalLine className="my-6 text-light/20" />
+          <div className="text-accent text-lg font-medium pb-6 flex items-center">
+            <Galery className="mr-3" />
+            {$t("pages.place.labels.galery")}
+          </div>
+          <Swiper
+            // @ts-ignore
+            ref={swiperRef}
+            slidesPerView={SLIDES_COUNT}
+            className="h-72"
+            spaceBetween={20}
+            onSlideChange={setSwiper}
+          >
+            {place.gallery.map((image, idx) => (
+              <SwiperSlide className="rounded overflow-hidden" key={idx}>
+                <img className="w-full h-full object-cover" src={image} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className="flex justify-between w-32 py-8 mx-auto select-none">
+            <ArrowUp
+              canHover={swiper?.activeIndex !== 0}
+              className={classNames("-rotate-90 cursor-pointer")}
+              onClick={() => {
+                swiperRef.current?.swiper.slidePrev();
+              }}
             />
-          ))}
+            <ArrowUp
+              canHover={swiper?.activeIndex !== 0}
+              className={classNames("rotate-90 cursor-pointer")}
+              onClick={() => {
+                swiperRef.current?.swiper.slideNext();
+              }}
+            />
+          </div>
+          <Lines.HorizontalLine className="text-light/20" />
+          <div className="w-full flex py-16">
+            <button
+              onClick={chooseHandler}
+              className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+            >
+              {$t("pages.main.button")}
+            </button>
+          </div>
         </div>
       </div>
     </div>

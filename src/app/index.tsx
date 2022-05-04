@@ -6,13 +6,26 @@ import { Footer } from "widgets/Footer/Footer";
 import "swiper/css";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+const Scroller = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   return (
-    <div>
+    <>
+      <Scroller />
       <Routing />
       <Footer />
-    </div>
+    </>
   );
 }
 

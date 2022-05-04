@@ -1,4 +1,4 @@
-import { HotelType } from "entities/hostels/models";
+import { PlaceType } from "entities/place/models";
 import { RoutesPaths } from "../constants";
 
 export type LocaleObject = {
@@ -20,19 +20,19 @@ export type LocaleObject = {
         line2: string;
       };
     };
-    place: {
+    location: {
       name: string;
       title: { text1: string; insert: string; text2: string };
       hotelsPlural: [string, string, string];
       search: { placeholder: string };
       card: {
         transfer: string;
-        time: Record<HotelType["timeType"], string>;
+        time: Record<PlaceType["timeType"], string>;
       };
       suggestion: string;
       button: string;
     };
-    hostel: {
+    place: {
       labels: {
         name: string;
         restuartants: string;

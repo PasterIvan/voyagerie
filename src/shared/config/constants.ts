@@ -5,7 +5,7 @@ export type Locales = "ru" | "en" | "de" | "fr";
 
 export enum RoutesPaths {
   Main = "/",
+  Location = "/location",
   Place = "/place",
-  Hostel = "/hostel",
   Help = "/help",
 }

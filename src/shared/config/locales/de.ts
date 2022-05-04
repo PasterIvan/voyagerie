@@ -20,7 +20,7 @@ export const de: LocaleObject = {
         line2: "Rufen Sie uns an",
       },
     },
-    place: {
+    location: {
       name: "Länder",
       title: {
         text1: "Wir haben",
@@ -43,7 +43,7 @@ export const de: LocaleObject = {
         "Wenn das Hotel, das Sie suchen, nicht in der Liste ist, schreiben Sie uns und wir werden Ihnen einen Vorschlag machen.",
       button: "Kontaktieren Sie uns",
     },
-    hostel: {
+    place: {
       labels: {
         name: "Hotel",
         restuartants: "Restaurants",
@@ -59,7 +59,7 @@ export const de: LocaleObject = {
   },
   navbarRoutes: {
     [RoutesPaths.Main]: "Startseite",
-    [RoutesPaths.Place]: "Länder",
+    [RoutesPaths.Location]: "Länder",
     [RoutesPaths.Help]: "Hilfe",
   },
 };

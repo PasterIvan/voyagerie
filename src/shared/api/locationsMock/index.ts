@@ -1,10 +1,10 @@
-import { PlaceOverviewType, PlaceType } from "entities/place/models";
+import { LocationOverviewType, LocationType } from "entities/location/models";
 import image1 from "./image1.png";
 import image2 from "./image2.png";
 import image3 from "./image3.png";
 import image4 from "./image4.png";
 
-export const placesMock: PlaceType[] = [
+export const locationsMock: LocationType[] = [
   {
     image: image1,
     airTemperature: 28,
@@ -48,7 +48,7 @@ export const placesMock: PlaceType[] = [
   },
 ];
 
-export const placeMock: PlaceOverviewType = {
+export const locationMock: LocationOverviewType = {
   countryCode: "mv",
   totalHotelsNumber: 860,
   airTemperature: 28,
