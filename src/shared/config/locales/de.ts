@@ -44,6 +44,7 @@ export const de: LocaleObject = {
       button: "Kontaktieren Sie uns",
     },
     place: {
+      name: "Hotels",
       labels: {
         name: "Hotel",
         restuartants: "Restaurants",
@@ -51,6 +52,10 @@ export const de: LocaleObject = {
         children: "Für Kinder",
         galery: "Fotos des Hotels",
       },
+    },
+    form: {
+      name: "Bestellung",
+      orderText: "Wählen Sie die Einstellungen",
     },
   },
   currencyConfig: {

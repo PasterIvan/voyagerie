@@ -11,15 +11,13 @@ import { PhoneSmall } from "./config/PhoneSmall";
 import { createEvent } from "effector";
 
 import { ReactComponent as Lines } from "./config/lines-footer.svg";
-import { navigateRoutesConfig } from "widgets/Navbar/Navbar";
 import { useEffect } from "react";
+import { Links } from "widgets/Links/Links";
 
-export const onScrollToTop = createEvent();
+const onScrollToTop = createEvent();
 
 export const Footer = () => {
-  const { $t, language } = useTranslation();
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
+  const { language } = useTranslation();
 
   useEffect(() => {
     const handler = onScrollToTop.watch(() => {
@@ -48,23 +46,7 @@ export const Footer = () => {
         <span className="text-light/70 text-2xl font-bold uppercase pr-20">
           Навигация
         </span>
-        <div>
-          {navigateRoutesConfig.map((config) => (
-            <div
-              onClick={() => {
-                config.route && navigate(config.route);
-                config.onClick && config.onClick();
-              }}
-              key={config.key}
-              className={classNames(
-                "text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
-                pathname === config.key && "underline"
-              )}
-            >
-              {$t("navbarRoutes")[config.key]}
-            </div>
-          ))}
-        </div>
+        <Links elementClassName="text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent" />
       </div>
       <div className="z-10 h-full w-full col-span-1 row-span-1 flex py-6">
         <span className="text-light/70 text-2xl font-bold uppercase pr-20">

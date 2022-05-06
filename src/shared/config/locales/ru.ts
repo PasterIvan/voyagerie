@@ -44,6 +44,7 @@ export const ru: LocaleObject = {
       button: "Свяжитесь с нами",
     },
     place: {
+      name: "Отели",
       labels: {
         name: "Про отель",
         restuartants: "Рестораны",
@@ -51,6 +52,10 @@ export const ru: LocaleObject = {
         children: "Для детей",
         galery: "Фотографии отеля",
       },
+    },
+    form: {
+      name: "Заказ",
+      orderText: "Выбор параметров",
     },
   },
   currencyConfig: {

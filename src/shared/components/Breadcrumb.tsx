@@ -18,8 +18,8 @@ export const Breadcrumb = ({
               item.route && "hover:text-accent cursor-pointer"
             )}
             onClick={() => {
-              item.route && navigate(item.route);
               item.onClick?.();
+              item.route && navigate(item.route);
             }}
           >
             {item.name}

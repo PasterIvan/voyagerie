@@ -1,4 +1,4 @@
-import { PlaceType } from "entities/place/models";
+import { PlaceType } from "entities/location/models";
 import { RoutesPaths } from "../constants";
 
 export type LocaleObject = {
@@ -33,6 +33,7 @@ export type LocaleObject = {
       button: string;
     };
     place: {
+      name: string;
       labels: {
         name: string;
         restuartants: string;
@@ -40,6 +41,10 @@ export type LocaleObject = {
         children: string;
         galery: string;
       };
+    };
+    form: {
+      name: string;
+      orderText: string;
     };
   };
   currencyConfig: {

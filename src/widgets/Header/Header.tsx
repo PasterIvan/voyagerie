@@ -49,7 +49,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         <div
           className={classNames(
             containerClassName,
-            "z-10 w-full grid grid-cols-2 grid-rows-[auto_60px] flex-grow"
+            "z-10 w-full grid grid-cols-[auto_auto] grid-rows-[auto_60px] flex-grow"
           )}
         >
           <div

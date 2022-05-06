@@ -19,6 +19,8 @@ import { ReactComponent as Restautants } from "./config/restautants-icon.svg";
 import { ReactComponent as Galery } from "./config/galery-icon.svg";
 import { ArrowUp } from "app/assets/images/ArrowUp";
 import { mainPageModel } from "pages/MainPage";
+import { useNavigate } from "react-router-dom";
+import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 
 const fieldsResource: {
   localePath: Paths<LocaleObject>;
@@ -45,6 +47,9 @@ const fieldsResource: {
 const SLIDES_COUNT = 3.4;
 
 export const PlacePage = () => {
+  useScrollToTop();
+  const navigate = useNavigate();
+
   // const { id } = useParams();
   const place = useStore($place);
   const { $t, $i18n } = useTranslation();
@@ -52,7 +57,10 @@ export const PlacePage = () => {
   const [swiper, setSwiper] = useState<any>(null);
   const swiperRef = useRef<any>(null);
 
-  const chooseHandler = () => {};
+  const chooseHandler = () => {
+    if (!place?.slug) return;
+    navigate(`${RoutesPaths.Place}/${place.slug}/order`);
+  };
 
   if (!place) return null;
 

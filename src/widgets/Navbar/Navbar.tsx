@@ -6,21 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { PHONE, RoutesPaths } from "shared/config/constants";
 import Flag from "react-world-flags";
 import { mainPageModel } from "pages/MainPage";
-
-export const navigateRoutesConfig: {
-  key: RoutesPaths;
-  route?: RoutesPaths;
-  className?: string;
-  onClick?: () => void;
-}[] = [
-  { key: RoutesPaths.Main, route: RoutesPaths.Main },
-  {
-    key: RoutesPaths.Location,
-    route: RoutesPaths.Main,
-    onClick: mainPageModel.events.scrollToLocations,
-  },
-  { key: RoutesPaths.Help, route: RoutesPaths.Help },
-];
+import { Links } from "widgets/Links/Links";
 
 export const Navbar = ({ className }: { className?: string }) => {
   const { $t } = useTranslation();
@@ -43,23 +29,10 @@ export const Navbar = ({ className }: { className?: string }) => {
           pathname !== RoutesPaths.Main && navigate(RoutesPaths.Main)
         }
       />
-      <div className="flex col-span-1 self-center mx-auto">
-        {navigateRoutesConfig.map((config) => (
-          <div
-            onClick={() => {
-              config.route && navigate(config.route);
-              config.onClick && config.onClick();
-            }}
-            key={config.key}
-            className={classNames(
-              "text-xs font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent",
-              pathname === config.key && "underline"
-            )}
-          >
-            {$t("navbarRoutes")[config.key]}
-          </div>
-        ))}
-      </div>
+      <Links
+        elementClassName="text-xs font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent"
+        className="flex col-span-1 self-center mx-auto"
+      />
       <div className="ml-auto flex col-span-1">
         <div className="cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 flex items-center p-3">
           <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">

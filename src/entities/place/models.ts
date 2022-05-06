@@ -1,18 +1,17 @@
 import { createEvent, createStore } from "effector";
-import { hotelsMock } from "shared/api/hotelsMock";
+import { placesMock } from "shared/api/hotelsMock";
 import { Locales } from "shared/config/constants";
 
-export type PlaceType = {
-  image: string;
+export type ResidenceType = {
+  id: string;
   name: Record<Locales, string>;
-  transferType: "air" | "water" | "air-water";
-  time: number;
-  timeType: "minutes" | "hours" | "days" | "nights" | "weeks";
-  cost: number;
-  slug: string;
+  image: string;
+  price: number;
+  description: Record<Locales, string>;
 };
 
 export type PlaceOverviewType = {
+  residences: ResidenceType[];
   slug: string;
   locationSlug: string;
   image: string;
@@ -36,7 +35,7 @@ export const $place = createStore<PlaceOverviewType | null>(null).on(
 );
 
 //TODO: Dev only
-setPlace(hotelsMock);
+setPlace(placesMock);
 
 export const events = {
   setPlace,

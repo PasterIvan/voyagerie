@@ -10,10 +10,7 @@ export const Routing = () => {
     <Routes>
       <Route path={RoutesPaths.Main} element={<MainPage />} />
       <Route path={`${RoutesPaths.Location}/:id`} element={<LocationPage />} />
-      <Route
-        path={`${RoutesPaths.Location}/:id/order`}
-        element={<FormPage />}
-      />
+      <Route path={`${RoutesPaths.Place}/:id/order`} element={<FormPage />} />
       <Route path={`${RoutesPaths.Place}/:id`} element={<PlacePage />} />
     </Routes>
   );

@@ -1,7 +1,16 @@
 import { createEvent, createStore } from "effector";
-import { PlaceType } from "entities/place/models";
 import { locationsMock, locationMock } from "shared/api/locationsMock";
 import { Locales } from "shared/config/constants";
+
+export type PlaceType = {
+  image: string;
+  name: Record<Locales, string>;
+  transferType: "air" | "water" | "air-water";
+  time: number;
+  timeType: "minutes" | "hours" | "days" | "nights" | "weeks";
+  cost: number;
+  slug: string;
+};
 
 export type LocationType = {
   name: Record<Locales, string>;

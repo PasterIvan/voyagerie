@@ -1,0 +1,150 @@
+.text-fill-transparent {
+  -webkit-text-fill-color: transparent;
+}
+
+.background {
+  background-image: url("~app/assets/images/background.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+@keyframes move-block {
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  16.6% {
+    transform: translate(-5%, -5%) scale(1.05);
+  }
+  33.2% {
+    transform: translate(-5%, 0%);
+  }
+  49.8% {
+    transform: translate(0%, -5%) scale(1.05);
+  }
+  66.4% {
+    transform: translate(-2.5%, -2.5%) scale(1);
+  }
+}
+
+.moving-block {
+  width: 106%;
+  height: 106%;
+  animation-name: move-block;
+  animation-duration: 100s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.content-editor {
+  & > .ql-align-center {
+    text-align: center;
+  }
+  & > .ql-align-justify {
+    text-align: justify;
+  }
+
+  & > h2 {
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  & > h3 {
+    margin-bottom: 15px;
+  }
+
+  & > p,
+  & > blockquote,
+  & > pre,
+  & > ol,
+  & > ul {
+    &:not(:first-child) {
+      line-height: 1.5;
+      margin-top: 15px;
+    }
+  }
+  & > ol {
+    padding-left: 15px;
+  }
+  & > p + h3,
+  p + h2 {
+    &:not(:first-child) {
+      margin-top: 25px;
+    }
+  }
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  background-image: linear-gradient(
+    135deg,
+    rgba(250, 228, 188, 0.5) 0%,
+    rgba(214, 160, 114, 0.5) 100%
+  );
+}
+
+.lds-hourglass {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 8px;
+  box-sizing: border-box;
+  border: 32px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+.react-datepicker__header {
+  background-color: #ebc99e;
+}
+
+.react-datepicker {
+  background-color: #1c1a19;
+}
+
+.react-datepicker__day {
+  color: #fff;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #efcfa5;
+  color: #1c1a19;
+}
+.react-datepicker__day--keyboard-selected:hover {
+  background-color: #ebc99e;
+}
+.react-datepicker__day:hover {
+  color: #000;
+}
+
+.react-datepicker__day--selected {
+  background-color: #ebc99e;
+  color: #000;
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: #efcfa5;
+  color: #000;
+}
+
+

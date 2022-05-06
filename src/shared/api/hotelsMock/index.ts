@@ -4,7 +4,215 @@ import image2 from "./image2.png";
 import image3 from "./image3.png";
 import image4 from "./image4.png";
 
-export const hotelsMock: PlaceOverviewType = {
+export const placesMock: PlaceOverviewType = {
+  residences: [
+    {
+      id: "1",
+      name: {
+        ru: "Отель 1",
+        en: "Hotel 1",
+        de: "Hotel 1",
+        fr: "Hotel 1",
+      },
+      image: image1,
+      description: {
+        ru: "Площадь - 150 кв.м. Вилла расположена в саду. Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м). Максимальное число гостей - 3 человека.",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "2",
+      name: {
+        ru: "Отель 2",
+        en: "Hotel 2",
+
+        de: "Hotel 2",
+        fr: "Hotel 2",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "3",
+      name: {
+        ru: "Отель 3",
+        en: "Hotel 3",
+        de: "Hotel 3",
+        fr: "Hotel 3",
+      },
+      image: image3,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "4",
+      name: {
+        ru: "Отель 4",
+        en: "Hotel 4",
+        de: "Hotel 4",
+        fr: "Hotel 4",
+      },
+      image: image4,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "5",
+      name: {
+        ru: "Отель 5",
+        en: "Hotel 5",
+        de: "Hotel 5",
+        fr: "Hotel 5",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "6",
+      name: {
+        ru: "Отель 6",
+        en: "Hotel 6",
+        de: "Hotel 6",
+        fr: "Hotel 6",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "7",
+      name: {
+        ru: "Отель 1",
+        en: "Hotel 1",
+        de: "Hotel 1",
+        fr: "Hotel 1",
+      },
+      image: image1,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "8",
+      name: {
+        ru: "Отель 2",
+        en: "Hotel 2",
+
+        de: "Hotel 2",
+        fr: "Hotel 2",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "9",
+      name: {
+        ru: "Отель 3",
+        en: "Hotel 3",
+        de: "Hotel 3",
+        fr: "Hotel 3",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "10",
+      name: {
+        ru: "Отель 4",
+        en: "Hotel 4",
+        de: "Hotel 4",
+        fr: "Hotel 4",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "11",
+      name: {
+        ru: "Отель 5",
+        en: "Hotel 5",
+        de: "Hotel 5",
+        fr: "Hotel 5",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+    {
+      id: "12",
+      name: {
+        ru: "Отель 6",
+        en: "Hotel 6",
+        de: "Hotel 6",
+        fr: "Hotel 6",
+      },
+      image: image2,
+      description: {
+        ru: "<ul><li>Площадь - 150 кв.м. Вилла расположена в саду.</li><li>Спальня (кровать king-size), ванная комната, терраса, сад, бассейн (24 кв.м).</li><li>Максимальное число гостей - 3 человека.</li></ul>",
+        en: "<ul><li>Area - 150 sq.m. Villa is located in the garden.</li><li>Bedroom (king-size), bathroom, terrace, garden, swimming pool (24 sq.m).</li><li>Maximum number of guests - 3 people.</li></ul>",
+        de: "<ul><li>Fläche - 150 qm. Villa ist im Garten.</li><li>Zimmer (king-size), Badezimmer, Terrasse, Garten, Schwimmbad (24 qm).</li><li>Maximale Anzahl von Gästen - 3 Personen.</li></ul>",
+        fr: "<ul><li>Surface - 150 m2. Villa est située dans le jardin.</li><li>Chambre (grande), salle de bain, terrasse, jardin, piscine (24 m2).</li><li>Nombre maximum de personnes - 3 personnes.</li></ul>",
+      },
+      price: 300,
+    },
+  ],
   slug: "petersburg",
   locationSlug: "maldives",
   countryCode: "MV",

@@ -16,8 +16,11 @@ import { Header } from "widgets/Header/Header";
 import Flag from "react-world-flags";
 import { Breadcrumb } from "shared/components/Breadcrumb";
 import { mainPageModel } from "pages/MainPage";
+import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 
 export const LocationPage = () => {
+  useScrollToTop();
+
   // const { id } = useParams();
   const [ref, isFocused] = useFocus();
 
@@ -109,7 +112,7 @@ export const LocationPage = () => {
             </div>
           </div>
         </Header>
-        <div className="pt-5 w-full flex flex-col">
+        <div className="pt-5 pb-32 w-full flex flex-col">
           <div className="mx-auto w-[292px] relative mb-5">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <SerchLogo

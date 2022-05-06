@@ -10,26 +10,37 @@ import { locationsMock } from "shared/api/locationsMock";
 import { ArrowUp } from "../../app/assets/images/ArrowUp";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useGate } from "effector-react";
 import { mainGate } from "./models";
 import { mainPageModel } from ".";
+import { useForm } from "effector-forms";
+import { formSchema } from "pages/FormPage/models";
 
 export const MainPage = () => {
+  const { fields, submit, eachValid } = useForm(formSchema);
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
 
-  useGate(mainGate, {
-    scrollToLocationsHandler: () => {
-      window.scrollTo({
-        top:
-          (headerRef.current?.offsetTop ?? 0) +
-          (headerRef.current?.offsetHeight ?? 0),
-        behavior: "smooth",
-      });
-    },
-  });
+  const gateObject = useMemo(
+    () => ({
+      scrollToLocationsHandler: () => {
+        window.scrollTo({
+          top:
+            (headerRef.current?.offsetTop ?? 0) +
+            (headerRef.current?.offsetHeight ?? 0),
+          behavior: "smooth",
+        });
+      },
+      scrollToTop: () => {
+        window.scrollTo(0, 0);
+      },
+    }),
+    []
+  );
+
+  useGate(mainGate, gateObject);
 
   return (
     <div

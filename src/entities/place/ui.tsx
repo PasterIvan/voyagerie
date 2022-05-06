@@ -1,12 +1,10 @@
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
-import { Lines } from "shared/components/Lines";
-import { StarFrame } from "shared/components/StarFrame";
-import { $place, PlaceType } from "./models";
 import plural from "plural-ru";
 import { transferIcons } from "./config";
 import { useHover } from "shared/lib/hooks/useHover";
 import { ArrowIcon } from "entities/location/config/Arrow";
+import { PlaceType } from "entities/location/models";
 
 const pluralConfig: Record<PlaceType["timeType"], [string, string, string]> = {
   minutes: ["минут", "минуты", "минут"],
