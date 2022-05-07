@@ -14,11 +14,8 @@ import { useMemo, useRef } from "react";
 import { useGate } from "effector-react";
 import { mainGate } from "./models";
 import { mainPageModel } from ".";
-import { useForm } from "effector-forms";
-import { formSchema } from "pages/FormPage/models";
 
 export const MainPage = () => {
-  const { fields, submit, eachValid } = useForm(formSchema);
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
