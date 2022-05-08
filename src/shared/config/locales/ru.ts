@@ -55,7 +55,7 @@ export const ru: LocaleObject = {
     },
     form: {
       name: "Заказ",
-      orderText: "Выбор параметров",
+      orderText: "Выбор виллы",
     },
   },
   currencyConfig: {

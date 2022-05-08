@@ -55,7 +55,7 @@ export const en: LocaleObject = {
     },
     form: {
       name: "Order",
-      orderText: "Choose parameters",
+      orderText: "Choose villa",
     },
   },
   currencyConfig: {

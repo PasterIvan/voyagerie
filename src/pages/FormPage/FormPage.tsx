@@ -23,6 +23,8 @@ import { formSchema } from "./models";
 import { Counter } from "shared/components/Counter";
 import { ordinalNumbers } from "shared/config/locales/constants";
 import { useNavigate } from "react-router-dom";
+import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
+import { CgPhone } from "react-icons/cg";
 // import { createForm, useForm } from "effector-forms";
 
 const foodType = [
@@ -186,7 +188,7 @@ export const FormPage = () => {
                 customInput={
                   <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
                     <PlaneUp />
-                    <span className="text-sm text-accent pl-2">Заезд</span>
+                    <span className="text-sm text-accent pl-2">Отъезд</span>
                     <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
                       {dayjs(fields.dateFrom.value).format("DD MMMM YYYY")}
                     </span>
@@ -201,7 +203,7 @@ export const FormPage = () => {
                 customInput={
                   <button className="group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
                     <PlaneDown />
-                    <span className="text-sm text-accent pl-2">Отъезд</span>
+                    <span className="text-sm text-accent pl-2">Заезд</span>
                     <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
                       {dayjs(fields.dateTo.value).format("DD MMMM YYYY")}
                     </span>
@@ -341,10 +343,23 @@ export const FormPage = () => {
               <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                 Куда вам отправить предложение
               </div>
-              <input
-                placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
-                className="mb-20 form-check-input p-4 col-span-2 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
-              />
+              <div className="mb-20 col-span-2 relative">
+                <input
+                  placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
+                  className="form-check-input pr-40 p-4 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                />
+                <div className="absolute inset-y-0 right-0 flex">
+                  <button className="group border-l border-l-light/10 h-full flex items-center px-3">
+                    <FaWhatsapp className="cursor-pointer group-hover:text-[#25D366] group-focus:text-[#25D366] text-accent/25 w-6 h-6" />
+                  </button>
+                  <button className="group border-l border-l-light/10 h-full flex items-center px-3">
+                    <FaTelegramPlane className="cursor-pointer group-hover:text-[#229ED9] group-focus:text-[#229ED9] text-accent/25 w-6 h-6" />
+                  </button>
+                  <button className="group border-l border-l-light/10 h-full flex items-center px-3">
+                    <CgPhone className="cursor-pointer group-focus:text-gray-400 group-hover:text-gray-400 text-accent/25 w-6 h-6" />
+                  </button>
+                </div>
+              </div>
               <button
                 onClick={() => navigate(-1)}
                 className="transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 hover:border-light rounded w-full text-accent  hover:bg-black hover:text-light"

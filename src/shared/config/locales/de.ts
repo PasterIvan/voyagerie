@@ -55,7 +55,7 @@ export const de: LocaleObject = {
     },
     form: {
       name: "Bestellung",
-      orderText: "Wählen Sie die Einstellungen",
+      orderText: "Wählen Sie ein Zimmer",
     },
   },
   currencyConfig: {

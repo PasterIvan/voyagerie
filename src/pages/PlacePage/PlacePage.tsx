@@ -28,6 +28,11 @@ const fieldsResource: {
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }[] = [
   {
+    localePath: "pages.place.labels.health",
+    objectKey: "health",
+    Icon: Health,
+  },
+  {
     localePath: "pages.place.labels.children",
     objectKey: "child",
     Icon: Child,
@@ -36,11 +41,6 @@ const fieldsResource: {
     localePath: "pages.place.labels.restuartants",
     objectKey: "restorans",
     Icon: Restautants,
-  },
-  {
-    localePath: "pages.place.labels.health",
-    objectKey: "health",
-    Icon: Health,
   },
 ];
 
@@ -104,13 +104,13 @@ export const PlacePage = () => {
           </div>
           <button
             onClick={chooseHandler}
-            className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+            className="px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
           >
-            {$t("pages.main.button")}
+            Выбрать виллу в этом отеле
           </button>
         </Header>
         <div className="w-full px-4 pt-10">
-          <div className="text-light flex-grow w-full grid grid-cols-2 rounded px-6 pb-10 items-start">
+          <div className="font-[Manrope] text-light flex-grow w-full grid grid-cols-2 rounded px-6 pb-10 items-start">
             <div className="text-base font-extrabold uppercase flex items-center">
               <BedIcon className="inline mr-3" />
               {$t("pages.place.labels.name")}
@@ -122,7 +122,7 @@ export const PlacePage = () => {
               }}
             />
           </div>
-          <div className="grid grid-cols-3 gap-x-4">
+          <div className="font-[Manrope] grid grid-cols-3 gap-x-4">
             {fieldsResource.map(({ localePath, objectKey, Icon }) => (
               <div
                 key={objectKey}
@@ -132,7 +132,7 @@ export const PlacePage = () => {
                   <Icon className="mr-3" /> {$t(localePath)}
                 </div>
                 <div
-                  className="text-base content-editor"
+                  className="font-[Manrope] text-base content-editor"
                   dangerouslySetInnerHTML={{
                     __html: place.content[objectKey][$i18n],
                   }}
@@ -179,9 +179,9 @@ export const PlacePage = () => {
           <div className="w-full flex py-16">
             <button
               onClick={chooseHandler}
-              className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+              className="px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
             >
-              {$t("pages.main.button")}
+              Выбрать виллу в этом отеле
             </button>
           </div>
         </div>
