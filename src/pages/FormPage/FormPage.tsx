@@ -187,7 +187,7 @@ export const FormPage = () => {
                 selected={fields.dateFrom.value?.toDate()}
                 customInput={
                   <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
-                    <PlaneUp />
+                    <PlaneDown />
                     <span className="text-sm text-accent pl-2">Заезд</span>
                     <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
                       {dayjs(fields.dateFrom.value).format("DD MMMM YYYY")}
@@ -202,7 +202,8 @@ export const FormPage = () => {
                 selected={fields.dateTo.value?.toDate()}
                 customInput={
                   <button className="group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
-                    <PlaneDown />
+                    <PlaneUp />
+
                     <span className="text-sm text-accent pl-2">Отъезд</span>
                     <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
                       {dayjs(fields.dateTo.value).format("DD MMMM YYYY")}
