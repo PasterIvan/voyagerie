@@ -26,39 +26,41 @@ export function ResidenceChooser({
     choosedResidence?.id === selectedResidence?.id;
 
   return (
-    <div className="max-w-5xl w-full pt-8 flex flex-col max-h-[500px] overflow-hidden border-b border-b-light">
+    <div className="max-w-5xl h-full max-h-[1000px] md:max-h-[500px] w-full pt-8 flex flex-col overflow-hidden border-light md:border-b">
       <span className="pl-4 text-lg font-medium text-accent">
         Выберите подходящую для вас виллу
       </span>
-      <div className="flex overflow-hidden pt-6">
+      <div className="flex flex-col md:flex-row overflow-hidden pt-6">
         <SimpleBar
           direction="rtl"
           data-simplebar-direction="rtl"
-          className="basis-2/5 pl-4"
+          className="md:pt-0 md:h-auto order-2 md:order-1 flex-grow md:basis-2/5 pb-4 md:pb-0 pl-0 md:pl-4 w-full"
         >
-          {residences.map((residence, i) => (
-            <PlaceListCard
-              key={residence.id}
-              className={Boolean(i) && "mt-2"}
-              onClick={(event) => {
-                onSelect(residence);
-                //@ts-ignore
-                event.target?.scrollIntoViewIfNeeded?.();
-              }}
-              isSelected={selectedResidence?.id === residence.id}
-              isChoosed={choosedResidence?.id === residence.id}
-              name={residence.name[$i18n]}
-              price={residence.price}
-            />
-          ))}
+          <div className="gap-x-4 flex md:flex-col items-stretch">
+            {residences.map((residence, i) => (
+              <PlaceListCard
+                key={residence.id}
+                className={Boolean(i) && "md:mt-2"}
+                onClick={(event) => {
+                  onSelect(residence);
+                  //@ts-ignore
+                  event.target?.scrollIntoViewIfNeeded?.();
+                }}
+                isSelected={selectedResidence?.id === residence.id}
+                isChoosed={choosedResidence?.id === residence.id}
+                name={residence.name[$i18n]}
+                price={residence.price}
+              />
+            ))}
+          </div>
         </SimpleBar>
-        <div className="basis-3/5 flex flex-col">
+        <div className="pb-4 md:pb-0 flex-shrink-0 h-[300px] md:h-auto order-1 md:order-2 md:basis-3/5 flex flex-col">
           <ImageWithLoader
-            className="flex-grow w-full rounded-t-md border border-accent border-b-0"
+            className="w-full flex-grow rounded-t-md border border-accent border-b-0"
             src={selectedResidence?.image}
           />
-          <div className="h-20 basis-20 flex-shrink-0 flex-grow-0 bg-light flex items-start">
-            <div className="p-4 w-[70%] h-full flex">
+          <div className="h-28 md:h-20 basis-20 flex-shrink-0 flex-grow-0 bg-light flex items-start relative">
+            <div className="pt-6 md:pt-4 px-4 pb-4 w-full md:w-[70%] h-full flex">
               <SimpleBar className="w-full h-full text-xs font-medium pr-2">
                 <div
                   dangerouslySetInnerHTML={{
@@ -73,7 +75,7 @@ export function ResidenceChooser({
                 isChoosed
                   ? "bg-gradient-to-t from-[#D6A072] to-[#FAE4BC] text-black cursor-default"
                   : "bg-[#180F0B] text-light hover:bg-gradient-to-t hover:from-[#D6A072] hover:to-[#FAE4BC] hover:text-black",
-                "border border-light/70 text-sm font-medium w-32 h-10 rounded-md -translate-y-1/2 transition-colors duration-500"
+                "absolute right-10 border border-light/70 text-sm font-medium w-32 h-10 rounded-md -translate-y-1/2 transition-colors duration-500"
               )}
             >
               {isChoosed ? "Выбрано" : "Выбрать"}

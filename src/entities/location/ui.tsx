@@ -30,7 +30,7 @@ export const LocationCard: React.FC<
       ref={ref}
       className={classNames(
         //TODO: Borders should be gradient
-        "group cursor-pointer relative w-full h-[25rem] rounded-lg border border-transparent hover:border-accent overflow-hidden",
+        "group cursor-pointer relative w-full h-[15rem] sm:h-[25rem] rounded-lg border border-transparent hover:border-accent overflow-hidden",
         className
       )}
       {...props}
@@ -46,15 +46,15 @@ export const LocationCard: React.FC<
       <ArrowIcon
         isHovered={isHovered}
         pathClassName="group-hover:text-[#826C55] text-light"
-        className="absolute bottom-4 right-4"
+        className="absolute top-4 sm:top-auto right-4 bottom-auto sm:bottom-4"
       />
-      <div className="absolute left-5 bottom-5 grid grid-cols-[40px_auto] grid-rows-[auto_auto] gap-x-3 gap-y-1 max-w-[80%]">
-        <Flag code={countryCode} className="h-full w-full" />
-        <div className="text-[32px] text-light font-medium leading-none">
+      <div className="absolute left-5 bottom-5 grid grid-cols-[auto_auto] gap-x-3 gap-y-1 pr-5">
+        <Flag code={countryCode} className="h-[40px]" />
+        <div className="col-span-2 break-words text-[32px] text-light font-medium leading-none">
           {name[$i18n]}
         </div>
-        <div />
-        <div className="text-accent leading-none">
+        <div className="hidden sm:block" />
+        <div className="col-span-2 pl-1 text-accent leading-none">
           {hotelsNumber}{" "}
           {plural(hotelsNumber, ...$t("pages.location.hotelsPlural"))}
         </div>

@@ -6,11 +6,11 @@ import { Modals } from "pages/Modals";
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen bg-black flex flex-col">
       <Modals />
       <Routing />
       <Footer />
-    </>
+    </div>
   );
 }
 

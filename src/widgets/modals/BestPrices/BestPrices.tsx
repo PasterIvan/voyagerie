@@ -11,6 +11,7 @@ const customStyles: Modal.Styles = {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   content: {
+    // inset: 0,
     background: "transparent",
     border: "none",
     borderRadius: "0px",
@@ -27,6 +28,7 @@ export const BestPrices = () => {
     <Modal
       isOpen={isOpen}
       onRequestClose={() => closeModal()}
+      portalClassName="modal-inset"
       style={customStyles}
     >
       <SimpleBar

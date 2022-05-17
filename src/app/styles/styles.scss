@@ -147,4 +147,10 @@
   color: #000;
 }
 
+.modal-inset > div > div {
+  inset: 40px;
 
+  @media screen and (max-width: 768px) {
+    inset: 0px;
+  }
+}

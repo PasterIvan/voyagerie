@@ -9,7 +9,7 @@ export const placesMock: PlaceOverviewType = {
     {
       id: "1",
       name: {
-        ru: "Отель 1",
+        ru: "Отель в санкт петербурге",
         en: "Hotel 1",
         de: "Hotel 1",
         fr: "Hotel 1",
@@ -26,7 +26,7 @@ export const placesMock: PlaceOverviewType = {
     {
       id: "2",
       name: {
-        ru: "Отель 2",
+        ru: "Самый классный супер мега отель в центре города под названием Солы",
         en: "Hotel 2",
 
         de: "Hotel 2",

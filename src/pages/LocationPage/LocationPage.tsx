@@ -56,7 +56,8 @@ export const LocationPage = () => {
     >
       <div className="flex flex-col items-center w-full">
         <Header
-          containerClassName="rounded-b-2xl border border-light/20 p-4"
+          faqClassName="hidden sm:inline"
+          containerClassName="grid-cols-1 sm:grid-cols-[auto_auto] rounded-b-2xl border border-light/20 p-4"
           className="min-h-[500px]"
           leftBottomElement={
             <Breadcrumb
@@ -75,7 +76,7 @@ export const LocationPage = () => {
               ]}
             />
           }
-          childrenClassName="flex justify-center"
+          childrenClassName="flex justify-center w-full"
           absoluteElementsElement={
             <img
               alt="location"
@@ -84,13 +85,13 @@ export const LocationPage = () => {
             />
           }
         >
-          <div className="flex flex-col items-center justify-center">
+          <div className="w-full sm:w-auto flex flex-col items-center justify-center max-w-full">
             <Flag code={location.countryCode} className="w-12 h-12 mx-auto" />
-            <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item text-center">
+            <div className="leading-none text-light text-4xl sm:text-[64px] font-normal mx-auto max-w-full md:max-w-[850px] item text-center break-words">
               {location.name[$i18n]}
             </div>
-            <div className="w-full text-light text-base font-normal pt-6 whitespace-nowrap">
-              <div className="pl-[50%]">
+            <div className="w-full text-light text-base font-normal mt-auto sm:mt-0 pt-6 whitespace-nowrap">
+              <div className="sm:pl-[50%]">
                 {$t("pages.location.title.text1")}
                 {location.totalHotelsNumber
                   ? ` ${$t("pages.location.title.insert")} ${
@@ -98,7 +99,7 @@ export const LocationPage = () => {
                     }`
                   : ""}{" "}
               </div>
-              <div className="pl-[50%] whitespace-nowrap">
+              <div className="sm:pl-[50%] whitespace-nowrap">
                 {$t("pages.location.title.text2")}{" "}
                 <span className="bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text hover:text-fill-transparent text-accent">
                   {!isNaN(location.hotelsNumber as number) &&
@@ -112,7 +113,7 @@ export const LocationPage = () => {
             </div>
           </div>
         </Header>
-        <div className="pt-5 pb-32 w-full flex flex-col">
+        <div className="pt-5 pb-16 md:pb-32 w-full flex flex-col">
           <div className="mx-auto w-[292px] relative mb-5">
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <SerchLogo
@@ -138,13 +139,17 @@ export const LocationPage = () => {
             />
           ))}
           <div className="flex-grow w-full items-center rounded px-6 py-7">
-            <div className="grid grid-cols-[70px_auto] grid-rows-[auto_auto] ml-auto w-1/2 items-center bg-accent rounded p-6 pr-16">
-              <img alt="chill" src={chillLogo} className="opacity-50" />
-              <div className="text-base">
+            <div className="gap-x-3 grid xs:grid-cols-[70px_auto] grid-rows-[auto_auto] ml-auto lg:w-1/2 items-center bg-accent rounded p-6 sm:pr-16">
+              <img
+                alt="chill"
+                src={chillLogo}
+                className="mx-auto mb-4 xs:mb-0 opacity-50"
+              />
+              <div className="text-base text-center xs:text-left">
                 {$t("pages.location.suggestion")}{" "}
               </div>
               <div />
-              <div className="font-extrabold uppercase text-xs underline pt-3 cursor-pointer hover:no-underline">
+              <div className="mx-auto xs:mx-0 font-extrabold uppercase text-xs underline pt-3 cursor-pointer hover:no-underline">
                 {$t("pages.main.supportText.line2")}
               </div>
             </div>

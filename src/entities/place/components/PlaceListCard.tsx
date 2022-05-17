@@ -17,7 +17,10 @@ export function PlaceListCard({
 }) {
   return (
     <div
-      className={classNames("flex items-center cursor-pointer", className)}
+      className={classNames(
+        "min-w-[200px] md:min-w-[none] flex items-center cursor-pointer",
+        className
+      )}
       onClick={(event) => {
         onClick?.(event);
       }}
@@ -29,13 +32,13 @@ export function PlaceListCard({
             "border-light/25 hover:border-light/50": !isSelected && !isChoosed,
             "border-accent": !isSelected && isChoosed,
           },
-          "gap-y-3 flex flex-col items-start flex-grow border rounded pt-4 pl-5"
+          "h-full gap-y-3 flex flex-col items-start basis-0 flex-grow border rounded pt-4 pl-5"
         )}
       >
         <div
           className={classNames(
             isSelected || isChoosed ? "text-accent" : "text-light",
-            "text-base font-semibold"
+            "text-sm md:text-base font-semibold pr-4"
           )}
         >
           {name}
@@ -45,7 +48,7 @@ export function PlaceListCard({
             isSelected || isChoosed
               ? "bg-accent text-black"
               : "bg-light/25 text-light/50",
-            "rounded-tl-md px-2 py-1 leading-none ml-auto  text-sm font-medium"
+            "mt-auto rounded-tl-md px-2 py-1 leading-none ml-auto  text-sm font-medium"
           )}
         >
           от{" "}
@@ -57,7 +60,7 @@ export function PlaceListCard({
       </div>
       <hr
         className={classNames(
-          "text-accent w-5",
+          "text-accent w-5 hidden md:block",
           isSelected ? "visible" : "invisible"
         )}
       />

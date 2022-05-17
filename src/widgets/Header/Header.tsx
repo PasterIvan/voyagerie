@@ -14,11 +14,15 @@ type HeaderProps = {
   containerClassName?: string;
   childrenClassName?: string;
   withOverlay?: boolean;
+  faqClassName?: string;
+  faqElementClassName?: string;
 };
 
 export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   (
     {
+      faqClassName,
+      faqElementClassName,
       children,
       leftBottomElement,
       absoluteElementsElement,
@@ -49,7 +53,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         <div
           className={classNames(
             containerClassName,
-            "z-10 w-full grid grid-cols-[auto_auto] grid-rows-[auto_60px] flex-grow"
+            "gap-y-3 z-10 w-full grid gap-x-3 grid-cols-[auto_auto] grid-rows-[auto_60px] flex-grow"
           )}
         >
           <div
@@ -60,7 +64,13 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           <div className="col-span-1 row-span-1 self-end">
             {leftBottomElement}
           </div>
-          <FaqBlock className="ml-auto col-span-1 row-span-1 self-end" />
+          <FaqBlock
+            elementClassName={faqElementClassName}
+            className={classNames(
+              faqClassName,
+              "ml-auto col-span-1 row-span-1 self-end"
+            )}
+          />
         </div>
       </div>
     );

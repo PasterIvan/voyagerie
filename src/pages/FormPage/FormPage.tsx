@@ -86,7 +86,8 @@ export const FormPage = () => {
     >
       <div className="flex flex-col items-center w-full">
         <Header
-          containerClassName="rounded-b-2xl border border-light/20 p-4"
+          faqClassName="hidden sm:inline"
+          containerClassName="gap-y-0 grid-cols-1 sm:grid-cols-[auto_auto] rounded-b-2xl border border-light/20 p-4"
           className="min-h-[500px]"
           leftBottomElement={
             <Breadcrumb
@@ -117,11 +118,11 @@ export const FormPage = () => {
             />
           }
         >
-          <div className="text-light text-[64px] font-normal mx-auto max-w-[850px] item text-center leading-[70px]">
+          <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words">
             {place.name[$i18n]}
           </div>
         </Header>
-        <div className="w-full px-4 py-16 flex flex-col items-center background">
+        <div className="w-full px-4 py-8 md:py-16 flex flex-col items-center background">
           <Lines.HorizontalLine className="text-accent-dark/50 max-w-5xl">
             <Lines.Star />
           </Lines.HorizontalLine>
@@ -140,7 +141,7 @@ export const FormPage = () => {
           <div
             className={classNames(
               Boolean(choosedResidence)
-                ? "py-16 scale-y-1"
+                ? "py-8 md:py-16 scale-y-1"
                 : "p-0 h-0 scale-y-0",
               "max-w-4xl w-full flex flex-col transition-[transform_padding] duration-600"
             )}
@@ -148,13 +149,13 @@ export const FormPage = () => {
             <div className="text-accent font-medium text-lg pb-6">
               Вы выбрали:
             </div>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row">
               <ImageWithLoader
-                className="w-52 h-40 rounded shrink-0"
+                className="mx-auto md:mx-0 w-full md:w-52 h-40 rounded shrink-0"
                 src={choosedResidence?.image}
               />
-              <div className="min-h-40 pl-10 flex flex-col justify-start items-start pb-1 max-w-xl">
-                <div className="text-accent text-3xl font-medium">
+              <div className="mt-6 md:mt-0 min-h-40 pl-0 md:pl-10 flex flex-col justify-start items-start pb-1 max-w-xl">
+                <div className="text-accent text-2xl md:text-3xl font-medium">
                   {choosedResidence?.name[$i18n]}
                 </div>
                 <div
@@ -176,14 +177,15 @@ export const FormPage = () => {
                 </div>
               </div>
             </div>
-            <Lines.HorizontalLine className="pt-10 text-accent-dark/50">
+            <Lines.HorizontalLine className="md:pt-10 text-accent-dark/50">
               <Lines.Star />
             </Lines.HorizontalLine>
-            <div className="grid grid-cols-2 grid-rows-[auto_auto_auto_auto_auto_auto] gap-x-6">
-              <div className="pb-3 text-accent font-medium text-lg col-span-2">
+            <div className="grid grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto_auto] gap-x-6">
+              <div className="order-1 pb-3 text-accent font-medium text-lg col-span-2">
                 Даты путешествия
               </div>
               <DatePicker
+                wrapperClassName="order-2 col-span-2 md:col-span-1"
                 selected={fields.dateFrom.value?.toDate()}
                 customInput={
                   <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
@@ -199,9 +201,10 @@ export const FormPage = () => {
                 portalId="root-portal-1"
               />
               <DatePicker
+                wrapperClassName="order-3 col-span-2 md:col-span-1"
                 selected={fields.dateTo.value?.toDate()}
                 customInput={
-                  <button className="group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
+                  <button className="mt-2 md:mt-0 group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
                     <PlaneUp />
 
                     <span className="text-sm text-accent pl-2">Отъезд</span>
@@ -214,7 +217,7 @@ export const FormPage = () => {
                 onChange={(value) => fields.dateTo.onChange(dayjs(value))}
                 portalId="root-portal-2"
               />
-              <div className="pt-4 cursor-pointer col-span-2 flex items-center">
+              <div className="order-4 pt-6 md:pt-4 cursor-pointer col-span-2 flex items-center">
                 <input
                   onClick={() =>
                     fields.suggestTickets.onChange(!fields.suggestTickets.value)
@@ -232,10 +235,10 @@ export const FormPage = () => {
                   Предложить варианты авиабилетов
                 </button>
               </div>
-              <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
+              <div className="order-5 pt-6 md:pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                 Количество гостей
               </div>
-              <div className="px-5 bg-brown-background/10 flex items-center h-12">
+              <div className="order-6 col-span-2 md:col-span-1 px-5 bg-brown-background/10 flex items-center h-12">
                 <span className="text-sm text-light">Взрослые</span>
                 <Counter
                   unsigned
@@ -244,7 +247,7 @@ export const FormPage = () => {
                   count={fields.adultsCount.value}
                 />
               </div>
-              <div className="px-5 bg-brown-background/10 flex items-center h-12">
+              <div className="mt-2 md:mt-0 order-7 col-span-2 md:col-span-1 px-5 bg-brown-background/10 flex items-center h-12">
                 <span className="text-sm text-light">Дети</span>
                 <Counter
                   unsigned
@@ -254,7 +257,7 @@ export const FormPage = () => {
                   max={10}
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="col-span-2 md:col-span-1 order-9 md:order-8 flex flex-col">
                 <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                   Тип питания
                 </div>
@@ -297,12 +300,20 @@ export const FormPage = () => {
               </div>
               <div
                 className={classNames(
-                  fields.childCount.value ? "opacity-100" : "opacity-0",
-                  "flex flex-col duration-1000 transition-opacity"
+                  fields.childCount.value ? "opacity-100" : "opacity-0 hidden",
+                  "md:flex col-span-2 md:col-span-1 order-8 md:order-9 flex-col duration-1000 transition-opacity"
                 )}
               >
-                <div className="h-10 border-r border-r-accent/50 mr-20" />
-                <div className="rounded border border-accent/50 py-4 px-6 flex flex-col text-light text-lg font-normal">
+                <div
+                  className={classNames(
+                    "h-10 border-r border-r-accent/50 mr-20"
+                  )}
+                />
+                <div
+                  className={classNames(
+                    "rounded border border-accent/50 py-4 px-6 flex-col text-light text-lg font-normal"
+                  )}
+                >
                   <span>Укажите возраст каждого из детей</span>
                   <hr className="text-accent/10 my-3" />
                   {Array.from({ length: fields.childCount.value }).map(
@@ -332,19 +343,19 @@ export const FormPage = () => {
                   )}
                 </div>
               </div>
-              <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
+              <div className="order-9 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                 Комментарии и пожелания
               </div>
               <textarea
                 placeholder={
                   "Например, пришлите пожалуйста, цены с полупансионом и только с завтраками.\nНапример, только прямые рейсы, бизнес-класс."
                 }
-                className="form-check-input min-h-[96px] p-4 col-span-2 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
               />
-              <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
+              <div className="order-11 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                 Куда вам отправить предложение
               </div>
-              <div className="mb-20 col-span-2 relative">
+              <div className="order-12 mb-14 md:mb-20 col-span-2 relative">
                 <input
                   placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
                   className="form-check-input pr-40 p-4 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
@@ -363,11 +374,11 @@ export const FormPage = () => {
               </div>
               <button
                 onClick={() => navigate(-1)}
-                className="transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 hover:border-light rounded w-full text-accent  hover:bg-black hover:text-light"
+                className="mt-4 md:mt-0 col-span-2 md:col-span-1 order-[14] md:order-[13] transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 hover:border-light rounded w-full text-accent  hover:bg-black hover:text-light"
               >
                 Назад
               </button>
-              <button className="transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent">
+              <button className="col-span-2 md:col-span-1 order-[13] md:order-[14] transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent">
                 Отправить запрос
               </button>
             </div>

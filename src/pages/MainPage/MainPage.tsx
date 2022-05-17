@@ -45,10 +45,11 @@ export const MainPage = () => {
     >
       <div className="flex flex-col items-center w-full">
         <Header
+          faqClassName="block sm:hidden"
           childrenClassName="flex flex-col justify-around"
           containerClassName="rounded-b-2xl border border-light/20 p-4"
           ref={headerRef}
-          className="min-h-[500px] h-screen max-h-[1000px]"
+          className="min-h-[500px] lg:h-screen lg:max-h-[800px]"
           leftBottomElement={
             <ArrowUp
               className="cursor-pointer rotate-180"
@@ -65,18 +66,18 @@ export const MainPage = () => {
             />
           }
         >
-          <MainText className="mx-auto max-w-[850px] item" />
-          <button className="mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500">
+          <MainText className="mx-auto md:max-w-[850px] item" />
+          <button className="my-6 mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500">
             {$t("pages.main.button")}
           </button>
         </Header>
-        <div className="p-4 pb-32 w-full">
-          <div className="w-full border border-light/20 rounded-2xl px-4 pt-32 pb-4">
-            <div className="text-5xl font-semibold text-light text-center">
+        <div className="p-4 pb-8 lg:pb-32 w-full">
+          <div className="w-full border border-light/20 rounded-2xl px-4 pt-4 md:pt-16 lg:pt-32 pb-4">
+            <div className="text-3xl sm:text-5xl font-semibold text-light text-center">
               {$t("pages.main.chooseCountryText")}
             </div>
             <FenceList
-              className="w-full gap-4 pt-20"
+              className="w-full gap-4 pt-8 md:pt-20"
               items={locationsMock}
               render={(item) => (
                 <LocationCard

@@ -45,29 +45,30 @@ export const PlaceCard: React.FC<
       onClick={() => onClick?.(slug)}
       className={classNames(
         className,
-        "px-7 group w-full h-80 rounded hover:bg-gradient-to-b from-[#115B74]"
+        "px-7 group w-full h-72 md:h-80 rounded hover:bg-gradient-to-b from-[#115B74]"
       )}
     >
       <div
         className={classNames(
           bottomBorder && "border-b border-b-light/20",
           topBorder && "border-t border-t-light/20",
-          "py-7 w-full h-full grid grid-cols-[1fr_1fr] relative"
+          "gap-x-10 lg:gap-x-0 py-7 w-full h-full grid lg:grid-cols-[1fr_1fr] relative"
         )}
       >
-        <div className="col-span-1 rounded overflow-hidden w-[448px]">
+        <div className="relative col-span-1 rounded overflow-hidden h-full w-full lg:w-[448px]">
+          <div className="absolute block lg:hidden z-10 h-full w-full bg-gradient-to-b from-[#180F0B]/80 to-[#180F0B]/30" />
           <img
             src={image}
             className={classNames(
-              "transition-transform duration-500 object-cover h-full w-full group-hover:scale-110"
+              "absolute transition-transform duration-500 object-cover h-full w-full group-hover:scale-110"
             )}
           />
         </div>
-        <div className="col-span-1 max-w-md">
-          <span className="text-light font-medium text-[2rem] leading-none">
+        <div className="left-4 z-10 bottom-10 absolute lg:static col-span-1 max-w-md sm:pr-14 lg:pr-7">
+          <span className="text-light font-medium text-[2rem] leading-none overflow-ellipsis">
             {name[$i18n]}
           </span>
-          <div className="py-6 flex items-center">
+          <div className="pt-3 lg:py-6 flex items-center">
             <span className="text-accent pr-4">
               {$t("pages.location.card.transfer")}
             </span>
@@ -86,7 +87,7 @@ export const PlaceCard: React.FC<
         </div>
         <ArrowIcon
           isHovered={isHovered}
-          className="absolute right-0 top-7"
+          className="z-10 absolute right-4 top-10 lg:bottom-auto lg:top-7"
           pathClassName="group-hover:text-[#826C55] text-light"
         />
       </div>

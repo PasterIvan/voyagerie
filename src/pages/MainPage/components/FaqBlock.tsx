@@ -20,7 +20,7 @@ export const FaqBlock: React.FC<{
       <div className={classNames("flex items-center", elementClassName)}>
         <div
           ref={refText}
-          className="cursor-pointer text-base text-light text-right pr-4"
+          className="hidden xs:block cursor-pointer text-base text-light text-right pr-4"
         >
           <div className={"font-light"}>
             {$t("pages.main.supportText.line1")}

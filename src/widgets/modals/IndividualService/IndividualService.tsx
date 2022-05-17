@@ -27,10 +27,12 @@ export const IndividualService = () => {
     <Modal
       isOpen={isOpen}
       onRequestClose={() => closeModal()}
+      portalClassName="modal-inset"
       style={customStyles}
     >
       <SimpleBar
         style={{
+          inset: 0,
           maxHeight: "100%",
           paddingRight: "10px",
           background: "#79BFD6",
@@ -40,6 +42,7 @@ export const IndividualService = () => {
       >
         <div className="p-11 flex flex-col">
           <OkGirl className="mx-auto" />
+          {/* <AiOutlineClose className="right-0 top-0 z-10" /> */}
           <Lines.HorizontalLine className="mx-auto color-[#555350] max-w-[270px] pt-5 pb-11">
             <Lines.Star />
           </Lines.HorizontalLine>
