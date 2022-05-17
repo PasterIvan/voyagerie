@@ -4,6 +4,7 @@ import { $isOpen, closeModal } from "./models";
 import { ReactComponent as MoneyGirl } from "./config/money-girl.svg";
 import { Lines } from "shared/components/Lines";
 import SimpleBar from "simplebar-react";
+import { AiOutlineClose } from "react-icons/ai";
 
 const customStyles: Modal.Styles = {
   overlay: {
@@ -11,7 +12,6 @@ const customStyles: Modal.Styles = {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   content: {
-    // inset: 0,
     background: "transparent",
     border: "none",
     borderRadius: "0px",
@@ -40,7 +40,8 @@ export const BestPrices = () => {
           border: "1px solid #000000",
         }}
       >
-        <div className="p-11 flex flex-col">
+        <div className="relative p-11 flex flex-col">
+          <AiOutlineClose className="inline hover:text-accent cursor-pointer absolute w-8 h-8 right-6 top-6" />
           <MoneyGirl className="mx-auto" />
           <Lines.HorizontalLine className="mx-auto color-[#555350] max-w-[270px] pt-5 pb-11">
             <Lines.Star />

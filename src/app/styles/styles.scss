@@ -148,9 +148,9 @@
 }
 
 .modal-inset > div > div {
-  inset: 40px;
+  inset: 40px !important;
 
   @media screen and (max-width: 768px) {
-    inset: 0px;
+    inset: 0px !important;
   }
 }
