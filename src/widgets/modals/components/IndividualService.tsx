@@ -1,40 +1,20 @@
 import { useStore } from "effector-react";
-import Modal from "react-modal";
-import { $isOpen, closeModal } from "./models";
-import { ReactComponent as OkGirl } from "./config/ok-girl.svg";
+import { ReactComponent as OkGirl } from "../config/ok-girl.svg";
 import { Lines } from "shared/components/Lines";
 import SimpleBar from "simplebar-react";
-
-const customStyles: Modal.Styles = {
-  overlay: {
-    zIndex: 1000,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  content: {
-    background: "transparent",
-    border: "none",
-    borderRadius: "0px",
-    overflow: "hidden",
-    padding: 0,
-    maxWidth: "560px",
-    margin: "0 auto auto",
-  },
-};
+import { modals } from "../models";
+import { Modal } from "shared/components/ModalLayout";
 
 export const IndividualService = () => {
-  const isOpen = useStore($isOpen);
+  const isOpen = useStore(modals.individualService.$isOpen);
   return (
-    <Modal
+    <Modal.Layout
+      className="max-w-[560px]"
       isOpen={isOpen}
-      onRequestClose={() => closeModal()}
-      portalClassName="modal-inset"
-      style={customStyles}
+      onClose={() => modals.individualService.events.closeModal()}
     >
-      <SimpleBar
+      <Modal.ScrollContainer
         style={{
-          inset: 0,
-          maxHeight: "100%",
-          paddingRight: "10px",
           background: "#79BFD6",
           borderRadius: "10px",
           border: "1px solid #ffffff",
@@ -69,7 +49,7 @@ export const IndividualService = () => {
             Оставить заявку
           </button>
         </div>
-      </SimpleBar>
-    </Modal>
+      </Modal.ScrollContainer>
+    </Modal.Layout>
   );
 };

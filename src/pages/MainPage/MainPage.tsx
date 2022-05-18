@@ -15,7 +15,7 @@ import { useGate } from "effector-react";
 import { mainGate } from "./models";
 import { mainPageModel } from ".";
 
-export const MainPage = () => {
+export default function MainPage() {
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
@@ -45,7 +45,6 @@ export const MainPage = () => {
     >
       <div className="flex flex-col items-center w-full">
         <Header
-          faqClassName="block sm:hidden"
           childrenClassName="flex flex-col justify-around"
           containerClassName="rounded-b-2xl border border-light/20 p-4"
           ref={headerRef}
@@ -94,4 +93,4 @@ export const MainPage = () => {
       </div>
     </div>
   );
-};
+}

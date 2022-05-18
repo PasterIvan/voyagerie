@@ -65,6 +65,6 @@ export const ru: LocaleObject = {
   navbarRoutes: {
     [RoutesPaths.Main]: "Главная",
     [RoutesPaths.Location]: "Cтраны",
-    [RoutesPaths.Help]: "Помощь",
+    [RoutesPaths.Help]: "Контакты",
   },
 };

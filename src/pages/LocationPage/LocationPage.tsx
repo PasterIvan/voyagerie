@@ -18,7 +18,7 @@ import { Breadcrumb } from "shared/components/Breadcrumb";
 import { mainPageModel } from "pages/MainPage";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 
-export const LocationPage = () => {
+export default function LocationPage() {
   useScrollToTop();
 
   // const { id } = useParams();
@@ -168,4 +168,4 @@ export const LocationPage = () => {
       </div>
     </div>
   );
-};
+}

@@ -3,6 +3,7 @@ import { useTranslation } from "entities/language/lib";
 import { mainPageModel } from "pages/MainPage";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
+import { footerModel } from "widgets/Footer";
 
 export const navigateRoutesConfig: {
   key: RoutesPaths;
@@ -18,7 +19,12 @@ export const navigateRoutesConfig: {
       mainPageModel.events.scrollToLocations();
     },
   },
-  { key: RoutesPaths.Help, route: RoutesPaths.Help },
+  {
+    key: RoutesPaths.Help,
+    onClick: () => {
+      footerModel.events.scrollToContacts();
+    },
+  },
 ];
 
 export const Links = ({

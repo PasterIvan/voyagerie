@@ -1,6 +1,9 @@
-import { Locales } from "../constants";
+import { LocalesType } from "./model";
 
-export const ordinalNumbers: Record<Locales, string[]> = {
+export const ordinalNumbers: { [K in LocalesType]: string[] } & Record<
+  string,
+  string[]
+> = {
   ru: [
     "первый",
     "второй",

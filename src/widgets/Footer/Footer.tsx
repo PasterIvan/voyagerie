@@ -1,8 +1,7 @@
 import { ReactComponent as Logo } from "app/assets/images/logo.svg";
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
-import { useLocation, useNavigate } from "react-router-dom";
-import { EMAIL, PHONE, RoutesPaths } from "shared/config/constants";
+import { ADDRESS, EMAIL, PHONE } from "shared/config/constants";
 import Flag from "react-world-flags";
 import { ArrowUp } from "app/assets/images/ArrowUp";
 import { switchLanguagesConfig, switchLanguagesModel } from "entities/language";
@@ -11,29 +10,47 @@ import { PhoneSmall } from "./config/PhoneSmall";
 import { createEvent } from "effector";
 
 import { ReactComponent as Lines } from "./config/lines-footer.svg";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Links } from "widgets/Links/Links";
+import { scrollToContacts, scrollToFooter } from "./models";
 
 const onScrollToTop = createEvent();
 
 export const Footer = () => {
+  const footerRef = useRef<null | HTMLDivElement>(null);
+  const contactsRef = useRef<null | HTMLDivElement>(null);
   const { language } = useTranslation();
 
   useEffect(() => {
-    const handler = onScrollToTop.watch(() => {
+    const scrollHandler = onScrollToTop.watch(() => {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
     });
+    const scrollFooterHandler = scrollToFooter.watch(() => {
+      footerRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+    const scrollToContactsHandler = scrollToContacts.watch(() => {
+      contactsRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    });
 
     return () => {
-      handler();
+      scrollHandler();
+      scrollFooterHandler();
+      scrollToContactsHandler();
     };
   }, []);
 
   return (
-    <div className="mt-auto overflow-hidden relative bg-black grid grid-cols-2 lg:grid-rows-[157px_216px_134px_75px] px-8 items-center">
+    <div
+      ref={footerRef}
+      className="mt-auto overflow-hidden relative bg-black grid grid-cols-2 lg:grid-rows-[157px_216px_134px_75px] px-8 items-center"
+    >
       <Lines className="z-0 absolute left-0 top-0" />
       <div className="justify-between sm:justify-center relative py-2 pb-4 z-10 h-full w-full col-span-2 row-span-1 flex items-center border-b border-b-light/20">
         <ArrowUp
@@ -68,7 +85,10 @@ export const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-r border-light/20">
+      <div
+        ref={contactsRef}
+        className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-r border-light/20"
+      >
         <div className="flex items-center justify-center h-full w-full">
           <PhoneSmall
             className="cursor-pointer"
@@ -83,21 +103,24 @@ export const Footer = () => {
         </div>
       </div>
       <div className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-l border-light/20">
-        <div className="flex items-center justify-center h-full w-full">
+        <div className="flex items-center justify-center h-full w-full break-words overflow-hidden">
           <EmailSmall
-            className="cursor-pointer"
+            className="flex-shrink-0 inline cursor-pointer"
             onClick={() => window.open("mailto:" + EMAIL)}
           />
           <a
             href={"mailto:" + EMAIL}
-            className="uppercase text-2xl font-bold text-light ml-3 hover:text-accent"
+            className="overflow-hidden uppercase text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
           >
             {EMAIL}
           </a>
         </div>
       </div>
-      <div className="py-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
+      <div className="pt-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
         voyagerie © 2022 Все права защищены
+      </div>
+      <div className="py-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
+        {ADDRESS}
       </div>
     </div>
   );

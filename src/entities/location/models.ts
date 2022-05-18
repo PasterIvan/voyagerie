@@ -1,10 +1,10 @@
 import { createEvent, createStore } from "effector";
 import { locationsMock, locationMock } from "shared/api/locationsMock";
-import { Locales } from "shared/config/constants";
+import { LocalesType } from "shared/config/locales/model";
 
 export type PlaceType = {
   image: string;
-  name: Record<Locales, string>;
+  name: Record<string, string>;
   transferType: "air" | "water" | "air-water";
   time: number;
   timeType: "minutes" | "hours" | "days" | "nights" | "weeks";
@@ -13,7 +13,7 @@ export type PlaceType = {
 };
 
 export type LocationType = {
-  name: Record<Locales, string>;
+  name: Record<string, string>;
   image: string;
   hotelsNumber: number;
   airTemperature: number;

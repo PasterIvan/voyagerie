@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ReactModal from "react-modal";
 import App from "./app";
 
 import reportWebVitals from "./app/reportWebVitals";

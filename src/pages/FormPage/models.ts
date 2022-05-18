@@ -1,5 +1,8 @@
 import dayjs, { Dayjs } from "dayjs";
 import { createForm } from "effector-forms";
+import { createModalModel } from "widgets/modals/lib";
+
+export const successModal = createModalModel();
 
 export const formSchema = createForm<{
   suggestTickets: boolean;

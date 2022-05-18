@@ -146,11 +146,3 @@
   background-color: #efcfa5;
   color: #000;
 }
-
-.modal-inset > div > div {
-  inset: 40px !important;
-
-  @media screen and (max-width: 768px) {
-    inset: 0px !important;
-  }
-}

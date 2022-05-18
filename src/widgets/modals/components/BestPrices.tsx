@@ -1,47 +1,26 @@
 import { useStore } from "effector-react";
-import Modal from "react-modal";
-import { $isOpen, closeModal } from "./models";
-import { ReactComponent as MoneyGirl } from "./config/money-girl.svg";
+import { ReactComponent as MoneyGirl } from "../config/money-girl.svg";
 import { Lines } from "shared/components/Lines";
 import SimpleBar from "simplebar-react";
-import { AiOutlineClose } from "react-icons/ai";
-
-const customStyles: Modal.Styles = {
-  overlay: {
-    zIndex: 1000,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  content: {
-    background: "transparent",
-    border: "none",
-    borderRadius: "0px",
-    overflow: "hidden",
-    padding: 0,
-    maxWidth: "560px",
-    margin: "0 auto auto",
-  },
-};
+import { modals } from "../models";
+import { Modal } from "shared/components/ModalLayout";
 
 export const BestPrices = () => {
-  const isOpen = useStore($isOpen);
+  const isOpen = useStore(modals.bestPrices.$isOpen);
   return (
-    <Modal
+    <Modal.Layout
+      className="max-w-[560px]"
       isOpen={isOpen}
-      onRequestClose={() => closeModal()}
-      portalClassName="modal-inset"
-      style={customStyles}
+      onClose={() => modals.bestPrices.events.closeModal()}
     >
-      <SimpleBar
+      <Modal.ScrollContainer
         style={{
-          maxHeight: "100%",
-          paddingRight: "10px",
           background: "#FAE4BC",
           borderRadius: "10px",
           border: "1px solid #000000",
         }}
       >
         <div className="relative p-11 flex flex-col">
-          <AiOutlineClose className="inline hover:text-accent cursor-pointer absolute w-8 h-8 right-6 top-6" />
           <MoneyGirl className="mx-auto" />
           <Lines.HorizontalLine className="mx-auto color-[#555350] max-w-[270px] pt-5 pb-11">
             <Lines.Star />
@@ -71,7 +50,7 @@ export const BestPrices = () => {
             Оставить заявку
           </button>
         </div>
-      </SimpleBar>
-    </Modal>
+      </Modal.ScrollContainer>
+    </Modal.Layout>
   );
 };

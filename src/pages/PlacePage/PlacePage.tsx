@@ -51,11 +51,8 @@ const BREAKPOINTS = { mobile: 0, tablet: 768 };
 const DESKTOP_SLIDES_COUNT = 3.4;
 const MOBILE_SLIDES_COUNT = 2.4;
 
-export const PlacePage = () => {
-  const { breakpoint, maxWidth, minWidth } = useBreakpoint(
-    BREAKPOINTS,
-    "tablet"
-  );
+export default function PlacePage() {
+  const { breakpoint } = useBreakpoint(BREAKPOINTS, "tablet");
   useScrollToTop();
   const navigate = useNavigate();
 
@@ -208,4 +205,4 @@ export const PlacePage = () => {
       </div>
     </div>
   );
-};
+}

@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
 import { ReactNode } from "react";
 import { useHover } from "shared/lib/hooks/useHover";
+import { footerModel } from "widgets/Footer";
 import { ChatIcon } from "../config/images/ChatIcon";
 
 export const FaqBlock: React.FC<{
@@ -19,6 +20,7 @@ export const FaqBlock: React.FC<{
       {children}
       <div className={classNames("flex items-center", elementClassName)}>
         <div
+          onClick={() => footerModel.events.scrollToContacts()}
           ref={refText}
           className="hidden xs:block cursor-pointer text-base text-light text-right pr-4"
         >
@@ -35,6 +37,7 @@ export const FaqBlock: React.FC<{
           </div>
         </div>
         <ChatIcon
+          onClick={() => footerModel.events.scrollToContacts()}
           ref={refCircle}
           isHovered={isHoveredCircle}
           className="cursor-pointer"

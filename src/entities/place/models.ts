@@ -1,13 +1,13 @@
 import { createEvent, createStore } from "effector";
 import { placesMock } from "shared/api/hotelsMock";
-import { Locales } from "shared/config/constants";
+import { LocalesType } from "shared/config/locales/model";
 
 export type ResidenceType = {
   id: string;
-  name: Record<Locales, string>;
+  name: Record<string, string>;
   image: string;
   price: number;
-  description: Record<Locales, string>;
+  description: Record<string, string>;
 };
 
 export type PlaceOverviewType = {
@@ -15,14 +15,14 @@ export type PlaceOverviewType = {
   slug: string;
   locationSlug: string;
   image: string;
-  name: Record<Locales, string>;
-  location: Record<Locales, string>;
-  description: Record<Locales, string>;
+  name: Record<string, string>;
+  location: Record<string, string>;
+  description: Record<string, string>;
   countryCode: string;
   content: {
-    restorans: Record<Locales, string>;
-    health: Record<Locales, string>;
-    child: Record<Locales, string>;
+    restorans: Record<string, string>;
+    health: Record<string, string>;
+    child: Record<string, string>;
   };
   gallery: string[];
 };

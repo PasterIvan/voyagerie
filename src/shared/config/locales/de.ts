@@ -65,6 +65,6 @@ export const de: LocaleObject = {
   navbarRoutes: {
     [RoutesPaths.Main]: "Startseite",
     [RoutesPaths.Location]: "Länder",
-    [RoutesPaths.Help]: "Hilfe",
+    [RoutesPaths.Help]: "Kontakt",
   },
 };

@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
-import { bestPricesModel } from "widgets/modals/BestPrices";
-import { individualServiceModel } from "widgets/modals/IndividualService";
+import { modalModels } from "widgets/modals";
 import { ReactComponent as Info } from "../config/images/info.svg";
 import { ReactComponent as Message } from "../config/images/message.svg";
 
@@ -16,7 +15,7 @@ export const MainText: React.FC<{ className?: string }> = ({ className }) => {
       )}
     >
       <span
-        onClick={() => bestPricesModel.events.openModal()}
+        onClick={() => modalModels.bestPrices.events.openModal()}
         className="font-medium underline thicknes decoration-1 underline-offset-2 decoration-accent text-accent hover:text-light cursor-pointer"
       >
         <span className="relative">
@@ -26,7 +25,7 @@ export const MainText: React.FC<{ className?: string }> = ({ className }) => {
       </span>{" "}
       {$t("pages.main.slogan.line1.text2")}{" "}
       <span
-        onClick={() => individualServiceModel.events.openModal()}
+        onClick={() => modalModels.individualService.events.openModal()}
         className="relative font-medium underline thicknes decoration-1 underline-offset-2 decoration-blue-accent text-blue-accent hover:text-light cursor-pointer"
       >
         {$t("pages.main.slogan.line2.text1")}
