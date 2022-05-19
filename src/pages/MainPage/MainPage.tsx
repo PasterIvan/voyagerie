@@ -68,7 +68,9 @@ export default function MainPage() {
         >
           <MainText className="mx-auto md:max-w-[850px] item" />
           <button
-            onClick={() => questionnaireModel.modal.events.openModal()}
+            onClick={() => {
+              questionnaireModel.modal.events.openModal();
+            }}
             className="my-6 mx-auto uppercase text-xs font-bold w-56 h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
           >
             {$t("pages.main.button")}

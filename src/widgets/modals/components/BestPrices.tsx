@@ -1,11 +1,13 @@
 import { useStore } from "effector-react";
 import { ReactComponent as MoneyGirl } from "../config/money-girl.svg";
 import { Lines } from "shared/components/Lines";
-import SimpleBar from "simplebar-react";
 import { modals } from "../models";
 import { Modal } from "shared/components/ModalLayout";
+import { questionnaireModel } from "feature/questionnaire";
+import { useTranslation } from "entities/language/lib";
 
 export const BestPrices = () => {
+  const { $t } = useTranslation();
   const isOpen = useStore(modals.bestPrices.$isOpen);
   return (
     <Modal.Layout
@@ -46,8 +48,14 @@ export const BestPrices = () => {
             агрегаторов, при этом вы еще получите персональный сервис и
             сопровождение до, в процессе и после отдыха!
           </p>
-          <button className="w-40 h-14 rounded-full bg-black text-light text-sm font-semibold mt-9 hover:text-accent">
-            Оставить заявку
+          <button
+            onClick={() => {
+              modals.bestPrices.events.closeModal();
+              questionnaireModel.modal.events.openModal();
+            }}
+            className="w-40 h-14 rounded-full bg-black text-light text-sm font-semibold mt-9 hover:text-accent"
+          >
+            {$t("pages.main.button")}
           </button>
         </div>
       </Modal.ScrollContainer>
