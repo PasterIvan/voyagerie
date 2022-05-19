@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
-import { withSuspense } from "shared/lib/lib/withSuspence";
+import { withSuspense } from "shared/lib/withSuspence";
 import { PagePreloader } from "shared/components/PagePreloader";
 
 const FormPage = React.lazy(() => import("./FormPage/FormPage"));

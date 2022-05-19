@@ -38,13 +38,11 @@ const foodType = [
 ];
 
 export default function FormPage() {
+  // const { id } = useParams();
   useScrollToTop();
   const isOpen = useStore(successModal.$isOpen);
   const { fields } = useForm(formSchema);
 
-  // useForm(formSchema);
-
-  // const { id } = useParams();
   const place = useStore($place);
   const navigate = useNavigate();
 
@@ -103,12 +101,12 @@ export default function FormPage() {
         onClose={() => successModal.events.closeModal()}
         className="max-w-3xl max-h-96 w-full h-full !m-auto"
       >
-        <div className="w-full h-full bg-black !m-auto border border-accent relative py-8 px-11 flex flex-col">
+        <div className="overflow-auto w-full h-full bg-black !m-auto border border-accent relative py-4 md:py-8 px-6 md:px-11 flex flex-col">
           <AiOutlineClose
             className="z-50 text-accent hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
             onClick={() => successModal.events.closeModal()}
           />
-          <span className="text-[#F2F2F2] text-2xl font-normal">
+          <span className="pb-4 text-[#F2F2F2] text-2xl font-normal">
             Спасибо. Наш менеджер скоро свяжется с вами!
           </span>
           <button
@@ -394,7 +392,7 @@ export default function FormPage() {
                   placeholder={
                     "Например, пришлите пожалуйста, цены с полупансионом и только с завтраками.\nНапример, только прямые рейсы, бизнес-класс."
                   }
-                  className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                  className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg  rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                 />
                 <div className="order-11 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                   Куда вам отправить предложение

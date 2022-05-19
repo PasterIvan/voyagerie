@@ -32,6 +32,7 @@ const Layout = ({
   onClose,
   withClose = true,
   overlayClassName,
+  iconClassName,
   className,
   ...props
 }: {
@@ -39,6 +40,7 @@ const Layout = ({
   onClose: () => void;
   overlayClassName?: string;
   className?: string;
+  iconClassName?: string;
   withClose?: boolean;
 } & Omit<
   ReactModal.Props,
@@ -59,7 +61,10 @@ const Layout = ({
     >
       {withClose && (
         <AiOutlineClose
-          className="z-50 inline lg:hidden hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
+          className={classNames(
+            iconClassName,
+            "z-50 inline lg:hidden hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
+          )}
           onClick={onClose}
         />
       )}

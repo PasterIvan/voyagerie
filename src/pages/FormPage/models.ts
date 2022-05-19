@@ -1,17 +1,18 @@
 import dayjs, { Dayjs } from "dayjs";
 import { createForm } from "effector-forms";
-import { createModalModel } from "widgets/modals/lib";
+import { createModalModel } from "shared/lib/store";
 
 export const successModal = createModalModel();
-
-export const formSchema = createForm<{
+export type FormType = {
   suggestTickets: boolean;
   dateFrom: Dayjs | null;
   dateTo: Dayjs | null;
   adultsCount: number;
   childCount: number;
   foodType: string | null;
-}>({
+};
+
+export const formSchema = createForm<FormType>({
   fields: {
     suggestTickets: {
       init: false,
