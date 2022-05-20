@@ -378,7 +378,7 @@ export default function FormPage() {
                             min={0}
                             defaultValue={0}
                             type="number"
-                            className="form-control text-center text-lg bg-light rounded-md font-normal uppercase placeholder-[#C4C4C4] focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] p-1 h-full w-20 bg-transparent"
+                            className="form-control text-center text-lg rounded-md font-normal uppercase placeholder-[#C4C4C4] focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] p-1 h-full w-20 bg-transparent"
                           />
                         </div>
                       )
@@ -400,7 +400,7 @@ export default function FormPage() {
                 <div className="order-12 mb-14 md:mb-20 col-span-2 relative">
                   <input
                     placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
-                    className="form-check-input pr-40 p-4 form-control text-lg bg-light rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                    className="form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                   />
                   <div className="absolute inset-y-0 right-0 flex">
                     <button className="group border-l border-l-light/10 h-full flex items-center px-3">

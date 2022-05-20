@@ -1,5 +1,5 @@
 import { LocaleObject, LocalesType } from "./model";
-import { Locales } from "../constants";
+import { activeLocales } from "../constants";
 import { de } from "./de";
 import { en } from "./en";
 import { fr } from "./fr";
@@ -12,7 +12,7 @@ const config = {
   ru,
 };
 
-export const locales: Record<LocalesType, LocaleObject> = Locales.reduce(
+export const locales: Record<LocalesType, LocaleObject> = activeLocales.reduce(
   (obj, key) => {
     obj[key] = config[key];
 

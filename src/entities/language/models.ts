@@ -10,11 +10,18 @@ export type LanguageType = {
 };
 
 const switchLanguage = createEvent<LanguageType>();
+const findLanguage = createEvent<string | undefined>();
 
 export const $currentLanguage = createStore<LanguageType>(
   config.defaultLanguage
-).on(switchLanguage, (_, language) => language);
+)
+  .on(switchLanguage, (_, language) => language)
+  .on(findLanguage, (_, targetKey) => {
+    const language = config.languages.find((l) => l.key === targetKey);
+    return language || config.defaultLanguage;
+  });
 
 export const events = {
   switchLanguage,
+  findLanguage,
 };

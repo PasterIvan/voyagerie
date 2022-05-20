@@ -184,8 +184,8 @@ export const Questionnaire = () => {
               placeholder={currentFields.placeholder}
               id="input"
               className={classNames(
-                isShownError && "border-b-[red]",
-                "min-h-[50px] px-0 form-check-input bg-transparent border-x-0 border-t-0 focus:ring-0 border-b-accent/50 placeholder-light/25 hover:placeholder-light/50 focus:placeholder-light/50 focus:border-accent border-b text-[#C4C4C4]"
+                isShownError ? "border-b-[red]" : "border-b-accent/50",
+                "min-h-[50px] px-0 form-check-input bg-transparent border-x-0 border-t-0 focus:ring-0  placeholder-light/25 hover:placeholder-light/50 focus:placeholder-light/50 focus:border-accent border-b text-[#C4C4C4]"
               )}
             />
             <span

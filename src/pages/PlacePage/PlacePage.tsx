@@ -22,6 +22,7 @@ import { mainPageModel } from "pages/MainPage";
 import { useNavigate } from "react-router-dom";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import useBreakpoint from "use-breakpoint";
+import { BREAKPOINTS } from "shared/config/styles";
 
 const fieldsResource: {
   localePath: Paths<LocaleObject>;
@@ -47,7 +48,6 @@ const fieldsResource: {
   },
 ];
 
-const BREAKPOINTS = { mobile: 0, tablet: 768 };
 const DESKTOP_SLIDES_COUNT = 3.4;
 const MOBILE_SLIDES_COUNT = 2.4;
 

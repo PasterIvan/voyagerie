@@ -6,6 +6,7 @@ import { PHONE, RoutesPaths } from "shared/config/constants";
 import Flag from "react-world-flags";
 import { Links } from "widgets/Links/Links";
 import { Lines } from "shared/components/Lines";
+import { ChooseLanguage } from "widgets/ChooseLanguage/ChooseLanguage";
 
 export const Navbar = ({ className }: { className?: string }) => {
   const { pathname } = useLocation();
@@ -34,15 +35,11 @@ export const Navbar = ({ className }: { className?: string }) => {
       <Lines.Line className="lg:hidden order-4 text-light/20 col-span-3 -mx-4 my-4" />
       <div className="block lg:hidden order-2" />
       <div className="ml-auto order-3 flex col-span-1">
-        <div className="cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 flex items-center p-3">
-          <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">
-            <Flag code={"RU"} className="h-[18px] w-[18px]" />
-          </div>
-          <span className="hidden sm:inline text-sm font-bold text-light mx-3">Рус</span>
-        </div>
+        <ChooseLanguage />
+
         <div
           onClick={() => window.open("tel:" + PHONE)}
-          className="hidden lg:flex cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 items-center p-3 ml-4"
+          className="flex-shrink-0 hidden lg:flex cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 items-center p-3 ml-4"
         >
           <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">
             <Telephone />

@@ -1,5 +1,5 @@
 import { PlaceType } from "entities/location/models";
-import { Locales, RoutesPaths } from "../constants";
+import { activeLocales, RoutesPaths } from "../constants";
 
 export type LocaleObject = {
   pages: {
@@ -54,4 +54,4 @@ export type LocaleObject = {
   navbarRoutes: { [Key in RoutesPaths]?: string };
 };
 
-export type LocalesType = typeof Locales[number];
+export type LocalesType = typeof activeLocales[number];
