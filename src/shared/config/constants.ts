@@ -7,7 +7,7 @@ export const ADDRESS = 'ООО "Вояжери", Москва, ул. Малом�
 export const activeLocales = ["ru", "en"] as const;
 export const defaultLocale: typeof activeLocales[number] = activeLocales[1];
 
-export const locales: LanguageType[] = [
+export const localesConfig: LanguageType[] = [
   { label: "English", short: "Eng", code: "US", key: "en" },
   { label: "Deutsche", short: "Deu", code: "DE", key: "de" },
   { label: "Русский", short: "Рус", code: "RU", key: "ru" },
