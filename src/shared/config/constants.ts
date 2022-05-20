@@ -5,7 +5,7 @@ export const PHONE = "+7 495 555 55 55";
 export const ADDRESS = 'ООО "Вояжери", Москва, ул. Маломосковская, 14';
 
 export const activeLocales = ["ru", "en"] as const;
-export const defaultLocale: typeof activeLocales[number] = "ru";
+export const defaultLocale: typeof activeLocales[number] = activeLocales[1];
 
 export const locales: LanguageType[] = [
   { label: "English", short: "Eng", code: "US", key: "en" },

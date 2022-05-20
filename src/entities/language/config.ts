@@ -2,6 +2,10 @@ import { defaultLocale, activeLocales } from "shared/config/constants";
 import { LocalesType } from "shared/config/locales/model";
 import { LanguageType } from "./models";
 
+const userLocale = navigator.language.split(
+  "-"
+)[0] as typeof activeLocales[number];
+
 const LANGUAGES: LanguageType[] = (
   [
     { label: "English", short: "Eng", code: "US", key: "en" },
@@ -14,7 +18,9 @@ const LANGUAGES: LanguageType[] = (
 ) as LanguageType[];
 
 const DEFAULT_LANGUAGE: LanguageType =
-  LANGUAGES.find((language) => language.key === defaultLocale) || LANGUAGES[0];
+  LANGUAGES.find((language) => language.key === userLocale) ||
+  LANGUAGES.find((language) => language.key === defaultLocale) ||
+  LANGUAGES[0];
 
 const options = {
   languages: LANGUAGES,
