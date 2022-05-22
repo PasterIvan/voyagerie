@@ -4,7 +4,7 @@ import { MainText } from "./components/MainText";
 import { FenceList } from "shared/components/FenceList";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "entities/language/lib";
-import { LocationCard } from "entities/location/ui";
+import { LocationCard, LocationCardLoader } from "entities/location/ui";
 import { locationsMock } from "shared/api/locationsMock";
 
 import { ArrowUp } from "../../app/assets/images/ArrowUp";
@@ -17,6 +17,8 @@ import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
 
 export default function MainPage() {
+  const isLoading = false;
+
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
@@ -56,7 +58,7 @@ export default function MainPage() {
               onClick={() => mainPageModel.events.scrollToLocations()}
             />
           }
-          absoluteElementsElement={
+          absoluteElement={
             <video
               autoPlay
               muted
@@ -81,19 +83,27 @@ export default function MainPage() {
             <div className="text-3xl sm:text-5xl font-semibold text-light text-center">
               {$t("pages.main.chooseCountryText")}
             </div>
-            <FenceList
-              className="w-full gap-4 pt-8 md:pt-20"
-              items={locationsMock}
-              render={(item) => (
-                <LocationCard
-                  {...item}
-                  key={item.slug}
-                  onClick={() =>
-                    navigate(`${RoutesPaths.Location}/${item.slug}`)
-                  }
-                />
-              )}
-            />
+            {isLoading ? (
+              <FenceList
+                className="w-full gap-4 pt-8 md:pt-20"
+                items={Array.from({ length: 5 })}
+                render={(item, i) => <LocationCardLoader {...item} key={i} />}
+              />
+            ) : (
+              <FenceList
+                className="w-full gap-4 pt-8 md:pt-20"
+                items={locationsMock}
+                render={(item) => (
+                  <LocationCard
+                    {...item}
+                    key={item.slug}
+                    onClick={() =>
+                      navigate(`${RoutesPaths.Location}/${item.slug}`)
+                    }
+                  />
+                )}
+              />
+            )}
           </div>
         </div>
       </div>

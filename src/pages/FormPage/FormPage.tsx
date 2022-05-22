@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { useStore } from "effector-react";
+import { useGate, useStore } from "effector-react";
 import { useTranslation } from "entities/language/lib";
 // import { useParams } from "react-router-dom";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { Breadcrumb } from "shared/components/Breadcrumb";
@@ -19,29 +19,31 @@ import { ReactComponent as PlaneDown } from "./config/plane-down.svg";
 import { ReactComponent as Calendar } from "./config/calendar.svg";
 import dayjs from "dayjs";
 import { useForm } from "effector-forms";
-import { formSchema, successModal } from "./models";
+import { formSchema, FormType, gate, successModal } from "./models";
 import { Counter } from "shared/components/Counter";
 import { ordinalNumbers } from "shared/config/locales/constants";
 import { useNavigate } from "react-router-dom";
-import { FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
-import { CgPhone } from "react-icons/cg";
-import { modals } from "widgets/modals/models";
 import { Modal } from "shared/components/ModalLayout";
 // import { createForm, useForm } from "effector-forms";
 import { AiOutlineClose } from "react-icons/ai";
-
-const foodType = [
-  { label: "AO", description: "Только проживание" },
-  { label: "BB", description: "Только завтрак" },
-  { label: "HB", description: "Полупансион" },
-  { label: "FB", description: "Полный пансион" },
-];
+import { buttons, foodType } from "./config";
 
 export default function FormPage() {
   // const { id } = useParams();
+  const isLoading = false;
+
   useScrollToTop();
+
+  const formContainerRef = useRef<HTMLDivElement | null>(null);
+  const formRef = useRef<HTMLDivElement | null>(null);
+  const previousChoosedResidenceRef = useRef<ResidenceType | null>(null);
+
+  useGate(gate, {
+    scrollToForm: () => formRef.current?.scrollIntoView({ behavior: "smooth" }),
+  });
+
   const isOpen = useStore(successModal.$isOpen);
-  const { fields } = useForm(formSchema);
+  const { fields, submit } = useForm(formSchema);
 
   const place = useStore($place);
   const navigate = useNavigate();
@@ -63,6 +65,53 @@ export default function FormPage() {
   //   };
   // }, []);
 
+  const buttonSuggestions = useMemo(() => {
+    return Object.keys(buttons).reduce<
+      Record<keyof FormType["buttons"], boolean>
+    >((acc, key) => {
+      return {
+        ...acc,
+        [key]:
+          Boolean(fields.contacts?.value) &&
+          buttons[key as keyof FormType["buttons"]].mask.test(
+            fields.contacts!.value!
+          ),
+      };
+    }, {} as Record<keyof FormType["buttons"], boolean>);
+  }, [fields.contacts?.value]);
+
+  const buttonElements = useMemo(() => {
+    return Object.values(buttons).map(
+      ({ hoverClassName, activeClassName, icon: Icon, field }, i, arr) => (
+        <button
+          key={field}
+          onClick={() => {
+            const value = fields.buttons.value[field];
+
+            fields.buttons.onChange({
+              ...fields.buttons.value,
+              [field]: !value,
+            });
+          }}
+          className={classNames(
+            fields.buttons.value[field] && "bg-brown-dark/20",
+            "group border-x hover:border border-x-light/10 hover:border-accent h-full flex items-center px-3",
+            i === arr.length - 1 && "rounded-r-md"
+          )}
+        >
+          <Icon
+            className={classNames(
+              hoverClassName,
+              (fields.buttons.value[field] || buttonSuggestions[field]) &&
+                activeClassName,
+              "cursor-pointer text-accent/25 w-6 h-6"
+            )}
+          />
+        </button>
+      )
+    );
+  }, [fields.buttons.value, buttonSuggestions]);
+
   useEffect(() => {
     if (dayjs(fields.dateFrom.value).isAfter(dayjs(fields.dateTo.value))) {
       fields.dateTo.onChange(fields.dateFrom.value);
@@ -81,15 +130,52 @@ export default function FormPage() {
     }
   }, [selectedResidence, place?.residences]);
 
-  const formRef = useRef<HTMLDivElement | null>(null);
-  const previousChoosedResidenceRef = useRef<ResidenceType | null>(null);
   useEffect(() => {
     if (!previousChoosedResidenceRef.current && choosedResidence) {
-      formRef.current?.scrollIntoView({ behavior: "smooth" });
+      formContainerRef.current?.scrollIntoView({ behavior: "smooth" });
     }
 
     previousChoosedResidenceRef.current = choosedResidence;
   }, [choosedResidence]);
+
+  const inputs = useMemo(
+    () =>
+      Array.from({ length: fields.childCount.value }).map((_, i) => (
+        <div
+          key={`${i}-${fields.childCount.value}`}
+          className={classNames(
+            i && "mt-2",
+            "h-8 flex justify-between items-center"
+          )}
+        >
+          <span className="text-xs font-normal ">
+            <span className="capitalize">{ordinalNumbers[$i18n][i]}</span>{" "}
+            ребенок
+          </span>
+          <input
+            placeholder="0"
+            value={fields.ages.value[i]?.toString() || ""}
+            onChange={(e) => {
+              const input = e.target.value;
+
+              if (input && !/^[1-9]\d?$/.test(input)) {
+                return;
+              }
+
+              const int = parseInt(input);
+
+              const values = fields.ages.value;
+              values[i] = int;
+
+              fields.ages.onChange([...values]);
+            }}
+            type="number"
+            className="form-control text-center text-lg rounded-md font-normal uppercase placeholder-[#C4C4C4] focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] p-1 h-full w-20 bg-transparent"
+          />
+        </div>
+      )),
+    [fields.childCount.value, fields.ages.value]
+  );
 
   if (!place) return null;
 
@@ -147,7 +233,7 @@ export default function FormPage() {
               />
             }
             childrenClassName="flex flex-col justify-around"
-            absoluteElementsElement={
+            absoluteElement={
               <img
                 className="max-w-none moving-block object-cover"
                 src={place.image}
@@ -173,7 +259,7 @@ export default function FormPage() {
               choosedResidence={choosedResidence}
               residences={place.residences}
             />
-            <div ref={formRef} />
+            <div ref={formContainerRef} />
             <div
               className={classNames(
                 Boolean(choosedResidence)
@@ -216,46 +302,62 @@ export default function FormPage() {
               <Lines.HorizontalLine className="md:pt-10 text-accent-dark/50">
                 <Lines.Star />
               </Lines.HorizontalLine>
-              <div className="grid grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto_auto] gap-x-6">
+              <div
+                ref={formRef}
+                className="grid grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto_auto] gap-x-6"
+              >
                 <div className="order-1 pb-3 text-accent font-medium text-lg col-span-2">
                   Даты путешествия
                 </div>
-                <DatePicker
-                  wrapperClassName="order-2 col-span-2 md:col-span-1"
-                  selected={fields.dateFrom.value?.toDate()}
-                  customInput={
-                    <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
-                      <PlaneDown />
-                      <span className="text-sm text-accent pl-2">Заезд</span>
-                      <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
-                        {dayjs(fields.dateFrom.value).format("DD MMMM YYYY")}
-                      </span>
-                      <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
-                    </button>
-                  }
-                  onChange={(value) => fields.dateFrom.onChange(dayjs(value))}
-                  portalId="root-portal-1"
-                />
-                <DatePicker
-                  wrapperClassName="order-3 col-span-2 md:col-span-1"
-                  selected={fields.dateTo.value?.toDate()}
-                  customInput={
-                    <button className="mt-2 md:mt-0 group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
-                      <PlaneUp />
+                <div className="order-3 col-span-2 md:col-span-1">
+                  <DatePicker
+                    selected={fields.dateFrom.value?.toDate()}
+                    customInput={
+                      <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
+                        <PlaneDown />
+                        <span className="text-sm text-accent pl-2">Заезд</span>
+                        <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
+                          {dayjs(fields.dateFrom.value).format("DD MMMM YYYY")}
+                        </span>
+                        <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
+                      </button>
+                    }
+                    onChange={(value) => fields.dateFrom.onChange(dayjs(value))}
+                    portalId="root-portal-1"
+                  />
+                  {fields.dateFrom.hasError() && (
+                    <span className="mt-2 text-[#e36e0e] text-xs">
+                      {fields.dateFrom.errorText()}
+                    </span>
+                  )}
+                </div>
+                <div className="order-3 col-span-2 md:col-span-1">
+                  <DatePicker
+                    selected={fields.dateTo.value?.toDate()}
+                    customInput={
+                      <button className="mt-2 md:mt-0 group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
+                        <PlaneUp />
 
-                      <span className="text-sm text-accent pl-2">Отъезд</span>
-                      <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
-                        {dayjs(fields.dateTo.value).format("DD MMMM YYYY")}
-                      </span>
-                      <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
-                    </button>
-                  }
-                  onChange={(value) => fields.dateTo.onChange(dayjs(value))}
-                  portalId="root-portal-2"
-                />
+                        <span className="text-sm text-accent pl-2">Отъезд</span>
+                        <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
+                          {dayjs(fields.dateTo.value).format("DD MMMM YYYY")}
+                        </span>
+                        <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
+                      </button>
+                    }
+                    onChange={(value) => fields.dateTo.onChange(dayjs(value))}
+                    portalId="root-portal-2"
+                  />
+                  {fields.dateTo.hasError() && (
+                    <span className="mt-2 text-[#e36e0e] text-xs">
+                      {fields.dateTo.errorText()}
+                    </span>
+                  )}
+                </div>
+
                 <div className="order-4 mt-6 md:mt-4 cursor-pointer col-span-2 flex items-center">
                   <input
-                    onClick={() =>
+                    onChange={() =>
                       fields.suggestTickets.onChange(
                         !fields.suggestTickets.value
                       )
@@ -278,24 +380,38 @@ export default function FormPage() {
                 <div className="order-5 pt-6 md:pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                   Количество гостей
                 </div>
-                <div className="order-6 col-span-2 md:col-span-1 px-5 bg-brown-background/10 flex items-center h-12">
-                  <span className="text-sm text-light">Взрослые</span>
-                  <Counter
-                    unsigned
-                    onChange={fields.adultsCount.onChange}
-                    leftButtonClassName="ml-auto"
-                    count={fields.adultsCount.value}
-                  />
+                <div className="order-6 col-span-2 md:col-span-1">
+                  <div className="px-5 bg-brown-background/10 flex items-center h-12">
+                    <span className="text-sm text-light">Взрослые</span>
+                    <Counter
+                      unsigned
+                      onChange={fields.adultsCount.onChange}
+                      leftButtonClassName="ml-auto"
+                      count={fields.adultsCount.value}
+                    />
+                  </div>
+                  {fields.adultsCount.hasError() && (
+                    <span className="text-[#e36e0e] text-xs">
+                      {fields.adultsCount.errorText()}
+                    </span>
+                  )}
                 </div>
-                <div className="mt-2 md:mt-0 order-7 col-span-2 md:col-span-1 px-5 bg-brown-background/10 flex items-center h-12">
-                  <span className="text-sm text-light">Дети</span>
-                  <Counter
-                    unsigned
-                    onChange={fields.childCount.onChange}
-                    leftButtonClassName="ml-auto"
-                    count={fields.childCount.value}
-                    max={10}
-                  />
+                <div className="order-7 col-span-2 md:col-span-1">
+                  <div className="mt-2 md:mt-0 px-5 bg-brown-background/10 flex items-center h-12">
+                    <span className="text-sm text-light">Дети</span>
+                    <Counter
+                      unsigned
+                      onChange={fields.childCount.onChange}
+                      leftButtonClassName="ml-auto"
+                      count={fields.childCount.value}
+                      max={10}
+                    />
+                  </div>
+                  {fields.childCount.hasError() && (
+                    <span className="mt-2 text-[#e36e0e] text-xs">
+                      {fields.childCount.errorText()}
+                    </span>
+                  )}
                 </div>
                 <div className="col-span-2 md:col-span-1 order-9 md:order-8 flex flex-col">
                   <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
@@ -337,6 +453,11 @@ export default function FormPage() {
                       </span>
                     </div>
                   ))}
+                  {fields.foodType.hasError() && (
+                    <span className="mt-2 text-[#e36e0e] text-xs">
+                      {fields.foodType.errorText()}
+                    </span>
+                  )}
                 </div>
                 <div
                   className={classNames(
@@ -358,30 +479,11 @@ export default function FormPage() {
                   >
                     <span>Укажите возраст каждого из детей</span>
                     <hr className="text-accent/10 my-3" />
-                    {Array.from({ length: fields.childCount.value }).map(
-                      (_, i) => (
-                        <div
-                          key={i}
-                          className={classNames(
-                            i && "mt-2",
-                            "h-8 flex justify-between items-center"
-                          )}
-                        >
-                          <span className="text-xs font-normal ">
-                            <span className="capitalize">
-                              {ordinalNumbers[$i18n][i]}
-                            </span>{" "}
-                            ребенок
-                          </span>
-                          <input
-                            max={18}
-                            min={0}
-                            defaultValue={0}
-                            type="number"
-                            className="form-control text-center text-lg rounded-md font-normal uppercase placeholder-[#C4C4C4] focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] p-1 h-full w-20 bg-transparent"
-                          />
-                        </div>
-                      )
+                    {inputs}
+                    {fields.ages.hasError() && (
+                      <span className="text-[#e36e0e] text-xs">
+                        {fields.ages.errorText()}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -389,29 +491,25 @@ export default function FormPage() {
                   Комментарии и пожелания
                 </div>
                 <textarea
+                  value={fields.comment!.value}
+                  onChange={(e) => fields.comment!.onChange(e.target.value)}
                   placeholder={
                     "Например, пришлите пожалуйста, цены с полупансионом и только с завтраками.\nНапример, только прямые рейсы, бизнес-класс."
                   }
-                  className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg  rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                  className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                 />
                 <div className="order-11 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                   Куда вам отправить предложение
                 </div>
                 <div className="order-12 mb-14 md:mb-20 col-span-2 relative">
                   <input
+                    value={fields.contacts!.value}
+                    onChange={(e) => fields.contacts!.onChange(e.target.value)}
                     placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
-                    className="form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent/50 focus:border-accent/50 border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                    className="focus:outline-none form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                   />
                   <div className="absolute inset-y-0 right-0 flex">
-                    <button className="group border-l border-l-light/10 h-full flex items-center px-3">
-                      <FaWhatsapp className="cursor-pointer group-hover:text-[#25D366] group-focus:text-[#25D366] text-accent/25 w-6 h-6" />
-                    </button>
-                    <button className="group border-l border-l-light/10 h-full flex items-center px-3">
-                      <FaTelegramPlane className="cursor-pointer group-hover:text-[#229ED9] group-focus:text-[#229ED9] text-accent/25 w-6 h-6" />
-                    </button>
-                    <button className="group border-l border-l-light/10 h-full flex items-center px-3">
-                      <CgPhone className="cursor-pointer group-focus:text-gray-400 group-hover:text-gray-400 text-accent/25 w-6 h-6" />
-                    </button>
+                    {buttonElements}
                   </div>
                 </div>
                 <button
@@ -421,7 +519,7 @@ export default function FormPage() {
                   Назад
                 </button>
                 <button
-                  onClick={() => successModal.events.openModal()}
+                  onClick={() => submit()}
                   className="col-span-2 md:col-span-1 order-[13] md:order-[14] transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent"
                 >
                   Отправить запрос

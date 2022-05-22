@@ -25,6 +25,7 @@ export const LocationCard: React.FC<
 }) => {
   const { $i18n, $t } = useTranslation();
   const [ref, isHovered] = useHover();
+
   return (
     <div
       ref={ref}
@@ -62,3 +63,16 @@ export const LocationCard: React.FC<
     </div>
   );
 };
+
+export const LocationCardLoader: React.FC<{ className?: string }> = ({
+  className,
+}) => (
+  <div
+    className={classNames(
+      className,
+      "w-full h-[15rem] sm:h-[25rem] border border-light rounded-lg flex justify-center items-center"
+    )}
+  >
+    <div className="lds-hourglass" />
+  </div>
+);

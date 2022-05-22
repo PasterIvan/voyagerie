@@ -132,7 +132,7 @@ export const Questionnaire = () => {
   return (
     <Modal.Layout
       withClose={false}
-      className="max-w-3xl md:max-h-[560px] w-full h-full !m-auto"
+      className="max-w-3xl md:max-h-[560px] w-full h-full !m-auto !inset-0 lg:!inset-10"
       isOpen={isOpen}
       onClose={() => modal.events.closeModal()}
     >
@@ -160,7 +160,7 @@ export const Questionnaire = () => {
           <div className="text-[#F2F2F2] text-2xl mt-auto md:mt-0">
             {currentFields.question}
           </div>
-          <div className="w-full flex flex-col pt-3 pb-32">
+          <div className="w-full flex flex-col pt-3 pb-12 mb-auto md:mb-0">
             <label
               className={classNames(
                 !isFocused ? "text-[#B2B2B2]" : "text-light",

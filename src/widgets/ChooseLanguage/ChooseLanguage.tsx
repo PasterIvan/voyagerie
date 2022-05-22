@@ -23,7 +23,7 @@ const IconOption = (props: OptionProps<OptionType>) => {
           code={props.data.code}
           className={classNames(
             props.isSelected && "border-[0.1px] border-black",
-            "h-[18px] w-[18px] inline"
+            "h-auto w-[18px] inline"
           )}
         />
         <span className={classNames("overflow-hidden w-0 md:w-auto mx-auto")}>
@@ -48,7 +48,7 @@ const IconControl = ({ children, ...props }: ControlProps<OptionType>) => {
     <Control {...props}>
       <div className="flex bg-accent w-8 h-8 justify-center items-center rounded-full">
         <Flag
-          className="border-[0.1px] border-black h-[18px] w-[18px]"
+          className="border-[0.5px] md:border-[1px] border-black w-[18px] h-auto"
           code={value.code}
         />
       </div>{" "}

@@ -3,7 +3,6 @@ import { ReactComponent as Telephone } from "app/assets/images/telephone.svg";
 import classNames from "classnames";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PHONE, RoutesPaths } from "shared/config/constants";
-import Flag from "react-world-flags";
 import { Links } from "widgets/Links/Links";
 import { Lines } from "shared/components/Lines";
 import { ChooseLanguage } from "widgets/ChooseLanguage/ChooseLanguage";

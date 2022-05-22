@@ -6,14 +6,6 @@ export const ru: LocaleObject = {
     main: {
       name: "Главная",
       button: "Оставить заявку",
-      slogan: {
-        line1: { text1: "Лучшие цены", text2: "и полное" },
-        line2: {
-          text1: "сопровождение",
-          text2: "по люксовым",
-        },
-        line3: "направлениям",
-      },
       chooseCountryText: "Выберите вашу страну",
       supportText: {
         line1: "Сомневаетесь?",

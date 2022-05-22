@@ -9,7 +9,7 @@ import { ReactComponent as Lines } from "./config/lines.svg";
 type HeaderProps = {
   children?: ReactNode;
   leftBottomElement?: ReactNode;
-  absoluteElementsElement?: ReactNode;
+  absoluteElement?: ReactNode;
   className?: string;
   containerClassName?: string;
   childrenClassName?: string;
@@ -25,7 +25,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
       faqElementClassName,
       children,
       leftBottomElement,
-      absoluteElementsElement,
+      absoluteElement,
       className,
       containerClassName,
       childrenClassName,
@@ -46,9 +46,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         )}
         <Lines className="z-10 absolute right-0 top-[15%]" />
         <Navbar className="z-10" />
-        <div className="absolute z-0 -m-4 w-full h-full">
-          {absoluteElementsElement}
-        </div>
+        <div className="absolute z-0 -m-4 w-full h-full">{absoluteElement}</div>
 
         <div
           className={classNames(

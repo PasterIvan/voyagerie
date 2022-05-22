@@ -79,7 +79,7 @@ export const Footer = () => {
                 language.key === config.key && "underline"
               )}
             >
-              <Flag className="inline h-4 w-4 pb-1" code={config.code} />{" "}
+              <Flag className="inline h-auto w-4 pb-1" code={config.code} />{" "}
               {config.label}
             </div>
           ))}

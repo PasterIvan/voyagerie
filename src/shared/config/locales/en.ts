@@ -6,14 +6,6 @@ export const en: LocaleObject = {
     main: {
       name: "Main",
       button: "Leave a request",
-      slogan: {
-        line1: { text1: "Best prices", text2: "and full" },
-        line2: {
-          text1: "support",
-          text2: "by luxury",
-        },
-        line3: "by luxury routes.",
-      },
       chooseCountryText: "Choose your country",
       supportText: {
         line1: "Are you confused?",
