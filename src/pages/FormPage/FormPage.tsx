@@ -293,7 +293,7 @@ export default function FormPage() {
                       "mt-auto bg-accent text-black rounded-md px-2 py-1 leading-none text-sm font-medium"
                     )}
                   >
-                    от{" "}
+                    {$t("moneyFrom")}{" "}
                     {choosedResidence?.price.toLocaleString("en-US", {
                       style: "currency",
                       currency: "USD",

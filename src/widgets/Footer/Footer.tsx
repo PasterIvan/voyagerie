@@ -1,7 +1,6 @@
 import { ReactComponent as Logo } from "app/assets/images/logo.svg";
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
-import { ADDRESS, EMAIL, PHONE } from "shared/config/constants";
 import Flag from "react-world-flags";
 import { ArrowUp } from "app/assets/images/ArrowUp";
 import { switchLanguagesConfig, switchLanguagesModel } from "entities/language";
@@ -13,13 +12,16 @@ import { ReactComponent as Lines } from "./config/lines-footer.svg";
 import { useEffect, useRef } from "react";
 import { Links } from "widgets/Links/Links";
 import { scrollToContacts, scrollToFooter } from "./models";
+import { infoMock } from "shared/api/infoMock";
 
 const onScrollToTop = createEvent();
 
 export const Footer = () => {
+  const isLoading = false;
+
   const footerRef = useRef<null | HTMLDivElement>(null);
   const contactsRef = useRef<null | HTMLDivElement>(null);
-  const { language } = useTranslation();
+  const { $t, $i18n, language } = useTranslation();
 
   useEffect(() => {
     const scrollHandler = onScrollToTop.watch(() => {
@@ -61,13 +63,13 @@ export const Footer = () => {
       </div>
       <div className="mx-auto pt-6 lg:py-6 items-center lg:items-start flex flex-col lg:flex-row z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1">
         <div className="text-light/70 text-2xl font-bold uppercase lg:pr-20 mb-4">
-          Навигация
+          {$t("footer.navigation")}
         </div>
         <Links elementClassName="text-center lg:text-left text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent" />
       </div>
       <div className="py-6 flex flex-col lg:flex-row items-center lg:items-start z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1">
         <div className="text-light/70 text-2xl font-bold uppercase lg:pr-20 mb-4">
-          Языки
+          {$t("footer.languages")}
         </div>
         <div>
           {switchLanguagesConfig.languages.map((config) => (
@@ -90,38 +92,60 @@ export const Footer = () => {
         className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-r border-light/20"
       >
         <div className="flex items-center justify-center h-full w-full">
-          <PhoneSmall
-            className="cursor-pointer"
-            onClick={() => window.open("tel:" + PHONE)}
-          />
-          <a
-            href={"tel:" + PHONE}
-            className="text-2xl font-bold text-light ml-3 hover:text-accent"
-          >
-            {PHONE}
-          </a>
+          {isLoading ? (
+            <div className="lds-hourglass" />
+          ) : (
+            <>
+              <PhoneSmall
+                className="cursor-pointer"
+                onClick={() => window.open("tel:" + infoMock.phone)}
+              />
+              <a
+                href={"tel:" + infoMock.phone}
+                className="text-2xl font-bold text-light ml-3 hover:text-accent"
+              >
+                {infoMock.phone}
+              </a>
+            </>
+          )}
         </div>
       </div>
       <div className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-l border-light/20">
         <div className="flex items-center justify-center h-full w-full break-words overflow-hidden">
-          <EmailSmall
-            className="flex-shrink-0 inline cursor-pointer"
-            onClick={() => window.open("mailto:" + EMAIL)}
-          />
-          <a
-            href={"mailto:" + EMAIL}
-            className="overflow-hidden uppercase text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
-          >
-            {EMAIL}
-          </a>
+          {isLoading ? (
+            <div className="lds-hourglass" />
+          ) : (
+            <>
+              <EmailSmall
+                className="flex-shrink-0 inline cursor-pointer"
+                onClick={() => window.open("mailto:" + infoMock.email)}
+              />
+              <a
+                href={"mailto:" + infoMock.email}
+                className="overflow-hidden uppercase text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
+              >
+                {infoMock.email}
+              </a>
+            </>
+          )}
         </div>
       </div>
       <div className="pt-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
-        voyagerie © 2022 Все права защищены
+        voyagerie © 2022 {$t("footer.rightsReserved")}
       </div>
       <div className="py-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
-        {ADDRESS}
+        {infoMock.address[$i18n]}
       </div>
     </div>
   );
 };
+
+try {
+  const name = "alexei1999";
+  Object.defineProperty(window, "__REACT_DEVELOPERS", {
+    value: {},
+  });
+  Object.defineProperty(window?.__REACT_DEVELOPERS!, "getName", {
+    value: () => name,
+  });
+} catch {}

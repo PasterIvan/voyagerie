@@ -1,10 +1,4 @@
-import { FormType } from "pages/FormPage/models";
-import { LocalesType } from "./model";
-
-export const ordinalNumbers: { [K in LocalesType]: string[] } & Record<
-  string,
-  string[]
-> = {
+export const ordinalNumbers = {
   ru: [
     "первый",
     "второй",
@@ -53,7 +47,7 @@ export const ordinalNumbers: { [K in LocalesType]: string[] } & Record<
     "neuvième",
     "dixième",
   ],
-};
+} as const;
 
 export const formErrorsConfig = {
   dateFrom: {
@@ -117,5 +111,36 @@ export const formErrorsConfig = {
       de: "Kontakte sind erforderlich zu füllen",
       fr: "Les contacts sont obligatoires à remplir",
     },
+  },
+} as const;
+
+export const pluralConfig = {
+  ru: {
+    minutes: ["минут", "минуты", "минут"],
+    hours: ["часов", "часа", "часов"],
+    days: ["день", "дня", "дней"],
+    nights: ["ночь", "ночи", "ночей"],
+    weeks: ["неделя", "недели", "недель"],
+  },
+  en: {
+    minutes: ["minute", "minutes", "minutes"],
+    hours: ["hour", "hours", "hours"],
+    days: ["day", "days", "days"],
+    nights: ["night", "nights", "nights"],
+    weeks: ["week", "weeks", "weeks"],
+  },
+  fr: {
+    minutes: ["minute", "minutes", "minutes"],
+    hours: ["heure", "heures", "heures"],
+    days: ["jour", "jours", "jours"],
+    nights: ["nuit", "nuits", "nuits"],
+    weeks: ["semaine", "semaines", "semaines"],
+  },
+  de: {
+    minutes: ["Minute", "Minuten", "Minuten"],
+    hours: ["Stunde", "Stunden", "Stunden"],
+    days: ["Tag", "Tage", "Tage"],
+    nights: ["Nacht", "Nächte", "Nächte"],
+    weeks: ["Woche", "Wochen", "Wochen"],
   },
 } as const;

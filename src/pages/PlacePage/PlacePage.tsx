@@ -137,7 +137,7 @@ export default function PlacePage() {
                 onClick={chooseHandler}
                 className="my-6 px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
               >
-                Выбрать виллу в этом отеле
+                {$t("pages.place.button")}
               </button>
             </>
           )}
@@ -248,7 +248,7 @@ export default function PlacePage() {
                 "px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
               )}
             >
-              Выбрать виллу в этом отеле
+              {$t("pages.place.button")}
             </button>
           </div>
         </div>

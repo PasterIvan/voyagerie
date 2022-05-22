@@ -5,14 +5,8 @@ import { transferIcons } from "./config";
 import { useHover } from "shared/lib/hooks/useHover";
 import { ArrowIcon } from "entities/location/config/Arrow";
 import { PlaceType } from "entities/location/models";
-
-const pluralConfig: Record<PlaceType["timeType"], [string, string, string]> = {
-  minutes: ["минут", "минуты", "минут"],
-  hours: ["часов", "часа", "часов"],
-  days: ["день", "дня", "дней"],
-  nights: ["ночь", "ночи", "ночей"],
-  weeks: ["неделя", "недели", "недель"],
-};
+import { LocalesType } from "shared/config/locales/model";
+import { pluralConfig } from "shared/config/locales/constants";
 
 export const PlaceCard: React.FC<
   {
@@ -74,11 +68,11 @@ export const PlaceCard: React.FC<
             </span>
             <Icon className="mr-2" />
             <span className="text-accent">
-              {time} {plural(time, ...pluralConfig[timeType])}
+              {time} {plural(time, ...pluralConfig[$i18n][timeType])}
             </span>
           </div>
           <span className="text-base font-medium text-light ml-auto">
-            от{" "}
+            {$t("moneyFrom")}{" "}
             {cost.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",

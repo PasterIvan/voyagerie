@@ -25,6 +25,7 @@ export type LocaleObject = {
       button: string;
     };
     place: {
+      button: string;
       name: string;
       labels: {
         name: string;
@@ -80,11 +81,17 @@ export type LocaleObject = {
       };
     };
   };
+  footer: {
+    navigation: string;
+    languages: string;
+    rightsReserved: string;
+  };
   currencyConfig: {
     locale: string;
     currency: string;
   };
   navbarRoutes: { [Key in RoutesPaths]?: string };
+  moneyFrom: string;
 };
 
 export type LocalesType = typeof activeLocales[number];

@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { createEvent, forward, sample } from "effector";
 import { createForm } from "effector-forms";
 import { createGate } from "effector-react";
-import { AGE_OF_MAJORITY } from "shared/config/constants";
+import { AGE_OF_MAJORITY, MIN_CHILD_AGE } from "shared/config/constants";
 import { createModalModel } from "shared/lib/store";
 
 export type FormType = {
@@ -93,7 +93,7 @@ export const formSchema = createForm<FormType>({
         {
           name: "ages-valid",
           validator: (ages: number[]) =>
-            ages.every((age) => age > 0 && age < AGE_OF_MAJORITY),
+            ages.every((age) => age > MIN_CHILD_AGE && age < AGE_OF_MAJORITY),
         },
         {
           name: "ages-filled",

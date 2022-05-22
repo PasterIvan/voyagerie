@@ -36,6 +36,7 @@ export const ru: LocaleObject = {
       button: "Свяжитесь с нами",
     },
     place: {
+      button: "Выбрать номер в этом отеле",
       name: "Отели",
       labels: {
         name: "Про отель",
@@ -92,6 +93,11 @@ export const ru: LocaleObject = {
       },
     },
   },
+  footer: {
+    languages: "Языки",
+    navigation: "Навигация",
+    rightsReserved: "Все права защищены",
+  },
   currencyConfig: {
     locale: "ru-RU",
     currency: "RUB",
@@ -101,4 +107,5 @@ export const ru: LocaleObject = {
     [RoutesPaths.Location]: "Cтраны",
     [RoutesPaths.Help]: "Контакты",
   },
+  moneyFrom: "от",
 };

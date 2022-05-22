@@ -1,10 +1,7 @@
 import { LanguageType } from "entities/language/models";
 
 export const AGE_OF_MAJORITY = 18;
-
-export const EMAIL = "info@voyagerie.travel";
-export const PHONE = "+7 495 555 55 55";
-export const ADDRESS = 'ООО "Вояжери", Москва, ул. Маломосковская, 14';
+export const MIN_CHILD_AGE = 3;
 
 export const activeLocales = ["ru", "en"] as const;
 export const defaultLocale: typeof activeLocales[number] = activeLocales[1];

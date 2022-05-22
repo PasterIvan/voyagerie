@@ -2,12 +2,15 @@ import { ReactComponent as Logo } from "app/assets/images/logo.svg";
 import { ReactComponent as Telephone } from "app/assets/images/telephone.svg";
 import classNames from "classnames";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PHONE, RoutesPaths } from "shared/config/constants";
+import { RoutesPaths } from "shared/config/constants";
 import { Links } from "widgets/Links/Links";
 import { Lines } from "shared/components/Lines";
 import { ChooseLanguage } from "widgets/ChooseLanguage/ChooseLanguage";
+import { infoMock } from "shared/api/infoMock";
 
 export const Navbar = ({ className }: { className?: string }) => {
+  const isLoading = false;
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -35,16 +38,19 @@ export const Navbar = ({ className }: { className?: string }) => {
       <div className="block lg:hidden order-2" />
       <div className="ml-auto order-3 flex col-span-1">
         <ChooseLanguage />
-
-        <div
-          onClick={() => window.open("tel:" + PHONE)}
-          className="flex-shrink-0 hidden lg:flex cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 items-center p-3 ml-4"
-        >
-          <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">
-            <Telephone />
+        {!isLoading && (
+          <div
+            onClick={() => window.open("tel:" + infoMock.phone)}
+            className="flex-shrink-0 hidden lg:flex cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 items-center p-3 ml-4"
+          >
+            <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">
+              <Telephone />
+            </div>
+            <span className="text-sm font-bold text-light mx-3">
+              {infoMock.phone}
+            </span>
           </div>
-          <span className="text-sm font-bold text-light mx-3">{PHONE}</span>
-        </div>
+        )}
       </div>
     </div>
   );

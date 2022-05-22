@@ -36,6 +36,7 @@ export const en: LocaleObject = {
       button: "Contact us",
     },
     place: {
+      button: "Choose a room in this hotel",
       name: "Hotels",
       labels: {
         name: "Place",
@@ -92,6 +93,11 @@ export const en: LocaleObject = {
       },
     },
   },
+  footer: {
+    languages: "Languages",
+    navigation: "Navigation",
+    rightsReserved: "All rights reserved",
+  },
   currencyConfig: {
     locale: "en-US",
     currency: "USD",
@@ -101,4 +107,5 @@ export const en: LocaleObject = {
     [RoutesPaths.Location]: "Countries",
     [RoutesPaths.Help]: "Contact",
   },
+  moneyFrom: "from",
 };

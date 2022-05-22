@@ -9,9 +9,14 @@ import "dayjs/locale/ru";
 
 import { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
-import dayjs from "dayjs";
 
 registerLocale("ru", ru);
+
+declare global {
+  interface Window {
+    __REACT_DEVELOPERS: Record<string, unknown>;
+  }
+}
 
 function App() {
   return (

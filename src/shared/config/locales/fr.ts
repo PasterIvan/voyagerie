@@ -36,6 +36,7 @@ export const fr: LocaleObject = {
       button: "Contactez-nous",
     },
     place: {
+      button: "Choisir un hôtel dans ce pays",
       name: "Hôtels",
       labels: {
         name: "Hôtel",
@@ -92,6 +93,11 @@ export const fr: LocaleObject = {
       },
     },
   },
+  footer: {
+    languages: "Langues",
+    navigation: "Navigation",
+    rightsReserved: "Tous droits réservés",
+  },
   currencyConfig: {
     locale: "fr-FR",
     currency: "EUR",
@@ -101,4 +107,5 @@ export const fr: LocaleObject = {
     [RoutesPaths.Location]: "Pays",
     [RoutesPaths.Help]: "Contact",
   },
+  moneyFrom: "à partir de",
 };

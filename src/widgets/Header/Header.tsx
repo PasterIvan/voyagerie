@@ -6,6 +6,8 @@ import { Navbar } from "widgets/Navbar/Navbar";
 
 import { ReactComponent as Lines } from "./config/lines.svg";
 
+import logoSmall from "app/assets/images/logo-small.svg";
+
 type HeaderProps = {
   children?: ReactNode;
   leftBottomElement?: ReactNode;
@@ -17,6 +19,8 @@ type HeaderProps = {
   faqClassName?: string;
   faqElementClassName?: string;
 };
+
+console.log("voyagerie © 2022 All rights reserved");
 
 export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   (
