@@ -161,12 +161,12 @@ export default function PlacePage() {
               />
             )}
           </div>
-          <div className="font-[Manrope] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-0 md:gap-x-4">
+          <div className="font-[Manrope] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-0 md:gap-x-4 items-start">
             {fieldsResource.map(({ localePath, objectKey, Icon, fence }) => (
               <div
                 key={objectKey}
                 className={classNames(
-                  "bg-light/10 rounded-2xl p-7 text-light",
+                  "bg-light/10 rounded-2xl p-7 text-light min-h-[auto] md:min-h-full lg:min-h-[50%]",
                   fence && "col-span-1 md:col-span-2 lg:col-span-1"
                 )}
               >

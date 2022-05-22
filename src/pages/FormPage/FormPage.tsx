@@ -2,7 +2,9 @@ import classNames from "classnames";
 import { useGate, useStore } from "effector-react";
 import { useTranslation } from "entities/language/lib";
 // import { useParams } from "react-router-dom";
-
+import { ReactComponent as PlaneUp } from "./config/plane-up.svg";
+import { ReactComponent as PlaneDown } from "./config/plane-down.svg";
+import { ReactComponent as Calendar } from "./config/calendar.svg";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
@@ -11,20 +13,19 @@ import { mainPageModel } from "pages/MainPage";
 import { $place, ResidenceType } from "entities/place/models";
 import { Lines } from "shared/components/Lines";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
-import DatePicker, { registerLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import { ResidenceChooser } from "./components/ResidenceChooser";
-import { ReactComponent as PlaneUp } from "./config/plane-up.svg";
-import { ReactComponent as PlaneDown } from "./config/plane-down.svg";
-import { ReactComponent as Calendar } from "./config/calendar.svg";
 import dayjs from "dayjs";
 import { useForm } from "effector-forms";
 import { formSchema, FormType, gate, successModal } from "./models";
 import { Counter } from "shared/components/Counter";
-import { ordinalNumbers } from "shared/config/locales/constants";
+import {
+  formErrorsConfig,
+  ordinalNumbers,
+} from "shared/config/locales/constants";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "shared/components/ModalLayout";
-// import { createForm, useForm } from "effector-forms";
 import { AiOutlineClose } from "react-icons/ai";
 import { buttons, foodType } from "./config";
 
@@ -32,6 +33,7 @@ export default function FormPage() {
   // const { id } = useParams();
   const isLoading = false;
 
+  const { $t, $i18n } = useTranslation();
   useScrollToTop();
 
   const formContainerRef = useRef<HTMLDivElement | null>(null);
@@ -47,8 +49,6 @@ export default function FormPage() {
 
   const place = useStore($place);
   const navigate = useNavigate();
-
-  const { $t, $i18n } = useTranslation();
 
   const [selectedResidence, setSelectedResidence] =
     useState<ResidenceType | null>(null);
@@ -335,7 +335,12 @@ export default function FormPage() {
                   />
                   {fields.dateFrom.hasError() && (
                     <span className="mt-2 text-[#e36e0e] text-xs">
-                      {fields.dateFrom.errorText()}
+                      {fields.dateFrom.errorText({
+                        "date-from-validation":
+                          formErrorsConfig.dateFrom["date-from-validation"][
+                            $i18n
+                          ],
+                      })}
                     </span>
                   )}
                 </div>
@@ -363,7 +368,10 @@ export default function FormPage() {
                   />
                   {fields.dateTo.hasError() && (
                     <span className="mt-2 text-[#e36e0e] text-xs">
-                      {fields.dateTo.errorText()}
+                      {fields.dateTo.errorText({
+                        "date-to-validation":
+                          formErrorsConfig.dateTo["date-to-validation"][$i18n],
+                      })}
                     </span>
                   )}
                 </div>
@@ -407,7 +415,10 @@ export default function FormPage() {
                   </div>
                   {fields.adultsCount.hasError() && (
                     <span className="text-[#e36e0e] text-xs">
-                      {fields.adultsCount.errorText()}
+                      {fields.adultsCount.errorText({
+                        "adults-count":
+                          formErrorsConfig.adultsCount["adults-count"][$i18n],
+                      })}
                     </span>
                   )}
                 </div>
@@ -426,7 +437,10 @@ export default function FormPage() {
                   </div>
                   {fields.childCount.hasError() && (
                     <span className="mt-2 text-[#e36e0e] text-xs">
-                      {fields.childCount.errorText()}
+                      {fields.childCount.errorText({
+                        "child-count":
+                          formErrorsConfig.childCount["child-count"][$i18n],
+                      })}
                     </span>
                   )}
                 </div>
@@ -472,7 +486,10 @@ export default function FormPage() {
                   ))}
                   {fields.foodType.hasError() && (
                     <span className="mt-2 text-[#e36e0e] text-xs">
-                      {fields.foodType.errorText()}
+                      {fields.foodType.errorText({
+                        "food-type":
+                          formErrorsConfig.foodType["food-type"][$i18n],
+                      })}
                     </span>
                   )}
                 </div>
@@ -499,7 +516,12 @@ export default function FormPage() {
                     {inputs}
                     {fields.ages.hasError() && (
                       <span className="text-[#e36e0e] text-xs">
-                        {fields.ages.errorText()}
+                        {fields.ages.errorText({
+                          "ages-valid":
+                            formErrorsConfig.ages["ages-valid"][$i18n],
+                          "ages-filled":
+                            formErrorsConfig.ages["ages-filled"][$i18n],
+                        })}
                       </span>
                     )}
                   </div>
@@ -525,7 +547,10 @@ export default function FormPage() {
                   />
                   {fields.contacts!.hasError() && (
                     <span className="text-[#e36e0e] text-xs">
-                      {fields.contacts!.errorText()}
+                      {fields.contacts!.errorText({
+                        "contacts-required":
+                          formErrorsConfig.contacts["contacts-required"][$i18n],
+                      })}
                     </span>
                   )}
                   <div className="absolute inset-y-0 right-0 flex">

@@ -5,14 +5,6 @@ import { createGate } from "effector-react";
 import { AGE_OF_MAJORITY } from "shared/config/constants";
 import { createModalModel } from "shared/lib/store";
 
-export const gate = createGate<{ scrollToForm: () => void }>();
-export const scrollToForm = createEvent();
-
-gate.state.watch(scrollToForm, ({ scrollToForm }) => {
-  scrollToForm();
-});
-
-export const successModal = createModalModel();
 export type FormType = {
   suggestTickets: boolean;
   dateFrom: Dayjs | null;
@@ -29,6 +21,15 @@ export type FormType = {
     isPhone: boolean;
   };
 };
+
+export const gate = createGate<{ scrollToForm: () => void }>();
+export const scrollToForm = createEvent();
+
+gate.state.watch(scrollToForm, ({ scrollToForm }) => {
+  scrollToForm();
+});
+
+export const successModal = createModalModel();
 
 export const formSchema = createForm<FormType>({
   fields: {
@@ -47,7 +48,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "date-from-validation",
           validator: (value: Dayjs | null) => dayjs(value).isValid(),
-          errorText: "Неккоректное значение даты вылета",
         },
       ],
     },
@@ -57,7 +57,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "date-to-validation",
           validator: (value: Dayjs | null) => dayjs(value).isValid(),
-          errorText: "Неккоректное значение даты прилета",
         },
       ],
     },
@@ -67,7 +66,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "adults-count",
           validator: (count: number) => typeof count === "number" && count > 0,
-          errorText: "Количество пассажиров должно быть больше 0",
         },
       ],
     },
@@ -77,7 +75,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "child-count",
           validator: (count: number) => typeof count === "number",
-          errorText: "Неккоректное количество детей",
         },
       ],
     },
@@ -87,7 +84,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "food-type",
           validator: (value: string | null) => typeof value === "string",
-          errorText: "Питание выбрано некорректно",
         },
       ],
     },
@@ -98,12 +94,10 @@ export const formSchema = createForm<FormType>({
           name: "ages-valid",
           validator: (ages: number[]) =>
             ages.every((age) => age > 0 && age < AGE_OF_MAJORITY),
-          errorText: "Неккоректный возраст детей",
         },
         {
           name: "ages-filled",
           validator: (ages: number[], form) => ages.length >= form.childCount,
-          errorText: "Не все возрасты введены",
         },
       ],
     },
@@ -116,7 +110,6 @@ export const formSchema = createForm<FormType>({
         {
           name: "contacts-required",
           validator: (contacts) => Boolean(contacts?.length),
-          errorText: "Контакты должны быть заполнены",
         },
       ],
     },
