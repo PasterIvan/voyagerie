@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 export const ImageWithLoader = ({
   className,
   src,
-}: { className?: string; src?: string } & React.DetailedHTMLProps<
+  alt,
+}: { className?: string; src?: string; alt?: string } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >) => {
@@ -21,6 +22,7 @@ export const ImageWithLoader = ({
   return (
     <div className={classNames(className, "overflow-hidden relative")}>
       <img
+        alt={alt}
         onLoad={() => {
           setIsImgLoaded(true);
         }}

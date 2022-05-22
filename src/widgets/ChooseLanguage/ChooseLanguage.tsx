@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useStore } from "effector-react";
 import { switchLanguagesConfig, switchLanguagesModel } from "entities/language";
 import { $currentLanguage } from "entities/language/models";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import Select, {
   components as _components,
   ControlProps,

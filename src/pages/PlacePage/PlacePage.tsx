@@ -102,7 +102,7 @@ export default function PlacePage() {
           ]
         : []),
     ];
-  }, [isLoading, place]);
+  }, [$i18n, $t, isLoading, place]);
 
   if (!place) return null;
 
@@ -121,6 +121,7 @@ export default function PlacePage() {
             <img
               className="max-w-none moving-block object-cover"
               src={place.image}
+              alt="place image"
             />
           }
         >
@@ -219,7 +220,11 @@ export default function PlacePage() {
                     className="w-full h-full rounded overflow-hidden"
                     key={idx}
                   >
-                    <img className="w-full h-full object-cover" src={image} />
+                    <img
+                      className="w-full h-full object-cover"
+                      src={image}
+                      alt="gallery place image"
+                    />
                   </SwiperSlide>
                 ))}
           </Swiper>
