@@ -6,8 +6,6 @@ import { Navbar } from "widgets/Navbar/Navbar";
 
 import { ReactComponent as Lines } from "./config/lines.svg";
 
-import logoSmall from "app/assets/images/logo-small.svg";
-
 type HeaderProps = {
   children?: ReactNode;
   leftBottomElement?: ReactNode;
@@ -55,7 +53,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         <div
           className={classNames(
             containerClassName,
-            "gap-y-3 z-10 w-full grid gap-x-3 grid-cols-[auto_auto] grid-rows-[auto_60px] flex-grow"
+            "gap-y-3 z-10 w-full grid gap-x-3 grid-cols-[auto_auto] grid-rows-[calc(100%-60px)_60px] flex-grow"
           )}
         >
           <div

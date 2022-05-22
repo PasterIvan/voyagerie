@@ -5,9 +5,12 @@ import { modals } from "../models";
 import { Modal } from "shared/components/ModalLayout";
 import { questionnaireModel } from "feature/questionnaire";
 import { useTranslation } from "entities/language/lib";
+import { modalsMock } from "shared/api/modalsMock";
 
 export const BestPrices = () => {
-  const { $t } = useTranslation();
+  const isLoading = false;
+
+  const { $t, $i18n } = useTranslation();
   const isOpen = useStore(modals.bestPrices.$isOpen);
   return (
     <Modal.Layout
@@ -27,36 +30,32 @@ export const BestPrices = () => {
           <Lines.HorizontalLine className="mx-auto color-[#555350] max-w-[270px] pt-5 pb-11">
             <Lines.Star />
           </Lines.HorizontalLine>
-          <span className=" mb-4 text-4xl font-semibold">
-            Лучшие ценовые предложения
-          </span>
-          <p>
-            Мы фокусируемся на ограниченном количестве стран и работаем только с
-            лучшими люксовыми отелями.
-          </p>
-          <p className="pt-5">
-            Это позволяет нам выстраивать выгодное партнерство и предлагать
-            нашим клиентам лучшие условия по люксовым отелям в тех направлениях,
-            с которыми мы работаем.
-          </p>
-          <p className="pt-5">
-            Попробуйте отправить заявку и вы будете приятно удивлены нашим
-            предложением.
-          </p>
-          <p className="pt-5">
-            Наши цены для Вас будут выгоднее цен напрямую от отеля или от
-            агрегаторов, при этом вы еще получите персональный сервис и
-            сопровождение до, в процессе и после отдыха!
-          </p>
-          <button
-            onClick={() => {
-              modals.bestPrices.events.closeModal();
-              questionnaireModel.modal.events.openModal();
-            }}
-            className="w-40 h-14 rounded-full bg-black text-light text-sm font-semibold mt-9 hover:text-accent"
-          >
-            {$t("pages.main.button")}
-          </button>
+          {isLoading ? (
+            <div className="h-36 flex justify-center items-center">
+              <div className="lds-hourglass after:border-t-black after:border-b-black" />
+            </div>
+          ) : (
+            <>
+              <span className="mb-4 text-4xl font-semibold">
+                {modalsMock.bestPrices.title[$i18n]}
+              </span>
+              <div
+                className="content-editor"
+                dangerouslySetInnerHTML={{
+                  __html: modalsMock.bestPrices.content[$i18n] || "",
+                }}
+              />
+              <button
+                onClick={() => {
+                  modals.bestPrices.events.closeModal();
+                  questionnaireModel.modal.events.openModal();
+                }}
+                className="w-40 h-14 rounded-full bg-black text-light text-sm font-semibold mt-9 hover:text-accent"
+              >
+                {$t("pages.main.button")}
+              </button>
+            </>
+          )}
         </div>
       </Modal.ScrollContainer>
     </Modal.Layout>

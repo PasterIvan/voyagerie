@@ -93,6 +93,9 @@ export const en: LocaleObject = {
       },
     },
   },
+  questionarie: {
+    label: "Fill in the details of the planned trip",
+  },
   footer: {
     languages: "Languages",
     navigation: "Navigation",

@@ -93,6 +93,9 @@ export const ru: LocaleObject = {
       },
     },
   },
+  questionarie: {
+    label: "Заполните данные о планируемом путешествии",
+  },
   footer: {
     languages: "Языки",
     navigation: "Навигация",

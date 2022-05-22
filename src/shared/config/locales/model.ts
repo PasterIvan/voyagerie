@@ -81,6 +81,9 @@ export type LocaleObject = {
       };
     };
   };
+  questionarie: {
+    label: string;
+  };
   footer: {
     navigation: string;
     languages: string;

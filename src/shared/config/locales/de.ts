@@ -93,6 +93,9 @@ export const de: LocaleObject = {
       },
     },
   },
+  questionarie: {
+    label: "Geben Sie die Details der geplanten Reise ein",
+  },
   footer: {
     languages: "Sprachen",
     navigation: "Navigation",
