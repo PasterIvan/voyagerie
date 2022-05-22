@@ -1,4 +1,4 @@
-import { ReactElement, Suspense } from "react";
+import { Suspense } from "react";
 
 export function withSuspense(
   component: JSX.Element,

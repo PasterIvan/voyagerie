@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
 import { mainPageModel } from "pages/MainPage";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
 import { footerModel } from "widgets/Footer";
 

@@ -142,6 +142,14 @@
   color: #000;
 }
 
+.react-datepicker__day--disabled {
+  color: #6a6666;
+}
+
+.react-datepicker__day--disabled:hover {
+  color: #6a6666;
+}
+
 .react-datepicker__day--selected:hover {
   background-color: #efcfa5;
   color: #000;
@@ -149,4 +157,16 @@
 
 .Select-menu-outer {
   z-index: 999 !important;
+}
+
+.react-datepicker__navigation {
+  top: 8px;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #000;
+}
+
+.react-datepicker__navigation:hover *::before {
+  border-color: #fff;
 }

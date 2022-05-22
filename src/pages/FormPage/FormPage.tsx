@@ -11,7 +11,7 @@ import { mainPageModel } from "pages/MainPage";
 import { $place, ResidenceType } from "entities/place/models";
 import { Lines } from "shared/components/Lines";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import { ResidenceChooser } from "./components/ResidenceChooser";
 import { ReactComponent as PlaneUp } from "./config/plane-up.svg";
@@ -55,15 +55,15 @@ export default function FormPage() {
   const [choosedResidence, setChoosedResidence] =
     useState<ResidenceType | null>(null);
 
-  // useEffect(() => {
-  //   const closeModalHandler = successModal.events.closeModal.watch(() => {
-  //     navigate(-1);
-  //   });
+  useEffect(() => {
+    const closeModalHandler = successModal.events.closeModal.watch(() => {
+      navigate(-1);
+    });
 
-  //   return () => {
-  //     closeModalHandler();
-  //   };
-  // }, []);
+    return () => {
+      closeModalHandler();
+    };
+  }, []);
 
   const buttonSuggestions = useMemo(() => {
     return Object.keys(buttons).reduce<
@@ -150,7 +150,9 @@ export default function FormPage() {
         >
           <span className="text-xs font-normal ">
             <span className="capitalize">{ordinalNumbers[$i18n][i]}</span>{" "}
-            ребенок
+            <span className="lowercase">
+              {$t("pages.form.guestNumbers.child")}
+            </span>
           </span>
           <input
             placeholder="0"
@@ -174,7 +176,7 @@ export default function FormPage() {
           />
         </div>
       )),
-    [fields.childCount.value, fields.ages.value]
+    [$i18n, fields.childCount.value, fields.ages.value]
   );
 
   if (!place) return null;
@@ -193,13 +195,13 @@ export default function FormPage() {
             onClick={() => successModal.events.closeModal()}
           />
           <span className="pb-4 text-[#F2F2F2] text-2xl font-normal">
-            Спасибо. Наш менеджер скоро свяжется с вами!
+            {$t("pages.form.resultModal.title")}
           </span>
           <button
             onClick={() => successModal.events.closeModal()}
             className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center"
           >
-            Данные успешно отправлены
+            {$t("pages.form.resultModal.sended")}
           </button>
         </div>
       </Modal.Layout>
@@ -269,7 +271,7 @@ export default function FormPage() {
               )}
             >
               <div className="text-accent font-medium text-lg pb-6">
-                Вы выбрали:
+                {$t("pages.form.labels.choosed")}:
               </div>
               <div className="flex flex-col md:flex-row">
                 <ImageWithLoader
@@ -307,17 +309,23 @@ export default function FormPage() {
                 className="grid grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto_auto] gap-x-6"
               >
                 <div className="order-1 pb-3 text-accent font-medium text-lg col-span-2">
-                  Даты путешествия
+                  {$t("pages.form.labels.date")}
                 </div>
                 <div className="order-3 col-span-2 md:col-span-1">
                   <DatePicker
+                    minDate={dayjs().toDate()}
+                    locale={$i18n}
                     selected={fields.dateFrom.value?.toDate()}
                     customInput={
                       <button className="group flex items-center px-5 py-4 h-12 w-full bg-brown-background/10 overflow-hidden">
                         <PlaneDown />
-                        <span className="text-sm text-accent pl-2">Заезд</span>
+                        <span className="text-sm text-accent pl-2">
+                          {$t("pages.form.datePicker.arraive")}
+                        </span>
                         <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
-                          {dayjs(fields.dateFrom.value).format("DD MMMM YYYY")}
+                          {dayjs(fields.dateFrom.value)
+                            .locale($i18n)
+                            .format("DD MMMM YYYY")}
                         </span>
                         <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
                       </button>
@@ -333,14 +341,19 @@ export default function FormPage() {
                 </div>
                 <div className="order-3 col-span-2 md:col-span-1">
                   <DatePicker
+                    minDate={dayjs().toDate()}
+                    locale={$i18n}
                     selected={fields.dateTo.value?.toDate()}
                     customInput={
                       <button className="mt-2 md:mt-0 group flex items-center px-5 h-12 w-full bg-brown-background/10 overflow-hidden">
                         <PlaneUp />
-
-                        <span className="text-sm text-accent pl-2">Отъезд</span>
+                        <span className="text-sm text-accent pl-2">
+                          {$t("pages.form.datePicker.departure")}
+                        </span>
                         <span className="ml-auto text-lg font-normal text-light group-focus:text-accent group-hover:text-accent">
-                          {dayjs(fields.dateTo.value).format("DD MMMM YYYY")}
+                          {dayjs(fields.dateTo.value)
+                            .locale($i18n)
+                            .format("DD MMMM YYYY")}
                         </span>
                         <Calendar className="ml-4 text-light group-focus:text-accent group-hover:text-accent" />
                       </button>
@@ -374,15 +387,17 @@ export default function FormPage() {
                     }
                     className="pl-3 text-sm font-normal text-light"
                   >
-                    Предложить варианты авиабилетов
+                    {$t("pages.form.datePicker.suggestTickets")}
                   </button>
                 </div>
                 <div className="order-5 pt-6 md:pt-10 pb-4 text-accent font-medium text-lg col-span-2">
-                  Количество гостей
+                  {$t("pages.form.labels.guestNumber")}
                 </div>
                 <div className="order-6 col-span-2 md:col-span-1">
                   <div className="px-5 bg-brown-background/10 flex items-center h-12">
-                    <span className="text-sm text-light">Взрослые</span>
+                    <span className="text-sm text-light">
+                      {$t("pages.form.guestNumbers.adults")}
+                    </span>
                     <Counter
                       unsigned
                       onChange={fields.adultsCount.onChange}
@@ -398,7 +413,9 @@ export default function FormPage() {
                 </div>
                 <div className="order-7 col-span-2 md:col-span-1">
                   <div className="mt-2 md:mt-0 px-5 bg-brown-background/10 flex items-center h-12">
-                    <span className="text-sm text-light">Дети</span>
+                    <span className="text-sm text-light">
+                      {$t("pages.form.guestNumbers.childs")}
+                    </span>
                     <Counter
                       unsigned
                       onChange={fields.childCount.onChange}
@@ -415,7 +432,7 @@ export default function FormPage() {
                 </div>
                 <div className="col-span-2 md:col-span-1 order-9 md:order-8 flex flex-col">
                   <div className="pt-10 pb-4 text-accent font-medium text-lg col-span-2">
-                    Тип питания
+                    {$t("pages.form.labels.foodType")}
                   </div>
                   {foodType.map((type, i) => (
                     <div
@@ -449,7 +466,7 @@ export default function FormPage() {
                           "text-sm group-hover:text-accent group-hover:opacity-100"
                         )}
                       >
-                        {type.description}
+                        {$t("pages.form.foodType")[type.descriptionKey]}
                       </span>
                     </div>
                   ))}
@@ -477,7 +494,7 @@ export default function FormPage() {
                       "rounded border border-accent/50 py-4 px-6 flex-col text-light text-lg font-normal"
                     )}
                   >
-                    <span>Укажите возраст каждого из детей</span>
+                    <span>{$t("pages.form.guestNumbers.childSuggestion")}</span>
                     <hr className="text-accent/10 my-3" />
                     {inputs}
                     {fields.ages.hasError() && (
@@ -488,26 +505,29 @@ export default function FormPage() {
                   </div>
                 </div>
                 <div className="order-9 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
-                  Комментарии и пожелания
+                  {$t("pages.form.labels.comments")}
                 </div>
                 <textarea
                   value={fields.comment!.value}
                   onChange={(e) => fields.comment!.onChange(e.target.value)}
-                  placeholder={
-                    "Например, пришлите пожалуйста, цены с полупансионом и только с завтраками.\nНапример, только прямые рейсы, бизнес-класс."
-                  }
+                  placeholder={$t("pages.form.placeholders.comment")}
                   className="order-10 form-check-input min-h-[140px] md:min-h-[96px] p-4 col-span-2 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                 />
                 <div className="order-11 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
-                  Куда вам отправить предложение
+                  {$t("pages.form.labels.contacts")}
                 </div>
                 <div className="order-12 mb-14 md:mb-20 col-span-2 relative">
                   <input
                     value={fields.contacts!.value}
                     onChange={(e) => fields.contacts!.onChange(e.target.value)}
-                    placeholder={"Номер телефона, или Ватсапп, или Телеграмм"}
+                    placeholder={$t("pages.form.placeholders.contacts")}
                     className="focus:outline-none form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
                   />
+                  {fields.contacts!.hasError() && (
+                    <span className="text-[#e36e0e] text-xs">
+                      {fields.contacts!.errorText()}
+                    </span>
+                  )}
                   <div className="absolute inset-y-0 right-0 flex">
                     {buttonElements}
                   </div>
@@ -516,13 +536,13 @@ export default function FormPage() {
                   onClick={() => navigate(-1)}
                   className="mt-4 md:mt-0 col-span-2 md:col-span-1 order-[14] md:order-[13] transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 hover:border-light rounded w-full text-accent  hover:bg-black hover:text-light"
                 >
-                  Назад
+                  {$t("pages.form.buttons.back")}
                 </button>
                 <button
                   onClick={() => submit()}
                   className="col-span-2 md:col-span-1 order-[13] md:order-[14] transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent"
                 >
-                  Отправить запрос
+                  {$t("pages.form.buttons.order")}
                 </button>
               </div>
             </div>

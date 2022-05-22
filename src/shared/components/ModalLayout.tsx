@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import SimpleBar from "simplebar-react";
 import { AiOutlineClose } from "react-icons/ai";
-import { ReactNode, useId, useMemo } from "react";
+import { ReactNode } from "react";
 import _ from "lodash";
 import classNames from "classnames";
 

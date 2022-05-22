@@ -112,6 +112,13 @@ export const formSchema = createForm<FormType>({
     },
     contacts: {
       init: "",
+      rules: [
+        {
+          name: "contacts-required",
+          validator: (contacts) => Boolean(contacts?.length),
+          errorText: "Контакты должны быть заполнены",
+        },
+      ],
     },
     buttons: {
       init: {

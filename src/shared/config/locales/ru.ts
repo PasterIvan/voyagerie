@@ -46,8 +46,50 @@ export const ru: LocaleObject = {
       },
     },
     form: {
-      name: "Заказ",
-      orderText: "Выбор виллы",
+      orderText: "Выбор номера",
+      chooseRoom: {
+        choose: "Выбрать",
+        choosed: "Выбрано",
+      },
+      labels: {
+        chooseRoom: "Выберите подходящий для вас номер",
+        choosed: "Вы выбрали",
+        date: "Даты путешествия",
+        guestNumber: "Количество гостей",
+        comments: "Комментарии и пожелания",
+        contacts: "Куда вам отправить предложение",
+        foodType: "Тип питания",
+      },
+      buttons: {
+        back: "Назад",
+        order: "Отправить запрос",
+      },
+      datePicker: {
+        arraive: "Заезд",
+        departure: "Выезд",
+        suggestTickets: "Предложить варианты авиабилетов",
+      },
+      foodType: {
+        accommodationOnly: "Только проживание",
+        breakfastOnly: "Только завтрак",
+        halfBoard: "Полупитание",
+        fullBoard: "Полное питание",
+      },
+      guestNumbers: {
+        adults: "Взрослые",
+        childs: "Дети",
+        child: "Ребенок",
+        childSuggestion: "Укажите возраст каждого из детей",
+      },
+      placeholders: {
+        comment:
+          "Например, пришлите пожалуйста, цены с полупансионом и только с завтраками.\nНапример, только прямые рейсы, бизнес-класс.",
+        contacts: "Номер телефона, или Ватсап, или Телеграм",
+      },
+      resultModal: {
+        title: "Спасибо. Наш менеджер скоро свяжется с вами!",
+        sended: "Данные успешно отправлены",
+      },
     },
   },
   currencyConfig: {

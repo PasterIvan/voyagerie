@@ -18,7 +18,7 @@ export function ResidenceChooser({
   onSelect: (residence: ResidenceType | null) => void;
   onChoose: (residence: ResidenceType | null) => void;
 }) {
-  const { $i18n } = useTranslation();
+  const { $t, $i18n } = useTranslation();
 
   const isChoosed =
     choosedResidence &&
@@ -28,7 +28,7 @@ export function ResidenceChooser({
   return (
     <div className="max-w-5xl h-full max-h-[1000px] md:max-h-[500px] w-full pt-8 flex flex-col overflow-hidden border-light md:border-b">
       <span className="pl-4 text-lg font-medium text-accent">
-        Выберите подходящую для вас виллу
+        {$t("pages.form.labels.chooseRoom")}
       </span>
       <div className="flex flex-col md:flex-row overflow-hidden pt-6">
         <SimpleBar
@@ -61,7 +61,7 @@ export function ResidenceChooser({
           />
           <div className="h-28 md:h-20 basis-20 flex-shrink-0 flex-grow-0 bg-light flex items-start relative">
             <div className="pt-6 md:pt-4 px-4 pb-4 w-full md:w-[70%] h-full flex">
-              <SimpleBar className="w-full h-full text-xs font-medium pr-2">
+              <SimpleBar className="w-full h-full text-xs font-medium pr-3">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: selectedResidence?.description[$i18n] ?? "",
@@ -78,7 +78,9 @@ export function ResidenceChooser({
                 "absolute right-10 border border-light/70 text-sm font-medium w-32 h-10 rounded-md -translate-y-1/2 transition-colors duration-500"
               )}
             >
-              {isChoosed ? "Выбрано" : "Выбрать"}
+              {isChoosed
+                ? $t("pages.form.chooseRoom.choosed")
+                : $t("pages.form.chooseRoom.choose")}
             </button>
           </div>
         </div>

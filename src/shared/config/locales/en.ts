@@ -46,8 +46,50 @@ export const en: LocaleObject = {
       },
     },
     form: {
-      name: "Order",
-      orderText: "Choose villa",
+      orderText: "Choose a room",
+      chooseRoom: {
+        choose: "Choose",
+        choosed: "Chosen",
+      },
+      labels: {
+        chooseRoom: "Choose a room that suits you",
+        choosed: "You have chosen",
+        date: "Travel dates",
+        guestNumber: "Number of guests",
+        comments: "Comments and wishes",
+        contacts: "Where to send the offer",
+        foodType: "Food type",
+      },
+      buttons: {
+        back: "Back",
+        order: "Send request",
+      },
+      datePicker: {
+        arraive: "Arraive",
+        departure: "Departure",
+        suggestTickets: "Suggest tickets",
+      },
+      foodType: {
+        accommodationOnly: "Accommodation only",
+        breakfastOnly: "Breakfast only",
+        halfBoard: "Half board",
+        fullBoard: "Full board",
+      },
+      guestNumbers: {
+        adults: "Adults",
+        childs: "Children",
+        child: "Child",
+        childSuggestion: "Enter the age of each child",
+      },
+      placeholders: {
+        comment:
+          "For example, please send prices with half board and breakfast only.\nFor example, only direct flights, business class.",
+        contacts: "Phone number, or WhatsApp, or Telegram",
+      },
+      resultModal: {
+        title: "Your request has been sent",
+        sended: "We will contact you as soon as possible.",
+      },
     },
   },
   currencyConfig: {

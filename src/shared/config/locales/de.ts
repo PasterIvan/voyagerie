@@ -46,8 +46,50 @@ export const de: LocaleObject = {
       },
     },
     form: {
-      name: "Bestellung",
-      orderText: "Wählen Sie ein Zimmer",
+      orderText: "Auswahl des Hotels",
+      chooseRoom: {
+        choose: "Wählen",
+        choosed: "Ausgewählt",
+      },
+      labels: {
+        chooseRoom: "Wählen Sie einen passenden Raum für Sie",
+        choosed: "Sie haben ausgewählt",
+        date: "Datum der Reise",
+        guestNumber: "Anzahl der Gäste",
+        comments: "Kommentare",
+        foodType: "Essensart",
+        contacts: "Kontaktinformationen",
+      },
+      datePicker: {
+        arraive: "Anreise",
+        departure: "Abreise",
+        suggestTickets: "Flugoptionen vorschlagen",
+      },
+      guestNumbers: {
+        adults: "Erwachsene",
+        childs: "Kinder",
+        child: "Kind",
+        childSuggestion: "Geben Sie das Alter jedes Kindes ein",
+      },
+      foodType: {
+        accommodationOnly: "Nur Hotel",
+        breakfastOnly: "Nur Frühstück",
+        halfBoard: "Halb Frühstück",
+        fullBoard: "Voll Frühstück",
+      },
+      placeholders: {
+        comment:
+          "Senden Sie zum Beispiel bitte nur Preise mit Halbpension und Frühstück.\nZum Beispiel nur Direktflüge, Business Class.",
+        contacts: "Geben Sie Ihre Kontaktinformationen ein",
+      },
+      buttons: {
+        order: "Anfrage senden",
+        back: "Zurück",
+      },
+      resultModal: {
+        title: "Ihre Anfrage wurde erfolgreich versendet",
+        sended: "Ihre Anfrage wurde erfolgreich versendet",
+      },
     },
   },
   currencyConfig: {

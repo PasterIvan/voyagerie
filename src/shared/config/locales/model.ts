@@ -5,7 +5,6 @@ export type LocaleObject = {
   pages: {
     main: {
       name: string;
-
       chooseCountryText: string;
       button: string;
       supportText: {
@@ -36,8 +35,49 @@ export type LocaleObject = {
       };
     };
     form: {
-      name: string;
       orderText: string;
+      chooseRoom: {
+        choose: string;
+        choosed: string;
+      };
+      labels: {
+        chooseRoom: string;
+        choosed: string;
+        date: string;
+        guestNumber: string;
+        foodType: string;
+        comments: string;
+        contacts: string;
+      };
+      datePicker: {
+        arraive: string;
+        departure: string;
+        suggestTickets: string;
+      };
+      guestNumbers: {
+        adults: string;
+        childs: string;
+        child: string;
+        childSuggestion: string;
+      };
+      foodType: {
+        accommodationOnly: string;
+        breakfastOnly: string;
+        halfBoard: string;
+        fullBoard: string;
+      };
+      placeholders: {
+        comment: string;
+        contacts: string;
+      };
+      buttons: {
+        order: string;
+        back: string;
+      };
+      resultModal: {
+        title: string;
+        sended: string;
+      };
     };
   };
   currencyConfig: {
