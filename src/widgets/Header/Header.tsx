@@ -14,6 +14,8 @@ type HeaderProps = {
   containerClassName?: string;
   childrenClassName?: string;
   withOverlay?: boolean;
+  withFaq?: boolean;
+  withLines?: boolean;
   faqClassName?: string;
   faqElementClassName?: string;
 };
@@ -32,6 +34,8 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
       containerClassName,
       childrenClassName,
       withOverlay = true,
+      withFaq = true,
+      withLines = true,
     },
     ref
   ) => {
@@ -46,7 +50,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
         {withOverlay && (
           <div className="absolute z-10 -m-4 h-full w-full bg-gradient-to-b from-[#180F0B]/80 to-[#180F0B]/30" />
         )}
-        <Lines className="z-10 absolute right-0 top-[15%]" />
+        {withLines && <Lines className="z-10 absolute right-0 top-[15%]" />}
         <Navbar className="z-10" />
         <div className="absolute z-0 -m-4 w-full h-full">{absoluteElement}</div>
 
@@ -64,13 +68,15 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           <div className="col-span-1 row-span-1 self-end">
             {leftBottomElement}
           </div>
-          <FaqBlock
-            elementClassName={faqElementClassName}
-            className={classNames(
-              faqClassName,
-              "ml-auto col-span-1 row-span-1 self-end"
-            )}
-          />
+          {withFaq && (
+            <FaqBlock
+              elementClassName={faqElementClassName}
+              className={classNames(
+                faqClassName,
+                "ml-auto col-span-1 row-span-1 self-end"
+              )}
+            />
+          )}
         </div>
       </div>
     );

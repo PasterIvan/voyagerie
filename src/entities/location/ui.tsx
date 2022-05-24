@@ -50,12 +50,12 @@ export const LocationCard: React.FC<
         className="absolute top-4 sm:top-auto right-4 bottom-auto sm:bottom-4"
       />
       <div className="absolute left-5 bottom-5 grid grid-cols-[auto_auto] gap-x-3 gap-y-1 pr-5">
-        <Flag code={countryCode} className="h-full" />
-        <div className="break-words text-[32px] text-light font-medium leading-none">
+        <Flag code={countryCode} className="h-full min-h-[15px]" />
+        <div className="col-span-2 md:col-span-1 break-words text-[32px] text-light font-medium leading-none">
           {name[$i18n]}
         </div>
         <div className="hidden sm:block" />
-        <div className="pl-1 text-accent leading-none">
+        <div className="pl-1 text-accent leading-none col-span-2 md:col-span-1">
           {hotelsNumber}{" "}
           {plural(hotelsNumber, ...$t("pages.location.hotelsPlural"))}
         </div>

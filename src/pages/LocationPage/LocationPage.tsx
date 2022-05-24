@@ -18,8 +18,9 @@ import { Breadcrumb } from "shared/components/Breadcrumb";
 import { mainPageModel } from "pages/MainPage";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { footerModel } from "widgets/Footer";
+import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
-export default function LocationPage() {
+function LocationPage() {
   const isLoading = false;
 
   useScrollToTop();
@@ -208,3 +209,9 @@ export default function LocationPage() {
     </div>
   );
 }
+
+export default () => (
+  <ErrorBoundary>
+    <LocationPage />
+  </ErrorBoundary>
+);

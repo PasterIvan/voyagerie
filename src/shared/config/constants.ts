@@ -19,4 +19,5 @@ export enum RoutesPaths {
   Place = "/place",
   Help = "/help",
   NotFound = "/404",
+  Error = "/500",
 }

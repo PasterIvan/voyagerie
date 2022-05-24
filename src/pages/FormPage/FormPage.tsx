@@ -28,8 +28,9 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "shared/components/ModalLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import { buttons, foodType } from "./config";
+import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
-export default function FormPage() {
+function FormPage() {
   // const { id } = useParams();
   const isLoading = false;
 
@@ -199,7 +200,7 @@ export default function FormPage() {
           </span>
           <button
             onClick={() => successModal.events.closeModal()}
-            className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center"
+            className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center mx-2"
           >
             {$t("pages.form.resultModal.sended")}
           </button>
@@ -538,13 +539,21 @@ export default function FormPage() {
                 <div className="order-11 pt-10 pb-4 text-accent font-medium text-lg col-span-2">
                   {$t("pages.form.labels.contacts")}
                 </div>
-                <div className="order-12 mb-14 md:mb-20 col-span-2 relative">
-                  <input
-                    value={fields.contacts!.value}
-                    onChange={(e) => fields.contacts!.onChange(e.target.value)}
-                    placeholder={$t("pages.form.placeholders.contacts")}
-                    className="focus:outline-none form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
-                  />
+                <div className="order-12 col-span-2 mb-14 md:mb-20">
+                  <div className="relative">
+                    <input
+                      value={fields.contacts!.value}
+                      onChange={(e) =>
+                        fields.contacts!.onChange(e.target.value)
+                      }
+                      placeholder={$t("pages.form.placeholders.contacts")}
+                      className="focus:outline-none form-check-input pr-40 p-4 form-control text-lg rounded-md font-normal placeholder-light/25 focus:ring-accent focus:border-accent border border-accent/50 text-[#C4C4C4] w-full bg-transparent"
+                    />
+
+                    <div className="absolute inset-y-0 right-0 flex">
+                      {buttonElements}
+                    </div>
+                  </div>
                   {fields.contacts!.hasError() && (
                     <span className="text-[#e36e0e] text-xs">
                       {fields.contacts!.errorText({
@@ -553,9 +562,6 @@ export default function FormPage() {
                       })}
                     </span>
                   )}
-                  <div className="absolute inset-y-0 right-0 flex">
-                    {buttonElements}
-                  </div>
                 </div>
                 <button
                   onClick={() => navigate(-1)}
@@ -577,3 +583,9 @@ export default function FormPage() {
     </>
   );
 }
+
+export default () => (
+  <ErrorBoundary>
+    <FormPage />
+  </ErrorBoundary>
+);

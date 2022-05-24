@@ -36,7 +36,7 @@ export const IndividualService = () => {
             </div>
           ) : (
             <>
-              <span className=" mb-4 text-4xl font-semibold">
+              <span className="mb-4 text-4xl font-semibold break-words md:break-normal">
                 {modalsMock.individualService.title[$i18n]}
               </span>
               <div

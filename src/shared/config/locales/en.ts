@@ -3,6 +3,12 @@ import { LocaleObject } from "./model";
 
 export const en: LocaleObject = {
   pages: {
+    p404: {
+      label: "Page not found",
+    },
+    p500: {
+      label: "Server error",
+    },
     main: {
       name: "Main",
       button: "Leave a request",

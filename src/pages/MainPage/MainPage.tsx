@@ -15,8 +15,9 @@ import { useGate } from "effector-react";
 import { mainGate } from "./models";
 import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
+import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
-export default function MainPage() {
+function MainPage() {
   const isLoading = false;
 
   const navigate = useNavigate();
@@ -110,3 +111,9 @@ export default function MainPage() {
     </div>
   );
 }
+
+export default () => (
+  <ErrorBoundary>
+    <MainPage />
+  </ErrorBoundary>
+);

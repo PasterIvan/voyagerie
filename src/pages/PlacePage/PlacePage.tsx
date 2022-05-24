@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import useBreakpoint from "use-breakpoint";
 import { BREAKPOINTS } from "shared/config/styles";
+import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
 const fieldsResource: {
   localePath: Paths<LocaleObject>;
@@ -51,7 +52,7 @@ const fieldsResource: {
 const DESKTOP_SLIDES_COUNT = 3.4;
 const MOBILE_SLIDES_COUNT = 2.4;
 
-export default function PlacePage() {
+function PlacePage() {
   const isLoading = false;
 
   const { breakpoint } = useBreakpoint(BREAKPOINTS, "tablet");
@@ -121,7 +122,7 @@ export default function PlacePage() {
             <img
               className="max-w-none moving-block object-cover"
               src={place.image}
-              alt="place image"
+              alt="place"
             />
           }
         >
@@ -223,7 +224,7 @@ export default function PlacePage() {
                     <img
                       className="w-full h-full object-cover"
                       src={image}
-                      alt="gallery place image"
+                      alt="gallery place"
                     />
                   </SwiperSlide>
                 ))}
@@ -261,3 +262,9 @@ export default function PlacePage() {
     </div>
   );
 }
+
+export default () => (
+  <ErrorBoundary>
+    <PlacePage />
+  </ErrorBoundary>
+);

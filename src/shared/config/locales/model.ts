@@ -3,6 +3,12 @@ import { activeLocales, RoutesPaths } from "../constants";
 
 export type LocaleObject = {
   pages: {
+    p404: {
+      label: string;
+    };
+    p500: {
+      label: string;
+    };
     main: {
       name: string;
       chooseCountryText: string;

@@ -3,6 +3,12 @@ import { LocaleObject } from "./model";
 
 export const ru: LocaleObject = {
   pages: {
+    p404: {
+      label: "Страница не найдена",
+    },
+    p500: {
+      label: "Ошибка на сервере",
+    },
     main: {
       name: "Главная",
       button: "Оставить заявку",

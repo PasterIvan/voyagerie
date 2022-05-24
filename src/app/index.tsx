@@ -9,6 +9,7 @@ import "dayjs/locale/ru";
 
 import { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
+import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
 registerLocale("ru", ru);
 
