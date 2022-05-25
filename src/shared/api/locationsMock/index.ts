@@ -7,8 +7,6 @@ import image4 from "./image4.png";
 export const locationsMock: LocationType[] = [
   {
     image: image1,
-    airTemperature: 28,
-    waterTemperature: 25,
     hotelsNumber: 36,
     name: { ru: "Мальдивы", de: "Maldives", en: "Maldives", fr: "Maldives" },
     slug: "maldives",
@@ -16,8 +14,6 @@ export const locationsMock: LocationType[] = [
   },
   {
     image: image2,
-    airTemperature: 27,
-    waterTemperature: 26,
     hotelsNumber: 10,
     name: {
       ru: "Сейшеллы",
@@ -30,8 +26,6 @@ export const locationsMock: LocationType[] = [
   },
   {
     image: image3,
-    airTemperature: 23,
-    waterTemperature: 20,
     hotelsNumber: 15,
     name: { ru: "Турция", de: "Turkey", en: "Turkey", fr: "Turkey" },
     slug: "turkey",
@@ -39,8 +33,6 @@ export const locationsMock: LocationType[] = [
   },
   {
     image: image1,
-    airTemperature: 28,
-    waterTemperature: 25,
     hotelsNumber: 36,
     name: { ru: "Мальдивы", de: "Maldives", en: "Maldives", fr: "Maldives" },
     slug: "maldives2",
@@ -51,12 +43,10 @@ export const locationsMock: LocationType[] = [
 export const locationMock: LocationOverviewType = {
   countryCode: "mv",
   totalHotelsNumber: 860,
-  airTemperature: 28,
   hotelsNumber: 36,
   image: image1,
   name: { ru: "Мальдивы", de: "Maldives", en: "Maldives", fr: "Maldives" },
   slug: "maldives",
-  waterTemperature: 25,
   hotels: [
     {
       time: 2,

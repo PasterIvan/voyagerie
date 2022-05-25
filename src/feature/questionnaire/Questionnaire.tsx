@@ -101,7 +101,7 @@ export const Questionnaire = () => {
           <div className="justify-self-end flex items-center">
             {!isLoading && (
               <>
-                ({currentStep + 1}/{steps.length} )
+                ({currentStep + 1}/{steps.length})
               </>
             )}
             <AiOutlineClose

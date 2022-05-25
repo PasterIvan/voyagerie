@@ -5,20 +5,20 @@ import { FenceList } from "shared/components/FenceList";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "entities/language/lib";
 import { LocationCard, LocationCardLoader } from "entities/location/ui";
-import { locationsMock } from "shared/api/locationsMock";
 
 import { ArrowUp } from "../../app/assets/images/ArrowUp";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { useMemo, useRef } from "react";
-import { useGate } from "effector-react";
-import { mainGate } from "./models";
+import { useGate, useStore } from "effector-react";
+import { $items, getCountriesFx, mainGate } from "./models";
 import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 
 function MainPage() {
-  const isLoading = false;
+  const isItemsloading = useStore(getCountriesFx.pending);
+  const items = useStore($items);
 
   const navigate = useNavigate();
   const { $t } = useTranslation();
@@ -36,6 +36,12 @@ function MainPage() {
       },
       scrollToTop: () => {
         window.scrollTo(0, 0);
+      },
+      handleNotFound: () => {
+        navigate(RoutesPaths.NotFound);
+      },
+      handleError: () => {
+        navigate(RoutesPaths.Error);
       },
     }),
     []
@@ -84,7 +90,7 @@ function MainPage() {
             <div className="text-3xl sm:text-5xl font-semibold text-light text-center">
               {$t("pages.main.chooseCountryText")}
             </div>
-            {isLoading ? (
+            {!items || isItemsloading ? (
               <FenceList
                 className="w-full gap-4 pt-8 md:pt-20"
                 items={Array.from({ length: 5 })}
@@ -93,7 +99,7 @@ function MainPage() {
             ) : (
               <FenceList
                 className="w-full gap-4 pt-8 md:pt-20"
-                items={locationsMock}
+                items={items}
                 render={(item) => (
                   <LocationCard
                     {...item}

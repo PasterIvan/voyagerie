@@ -1,0 +1,41 @@
+@keyframes square-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes floatting {
+  from {
+    bottom: 0;
+  }
+  to {
+    bottom: 120%;
+  }
+}
+
+$spin-durations: (
+  "sm": 2s,
+  "md": 5s,
+  "lg": 8s,
+  "xl": 20s,
+  "2xl": 50s,
+);
+
+$float-durations: (
+  "sm": 10s,
+  "md": 30s,
+  "lg": 65s,
+  "xl": 100s,
+  "2xl": 150s,
+);
+
+@each $spin-key, $spin-var in $spin-durations {
+  @each $float-key, $float-var in $float-durations {
+    .floating-square-#{$spin-key}-#{$float-key} {
+      animation: square-spin $spin-var linear infinite,
+        floatting $float-var linear forwards;
+    }
+  }
+}

@@ -16,8 +16,6 @@ export type LocationType = {
   name: Record<string, string>;
   image: string;
   hotelsNumber: number;
-  airTemperature: number;
-  waterTemperature: number;
   slug: string;
   countryCode: string;
 };

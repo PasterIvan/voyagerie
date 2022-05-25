@@ -1,5 +1,9 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import {
+  FlottantCube,
+  SquareWidths,
+} from "shared/components/FlottantCube/FlottantCube";
 import { footerModel } from "widgets/Footer";
 import { Links } from "widgets/Links/Links";
 import { ArrowUp } from "./components/ArrowUp";
@@ -11,14 +15,19 @@ export const ErrorWidget = ({
   code: string;
   message?: string;
 }) => {
+  const [isToggledByUser, setIsToggledByUser] = useState(false);
   const [isLight, setIsLight] = useState(false);
-
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
+  const [isLightTurnedOff, setLightTurnedOff] = useState(false);
+
+  const toggleLight = () => {
+    setIsLight((isLight) => !isLight);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsAnimationStarted(true);
-      setIsLight((isLight) => !isLight);
+      toggleLight();
     }, 500);
 
     return () => {
@@ -26,11 +35,42 @@ export const ErrorWidget = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (isToggledByUser) {
+      setLightTurnedOff(true);
+      return;
+    }
+
+    setTimeout(() => {
+      setLightTurnedOff(true);
+      toggleLight();
+    }, 15000);
+
+    return () => {
+      clearTimeout();
+    };
+  }, [isToggledByUser, isAnimationStarted]);
+
+  useEffect(() => {
+    if (!isLightTurnedOff) {
+      return;
+    }
+
+    toggleLight();
+    const interval = setInterval(() => {
+      toggleLight();
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isToggledByUser, isLightTurnedOff]);
+
   return (
     <div
       className={classNames(
         isLight ? "bg-light" : "bg-black",
-        "h-screen w-full flex flex-col p-5 md:p-10",
+        "overflow-hidden relative h-screen w-full flex flex-col p-5 md:p-9",
         "transition-colors duration-[2500ms]"
       )}
     >
@@ -43,9 +83,9 @@ export const ErrorWidget = ({
           },
           "text-md md:text-xl font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent"
         )}
-        className="flex-grow-0 w-full flex justify-around lg:justify-center"
+        className="z-10 flex-grow-0 w-full flex justify-around lg:justify-center"
       />
-      <div className="flex flex-col flex-grow justify-center items-center relative">
+      <div className="z-10 flex flex-col flex-grow justify-center items-center relative">
         <div className="flex w-full justify-center items-center">
           <div className={classNames("flex-grow flex-shrink-0 h-2 relative")}>
             <div
@@ -60,7 +100,11 @@ export const ErrorWidget = ({
             />
           </div>
           <button
-            onClick={() => setIsLight(!isLight)}
+            onClick={() => {
+              if (!isAnimationStarted) return;
+              toggleLight();
+              setIsToggledByUser(true);
+            }}
             className={classNames(
               "transition-colors duration-[2500ms] hover:transition-none",
               {
@@ -89,7 +133,7 @@ export const ErrorWidget = ({
           <span
             className={classNames(
               isLight ? "text-black" : "text-light",
-              "transition-colors duration-[2500ms]"
+              "mt-3 transition-colors duration-[2500ms]"
             )}
           >
             {message}
@@ -101,6 +145,48 @@ export const ErrorWidget = ({
           className="absolute cursor-pointer rotate-180 bottom-0 left-0"
         />
       </div>
+      <FlottantCube width={SquareWidths.xl} min={30} max={60} />
+      <FlottantCube
+        className="invisible md:!visible"
+        width={SquareWidths.lg}
+        min={20}
+        max={70}
+      />
+      <FlottantCube
+        className="invisible md:!visible"
+        width={SquareWidths.md}
+        min={20}
+        max={40}
+        delay={3}
+      />
+      <FlottantCube width={SquareWidths.md} min={40} max={60} delay={6} />
+      <FlottantCube width={SquareWidths.md} min={60} max={80} />
+      <FlottantCube width={SquareWidths.sm} min={0} max={25} />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={3} />
+      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={9} />
+      <FlottantCube width={SquareWidths.sm} min={75} max={100} />
+
+      <FlottantCube
+        className="visible md:!invisible"
+        width={SquareWidths.sm}
+        min={25}
+        max={50}
+        delay={12}
+      />
+      <FlottantCube
+        className="visible md:!invisible"
+        width={SquareWidths.sm}
+        min={50}
+        max={75}
+        delay={15}
+      />
+      <FlottantCube
+        className="visible md:!invisible"
+        width={SquareWidths.sm}
+        min={75}
+        max={100}
+        delay={19}
+      />
     </div>
   );
 };

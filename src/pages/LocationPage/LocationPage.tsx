@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useStore } from "effector-react";
+import { useGate, useStore } from "effector-react";
 import { useTranslation } from "entities/language/lib";
 import { $location } from "entities/location/models";
 // import { useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ import { PlaceCard, PlaceCardLoader } from "entities/place/ui";
 
 import chillLogo from "./config/images/chill.svg";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import Flag from "react-world-flags";
@@ -19,19 +19,37 @@ import { mainPageModel } from "pages/MainPage";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { footerModel } from "widgets/Footer";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
+import { gate } from "./models";
 
 function LocationPage() {
+  const navigate = useNavigate();
+
+  const { id } = useParams();
   const isLoading = false;
 
-  useScrollToTop();
+  const gateObject = useMemo(
+    () => ({
+      slug: id,
+      handleNotFound: () => {
+        navigate(RoutesPaths.NotFound);
+      },
+      handleError: () => {
+        navigate(RoutesPaths.Error);
+      },
+    }),
+    [id, navigate]
+  );
 
-  // const { id } = useParams();
+  console.log("gateObject", gateObject);
+
+  useScrollToTop();
+  useGate(gate, gateObject);
+
   const [ref, isFocused] = useFocus();
   const [input, setInput] = useState("");
 
   const location = useStore($location);
   const { $t, $i18n } = useTranslation();
-  const navigate = useNavigate();
 
   const handlePlaceClick = useCallback(
     (slug: string) => {
