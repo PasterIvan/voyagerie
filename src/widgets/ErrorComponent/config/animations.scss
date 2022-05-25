@@ -16,17 +16,19 @@
 }
 
 $spin-durations: (
+  "xs": 2s,
   "sm": 2s,
-  "md": 5s,
-  "lg": 8s,
-  "xl": 20s,
+  "md": 8s,
+  "lg": 12s,
+  "xl": 30s,
   "2xl": 50s,
 );
 
 $float-durations: (
+  "xs": 5s,
   "sm": 10s,
-  "md": 30s,
-  "lg": 65s,
+  "md": 25s,
+  "lg": 40s,
   "xl": 100s,
   "2xl": 150s,
 );

@@ -11,43 +11,34 @@ import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { useMemo, useRef } from "react";
 import { useGate, useStore } from "effector-react";
-import { $items, getCountriesFx, mainGate } from "./models";
 import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { $items, fx, gates } from "./models";
 
 function MainPage() {
-  const isItemsloading = useStore(getCountriesFx.pending);
+  useGate(gates.mainGate, {
+    scrollToLocationsHandler: () => {
+      window.scrollTo({
+        top:
+          (headerRef.current?.offsetTop ?? 0) +
+          (headerRef.current?.offsetHeight ?? 0),
+        behavior: "smooth",
+      });
+    },
+    scrollToTop: () => {
+      console.log("super pizda");
+      window.scrollTo(0, 0);
+    },
+  });
+
+  const isItemsloading = useStore(fx.getCountriesFx.pending);
   const items = useStore($items);
 
   const navigate = useNavigate();
   const { $t } = useTranslation();
   const headerRef = useRef<HTMLDivElement | null>(null);
-
-  const gateObject = useMemo(
-    () => ({
-      scrollToLocationsHandler: () => {
-        window.scrollTo({
-          top:
-            (headerRef.current?.offsetTop ?? 0) +
-            (headerRef.current?.offsetHeight ?? 0),
-          behavior: "smooth",
-        });
-      },
-      scrollToTop: () => {
-        window.scrollTo(0, 0);
-      },
-      handleNotFound: () => {
-        navigate(RoutesPaths.NotFound);
-      },
-      handleError: () => {
-        navigate(RoutesPaths.Error);
-      },
-    }),
-    []
-  );
-
-  useGate(mainGate, gateObject);
 
   return (
     <div
@@ -118,8 +109,12 @@ function MainPage() {
   );
 }
 
-export default () => (
-  <ErrorBoundary>
-    <MainPage />
-  </ErrorBoundary>
-);
+export default () => {
+  return (
+    <ManualErrorBoundary gate={gates.errorGate}>
+      <ErrorBoundary>
+        <MainPage />
+      </ErrorBoundary>
+    </ManualErrorBoundary>
+  );
+};

@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import {
-  FlottantCube,
   SquareWidths,
-} from "shared/components/FlottantCube/FlottantCube";
+  toggleInterval,
+  turnLightOffTimeout,
+} from "widgets/ErrorComponent/config/constants";
+import { FlottantCube } from "widgets/ErrorComponent/components/FlottantCube/FlottantCube";
 import { footerModel } from "widgets/Footer";
 import { Links } from "widgets/Links/Links";
 import { ArrowUp } from "./components/ArrowUp";
@@ -19,6 +21,7 @@ export const ErrorWidget = ({
   const [isLight, setIsLight] = useState(false);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isLightTurnedOff, setLightTurnedOff] = useState(false);
+  const [isAnimationFinished, setIsAnimationFinished] = useState(false);
 
   const toggleLight = () => {
     setIsLight((isLight) => !isLight);
@@ -36,35 +39,47 @@ export const ErrorWidget = ({
   }, []);
 
   useEffect(() => {
+    if (isLightTurnedOff) return;
+    if (!isAnimationStarted) return;
+
     if (isToggledByUser) {
       setLightTurnedOff(true);
       return;
     }
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setLightTurnedOff(true);
       toggleLight();
-    }, 15000);
+    }, turnLightOffTimeout);
 
     return () => {
-      clearTimeout();
+      clearTimeout(timeout);
     };
-  }, [isToggledByUser, isAnimationStarted]);
+  }, [isLightTurnedOff, isToggledByUser, isAnimationStarted]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsAnimationFinished(true);
+    }, 2500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isAnimationStarted]);
 
   useEffect(() => {
     if (!isLightTurnedOff) {
       return;
     }
 
-    toggleLight();
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       toggleLight();
-    }, 60000);
+    }, toggleInterval);
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(timeout);
     };
-  }, [isToggledByUser, isLightTurnedOff]);
+  }, [isLight, isToggledByUser, isLightTurnedOff]);
 
   return (
     <div
@@ -101,15 +116,16 @@ export const ErrorWidget = ({
           </div>
           <button
             onClick={() => {
-              if (!isAnimationStarted) return;
+              if (!isAnimationFinished) return;
               toggleLight();
               setIsToggledByUser(true);
             }}
             className={classNames(
+              !isAnimationFinished && "cursor-default",
               "transition-colors duration-[2500ms] hover:transition-none",
               {
-                "text-black hover:text-blue": isLight,
-                "text-light hover:text-accent": !isLight,
+                "text-black hover:text-blue": isLight && isAnimationFinished,
+                "text-light hover:text-accent": !isLight && isAnimationFinished,
               },
               "text-5xl lg:text-9xl font-bold mx-8"
             )}
@@ -165,28 +181,9 @@ export const ErrorWidget = ({
       <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={3} />
       <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={9} />
       <FlottantCube width={SquareWidths.sm} min={75} max={100} />
-
-      <FlottantCube
-        className="visible md:!invisible"
-        width={SquareWidths.sm}
-        min={25}
-        max={50}
-        delay={12}
-      />
-      <FlottantCube
-        className="visible md:!invisible"
-        width={SquareWidths.sm}
-        min={50}
-        max={75}
-        delay={15}
-      />
-      <FlottantCube
-        className="visible md:!invisible"
-        width={SquareWidths.sm}
-        min={75}
-        max={100}
-        delay={19}
-      />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={12} />
+      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={15} />
+      <FlottantCube width={SquareWidths.sm} min={75} max={100} delay={19} />
     </div>
   );
 };

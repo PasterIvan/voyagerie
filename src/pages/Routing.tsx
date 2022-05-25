@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
 import { withSuspense } from "shared/lib/hoc/withSuspence";
 import { PagePreloader } from "shared/components/PagePreloader";
-import { NotFoundPage } from "./NotFoundPage/NotFoundPage";
-import { ErrorPage } from "./ErrorPage/ErrorPage";
 
+const NotFoundPage = React.lazy(() => import("./NotFoundPage/NotFoundPage"));
+const ErrorPage = React.lazy(() => import("./ErrorPage/ErrorPage"));
 const FormPage = React.lazy(() => import("./FormPage/FormPage"));
 const LocationPage = React.lazy(() => import("./LocationPage/LocationPage"));
 const PlacePage = React.lazy(() => import("./PlacePage/PlacePage"));

@@ -1,7 +1,8 @@
-import { $shouldScroll, events, mainGate } from "./models";
+import { $shouldScroll, events, fx, gates } from "./models";
 
 export const mainPageModel = {
   events,
   $shouldScroll,
-  gate: mainGate,
+  gates,
+  fx,
 };

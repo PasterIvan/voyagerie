@@ -10,30 +10,31 @@ import {
 import { createGate } from "effector-react";
 import { api, CountryType } from "shared/api/api";
 import { AxiosError } from "axios";
+import { createErrorHandler } from "shared/lib/store";
 
-export const getCountriesFx = createEffect<void, CountryType[], AxiosError>(
+const errorHandler = createErrorHandler();
+
+const getCountriesFx = createEffect<void, CountryType[], AxiosError>(
   api.getCountries
 );
 export const $items = restore(getCountriesFx.doneData, null);
 
-export const scrollToLocations = createEvent();
+const scrollToLocations = createEvent();
 const onScrolled = createEvent();
 
 export const $shouldScroll = createStore(false)
   .on(scrollToLocations, () => true)
   .reset(onScrolled);
 
-export const mainGate = createGate<{
+const mainGate = createGate<{
   scrollToLocationsHandler: () => void;
   scrollToTop: () => void;
-  handleNotFound: () => void;
-  handleError: () => void;
 }>();
 
-sample({
-  source: mainGate.state,
-  clock: getCountriesFx.fail,
-}).watch((state) => state.handleError());
+forward({
+  from: getCountriesFx.fail,
+  to: errorHandler.events.serverError,
+});
 
 forward({
   from: mainGate.open,
@@ -55,21 +56,32 @@ sample({
 });
 
 sample({
-  source: combine([mainGate.state, $shouldScroll]),
-  clock: [mainGate.state, mainGate.open],
-}).watch(([{ scrollToLocationsHandler, scrollToTop }, shouldScroll]) => {
-  if (!scrollToLocationsHandler || !scrollToTop) {
+  source: combine([restore(mainGate.open, null), $shouldScroll]),
+  clock: mainGate.open,
+}).watch(([state, shouldScroll]) => {
+  if (!state) return;
+  if (!state.scrollToLocationsHandler || !state.scrollToTop) {
     return;
   }
 
   if (shouldScroll) {
-    scrollToLocationsHandler();
+    state.scrollToLocationsHandler();
     onScrolled();
   } else {
-    scrollToTop();
+    state.scrollToTop();
   }
 });
 
 export const events = {
   scrollToLocations,
+  ...errorHandler.events,
+};
+
+export const gates = {
+  mainGate,
+  errorGate: errorHandler.gate,
+};
+
+export const fx = {
+  getCountriesFx,
 };

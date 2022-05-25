@@ -2,7 +2,7 @@ import { useTranslation } from "entities/language/lib";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { ErrorWidget } from "widgets/ErrorComponent/ErrorWidget";
 
-export const NotFoundPage = () => {
+export default () => {
   useScrollToTop();
   const { $t } = useTranslation();
 

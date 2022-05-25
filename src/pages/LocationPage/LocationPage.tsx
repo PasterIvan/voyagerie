@@ -19,31 +19,20 @@ import { mainPageModel } from "pages/MainPage";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { footerModel } from "widgets/Footer";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
-import { gate } from "./models";
+import { gates, pageGate } from "./models";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
 
 function LocationPage() {
+  const isLoading = false;
+  const { id } = useParams();
+
+  useGate(pageGate, {
+    slug: id,
+  });
+
   const navigate = useNavigate();
 
-  const { id } = useParams();
-  const isLoading = false;
-
-  const gateObject = useMemo(
-    () => ({
-      slug: id,
-      handleNotFound: () => {
-        navigate(RoutesPaths.NotFound);
-      },
-      handleError: () => {
-        navigate(RoutesPaths.Error);
-      },
-    }),
-    [id, navigate]
-  );
-
-  console.log("gateObject", gateObject);
-
   useScrollToTop();
-  useGate(gate, gateObject);
 
   const [ref, isFocused] = useFocus();
   const [input, setInput] = useState("");
@@ -229,7 +218,9 @@ function LocationPage() {
 }
 
 export default () => (
-  <ErrorBoundary>
-    <LocationPage />
-  </ErrorBoundary>
+  <ManualErrorBoundary gate={gates.errorGate}>
+    <ErrorBoundary>
+      <LocationPage />
+    </ErrorBoundary>
+  </ManualErrorBoundary>
 );

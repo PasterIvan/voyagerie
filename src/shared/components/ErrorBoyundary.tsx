@@ -1,5 +1,8 @@
-import { ErrorPage } from "pages/ErrorPage/ErrorPage";
 import React, { ReactNode } from "react";
+import { withSuspense } from "shared/lib/hoc/withSuspence";
+import { PagePreloader } from "./PagePreloader";
+
+const ErrorPage = React.lazy(() => import("pages/ErrorPage/ErrorPage"));
 
 export class ErrorBoundary extends React.Component<
   { children: ReactNode },
@@ -22,7 +25,7 @@ export class ErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return <ErrorPage />;
+      return withSuspense(<ErrorPage />, <PagePreloader />);
     }
 
     return this.props.children;

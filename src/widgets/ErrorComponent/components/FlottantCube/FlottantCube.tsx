@@ -1,43 +1,12 @@
 import classNames from "classnames";
 import { useState, useEffect, useMemo } from "react";
-import "./animations.scss";
-
-const animationSizes = ["sm", "md", "lg", "xl", "2xl"] as const;
-export enum SquareWidths {
-  sm = 30,
-  md = 70,
-  lg = 120,
-  xl = 180,
-}
-const bounds = {
-  [SquareWidths.xl]: {
-    number: 3,
-    right: true,
-    delay: 25,
-  },
-  [SquareWidths.lg]: {
-    number: 1,
-    right: true,
-    delay: 10,
-  },
-  [SquareWidths.md]: {
-    number: 3,
-    right: false,
-    delay: 4,
-  },
-  [SquareWidths.sm]: {
-    number: 2,
-    right: false,
-    delay: 0,
-  },
-} as const;
-const durations = {
-  sm: 10,
-  md: 30,
-  lg: 65,
-  xl: 100,
-  "2xl": 150,
-} as const;
+import "../../config/animations.scss";
+import {
+  SquareWidths,
+  bounds,
+  animationSizes,
+  durations,
+} from "../../config/constants";
 
 export const FlottantCube = ({
   className,
@@ -97,21 +66,26 @@ export const FlottantCube = ({
     return () => clearTimeout(timeout);
   }, [delay, floating, minDelay]);
 
+  const style = useMemo(
+    () => ({
+      animationDelay: `${delay}s`,
+      width,
+      left,
+      marginBottom: -width,
+    }),
+    [delay, width, left]
+  );
+
   if (offAnimation) {
     return null;
   }
 
   return (
     <div
-      style={{
-        animationDelay: `${delay}s`,
-        width,
-        left,
-        marginBottom: -width,
-      }}
+      style={style}
       className={classNames(
         className,
-        "bg-light z-10 mix-blend-exclusion hover:opacity-0 transition-opacity duration-1000 bottom-0 absolute w-full aspect-square",
+        "bg-light z-10 mix-blend-exclusion pointer-events-none transition-[display] duration-1000 bottom-0 absolute w-full aspect-square",
         offAnimation ? "animate-none" : `floating-square-${spin}-${floating}`
       )}
     />
