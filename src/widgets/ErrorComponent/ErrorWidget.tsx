@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import {
+  preloaderDelay,
   SquareWidths,
   toggleInterval,
   turnLightOffTimeout,
@@ -17,6 +18,7 @@ export const ErrorWidget = ({
   code: string;
   message?: string;
 }) => {
+  const [preloader, setPreloader] = useState(true);
   const [isToggledByUser, setIsToggledByUser] = useState(false);
   const [isLight, setIsLight] = useState(false);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
@@ -29,9 +31,19 @@ export const ErrorWidget = ({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      setPreloader(false);
+    }, preloaderDelay);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
       setIsAnimationStarted(true);
       toggleLight();
-    }, 500);
+    }, preloaderDelay + 500);
 
     return () => {
       clearTimeout(timeout);
@@ -89,6 +101,14 @@ export const ErrorWidget = ({
         "transition-colors duration-[2500ms]"
       )}
     >
+      <div
+        className={classNames(
+          "absolute inset-0 bg-black h-full w-full flex justify-center items-center p-5 md:p-9 z-50 pointer-events-none transition-opacity duration-[500ms]",
+          !preloader && "opacity-0"
+        )}
+      >
+        <div className="lds-hourglass" />
+      </div>
       <Links
         elementClassName={classNames(
           "transition-colors duration-[2500ms] hover:transition-none",

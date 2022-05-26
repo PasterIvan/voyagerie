@@ -41,3 +41,4 @@ export const durations = {
 export const toggleInterval = 15 * 1000;
 export const turnLightOffTimeout = 3 * 1000;
 export const maxDelay = 25 + 5;
+export const preloaderDelay = 0.5 * 1000;
