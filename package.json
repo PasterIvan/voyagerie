@@ -1,6 +1,6 @@
 {
   "name": "voyagerie",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@effector/reflect": "^7.1.1",
