@@ -102,7 +102,7 @@ export const Footer = () => {
               />
               <a
                 href={"tel:" + infoMock.phone}
-                className="text-2xl font-bold text-light ml-3 hover:text-accent"
+                className="text-lg md:text-2xl font-bold text-light ml-3 hover:text-accent"
               >
                 {infoMock.phone}
               </a>
@@ -122,7 +122,7 @@ export const Footer = () => {
               />
               <a
                 href={"mailto:" + infoMock.email}
-                className="overflow-hidden uppercase text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
+                className="overflow-hidden uppercase text-lg md:text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
               >
                 {infoMock.email}
               </a>

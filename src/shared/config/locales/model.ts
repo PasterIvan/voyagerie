@@ -1,4 +1,3 @@
-import { PlaceType } from "entities/location/models";
 import { activeLocales, RoutesPaths } from "../constants";
 
 export type LocaleObject = {
@@ -25,7 +24,7 @@ export type LocaleObject = {
       search: { placeholder: string };
       card: {
         transfer: string;
-        time: Record<PlaceType["timeType"], string>;
+        time: Record<"minutes" | "hours" | "days" | "nights" | "weeks", string>;
       };
       suggestion: string;
       button: string;
@@ -101,6 +100,8 @@ export type LocaleObject = {
   };
   navbarRoutes: { [Key in RoutesPaths]?: string };
   moneyFrom: string;
+  noData: string;
+  notFound: string;
 };
 
 export type LocalesType = typeof activeLocales[number];

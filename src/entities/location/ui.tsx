@@ -1,18 +1,17 @@
 import classNames from "classnames";
-import { LocationType } from "./models";
 
 import plural from "plural-ru";
 import { useHover } from "shared/lib/hooks/useHover";
 import React from "react";
 import { useTranslation } from "entities/language/lib";
-import Flag from "react-world-flags";
 import { ArrowIcon } from "./config/Arrow";
 import { ImageWithError } from "shared/components/ImageWithError";
+import { CountryType } from "shared/api/api";
 
 export const LocationCard: React.FC<
   {
     className?: string;
-  } & LocationType &
+  } & CountryType &
     React.HTMLAttributes<HTMLDivElement>
 > = ({ className, name, hotelsNumber, image, countryCode, ...props }) => {
   const { $i18n, $t } = useTranslation();

@@ -28,8 +28,7 @@ export const Breadcrumb = ({
             <>
               <span className="md:inline hidden text-xs"> / </span>
               <span className="md:hidden inline text-accent text-xs">
-                {" "}
-                {">"}{" "}
+                {" > "}
               </span>
             </>
           )}

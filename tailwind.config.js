@@ -24,6 +24,7 @@ module.exports = {
       "transparent": 'transparent',
       "current": 'currentColor',
       "accent": "#EFCFA5",
+      "blue-inverted": "#10305A",
       "accent-dark": "#EBC99E",
       "brown-dark": "#796A57",
       "brown-background": "#FAE4BC",

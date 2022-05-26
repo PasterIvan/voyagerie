@@ -117,4 +117,6 @@ export const fr: LocaleObject = {
     [RoutesPaths.Help]: "Contact",
   },
   moneyFrom: "à partir de",
+  noData: "Aucune donnée",
+  notFound: "Non trouvé",
 };

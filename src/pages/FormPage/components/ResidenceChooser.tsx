@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
 import { PlaceListCard } from "entities/place/components/PlaceListCard";
-import { ResidenceType } from "entities/place/models";
+import { ResidenceType } from "shared/api/api";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import SimpleBar from "simplebar-react";
 

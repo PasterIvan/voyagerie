@@ -222,9 +222,9 @@ export const ErrorWidget = ({
       <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={3} />
       <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={9} />
       <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={12} />
-      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={5} />
-      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={11} />
-      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={14} />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={7} />
+      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={16} />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={19} />
       <FlottantCube
         width={SquareWidths.sm}
         min={50}

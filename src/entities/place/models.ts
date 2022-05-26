@@ -1,42 +1,15 @@
-import { createEvent, createStore } from "effector";
-import { placesMock } from "shared/api/hotelsMock";
-import { LocalesType } from "shared/config/locales/model";
+import { AxiosError } from "axios";
+import { createEffect, createEvent, createStore, restore } from "effector";
+import { api, PlaceOverviewType } from "shared/api/api";
 
-export type ResidenceType = {
-  id: string;
-  name: Record<string, string>;
-  image: string;
-  price: number;
-  description: Record<string, string>;
-};
-
-export type PlaceOverviewType = {
-  residences: ResidenceType[];
-  slug: string;
-  locationSlug: string;
-  image: string;
-  name: Record<string, string>;
-  location: Record<string, string>;
-  description: Record<string, string>;
-  countryCode: string;
-  content: {
-    restorans: Record<string, string>;
-    health: Record<string, string>;
-    child: Record<string, string>;
-  };
-  gallery: string[];
-};
-
-const setPlace = createEvent<PlaceOverviewType>();
-
-export const $place = createStore<PlaceOverviewType | null>(null).on(
-  setPlace,
-  (_, place) => place
+const getHotelFx = createEffect<string, PlaceOverviewType, AxiosError>((slug) =>
+  api.getHotel(slug)
 );
 
-//TODO: Dev only
-setPlace(placesMock);
+export const $place = restore(getHotelFx.doneData, null);
 
-export const events = {
-  setPlace,
+export const events = {};
+
+export const fx = {
+  getHotelFx,
 };

@@ -10,7 +10,7 @@ import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
 import { Breadcrumb } from "shared/components/Breadcrumb";
 import { mainPageModel } from "pages/MainPage";
-import { $place, ResidenceType } from "entities/place/models";
+import { $place } from "entities/place/models";
 import { Lines } from "shared/components/Lines";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import DatePicker from "react-datepicker";
@@ -29,10 +29,13 @@ import { Modal } from "shared/components/ModalLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import { buttons, foodType } from "./config";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
+import { ImageWithError } from "shared/components/ImageWithError";
+import { ResidenceType } from "shared/api/api";
+import { placeModel } from "entities/place";
 
 function FormPage() {
   // const { id } = useParams();
-  const isLoading = false;
+  const isLoading = useStore(placeModel.fx.getHotelFx.pending);
 
   const { $t, $i18n } = useTranslation();
   useScrollToTop();
@@ -126,10 +129,10 @@ function FormPage() {
   }, [fields.foodType.value]);
 
   useEffect(() => {
-    if (!selectedResidence && place?.residences?.length) {
-      setSelectedResidence(place.residences[0]);
+    if (!selectedResidence && place?.rooms?.length) {
+      setSelectedResidence(place.rooms[0]);
     }
-  }, [selectedResidence, place?.residences]);
+  }, [selectedResidence, place?.rooms]);
 
   useEffect(() => {
     if (!previousChoosedResidenceRef.current && choosedResidence) {
@@ -237,8 +240,10 @@ function FormPage() {
             }
             childrenClassName="flex flex-col justify-around"
             absoluteElement={
-              <img
-                className="max-w-none moving-block object-cover"
+              <ImageWithError
+                className="max-w-none object-cover"
+                successClassName="moving-block"
+                errorClassName="w-full h-full"
                 src={place.image}
               />
             }
@@ -260,7 +265,7 @@ function FormPage() {
               }}
               selectedResidence={selectedResidence}
               choosedResidence={choosedResidence}
-              residences={place.residences}
+              residences={place.rooms}
             />
             <div ref={formContainerRef} />
             <div

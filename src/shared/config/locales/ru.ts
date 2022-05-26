@@ -117,4 +117,6 @@ export const ru: LocaleObject = {
     [RoutesPaths.Help]: "Контакты",
   },
   moneyFrom: "от",
+  noData: "Нет данных для отображения",
+  notFound: "Не найдено"
 };

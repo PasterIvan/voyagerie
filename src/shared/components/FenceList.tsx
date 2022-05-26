@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslation } from "entities/language/lib";
 import { ReactElement } from "react";
 
 export const FenceList: <T>(props: {
@@ -9,6 +10,15 @@ export const FenceList: <T>(props: {
     i: number
   ) => React.ReactElement;
 }) => ReactElement = ({ className, items, render }) => {
+  const { $t } = useTranslation();
+  if (!items.length) {
+    return (
+      <div className="w-full h-40 flex justify-center items-center">
+        <div className="text-center text-light text-4xl">{$t("noData")}</div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={classNames(

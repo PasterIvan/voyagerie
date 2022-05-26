@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 
 import placeholderImg from "app/assets/images/placeholder-image.svg";
+import classNames from "classnames";
 
 type imagePropsType = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
@@ -13,9 +14,14 @@ export const ImageWithError = ({
   onError,
   src,
   placeholder = placeholderImg,
+  className,
+  successClassName,
+  errorClassName,
   ...props
 }: {
   placeholder?: string;
+  successClassName?: string;
+  errorClassName?: string;
   element?: (props: imagePropsType) => JSX.Element;
 } & imagePropsType) => {
   const [isError, setError] = useState(false);
@@ -39,6 +45,11 @@ export const ImageWithError = ({
 
   return (
     <Element
+      className={classNames(
+        className,
+        !isError && successClassName,
+        isError && errorClassName
+      )}
       onLoad={onLoadHandler}
       onError={onErrorHandler}
       src={isError ? placeholder : src}

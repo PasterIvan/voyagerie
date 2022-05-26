@@ -4,9 +4,9 @@ import plural from "plural-ru";
 import { transferIcons } from "./config";
 import { useHover } from "shared/lib/hooks/useHover";
 import { ArrowIcon } from "entities/location/config/Arrow";
-import { PlaceType } from "entities/location/models";
-import { LocalesType } from "shared/config/locales/model";
 import { pluralConfig } from "shared/config/locales/constants";
+import { ImageWithError } from "shared/components/ImageWithError";
+import { HotelType } from "shared/api/api";
 
 export const PlaceCard: React.FC<
   {
@@ -14,7 +14,7 @@ export const PlaceCard: React.FC<
     onClick?: (slug: string) => void;
     bottomBorder?: boolean;
     topBorder?: boolean;
-  } & PlaceType
+  } & HotelType
 > = ({
   className,
   image,
@@ -31,7 +31,7 @@ export const PlaceCard: React.FC<
   const [ref, isHovered] = useHover();
   const { $t, $i18n } = useTranslation();
 
-  const Icon = transferIcons[transferType];
+  const Icon = (transferIcons as any)[transferType] || null;
 
   return (
     <div
@@ -51,11 +51,10 @@ export const PlaceCard: React.FC<
       >
         <div className="relative col-span-1 rounded overflow-hidden h-full w-full lg:w-[448px]">
           <div className="absolute block lg:hidden z-10 h-full w-full bg-gradient-to-b from-[#180F0B]/80 to-[#180F0B]/30" />
-          <img
+          <ImageWithError
             src={image}
-            className={classNames(
-              "absolute transition-transform duration-500 object-cover h-full w-full group-hover:scale-110"
-            )}
+            className={classNames("absolute object-cover h-full w-full")}
+            successClassName="transition-transform duration-500 group-hover:scale-110"
           />
         </div>
         <div className="left-4 z-10 bottom-10 absolute lg:static col-span-1 max-w-md sm:pr-14 lg:pr-7">
@@ -68,7 +67,8 @@ export const PlaceCard: React.FC<
             </span>
             <Icon className="mr-2" />
             <span className="text-accent">
-              {time} {plural(time, ...pluralConfig[$i18n][timeType])}
+              {time}{" "}
+              {plural(time, ...((pluralConfig[$i18n] as any)[timeType] || []))}
             </span>
           </div>
           <span className="text-base font-medium text-light ml-auto">

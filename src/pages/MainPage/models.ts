@@ -44,31 +44,23 @@ forward({
 sample({
   source: combine([mainGate.state, mainGate.status, $shouldScroll]),
   clock: $shouldScroll,
-}).watch(([{ scrollToLocationsHandler }, isMounted, shouldScroll]) => {
-  if (!isMounted) {
-    return;
-  }
-
-  if (shouldScroll) {
-    scrollToLocationsHandler();
-    onScrolled();
-  }
+  filter: ([_, isMounted, shouldScroll]) => isMounted && shouldScroll,
+}).watch(([{ scrollToLocationsHandler }]) => {
+  scrollToLocationsHandler();
+  onScrolled();
 });
 
 sample({
   source: combine([restore(mainGate.open, null), $shouldScroll]),
   clock: mainGate.open,
+  filter: ([state]) =>
+    Boolean(state && state.scrollToLocationsHandler && state.scrollToTop),
 }).watch(([state, shouldScroll]) => {
-  if (!state) return;
-  if (!state.scrollToLocationsHandler || !state.scrollToTop) {
-    return;
-  }
-
   if (shouldScroll) {
-    state.scrollToLocationsHandler();
+    state!.scrollToLocationsHandler();
     onScrolled();
   } else {
-    state.scrollToTop();
+    state!.scrollToTop();
   }
 });
 

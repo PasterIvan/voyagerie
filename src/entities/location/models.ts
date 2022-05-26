@@ -1,48 +1,18 @@
-import { createEvent, createStore } from "effector";
-import { locationsMock, locationMock } from "shared/api/locationsMock";
-import { LocalesType } from "shared/config/locales/model";
+import { AxiosError } from "axios";
+import { createEffect, createEvent, createStore, restore } from "effector";
+import { api } from "shared/api";
+import { CountryType, HotelType } from "shared/api/api";
 
-export type PlaceType = {
-  image: string;
-  name: Record<string, string>;
-  transferType: "air" | "water" | "air-water";
-  time: number;
-  timeType: "minutes" | "hours" | "days" | "nights" | "weeks";
-  cost: number;
-  slug: string;
-};
+const getCountryFx = createEffect<
+  string,
+  CountryType & { hotels: HotelType[] },
+  AxiosError
+>((slug) => api.getCountry(slug));
 
-export type LocationType = {
-  name: Record<string, string>;
-  image: string;
-  hotelsNumber: number;
-  slug: string;
-  countryCode: string;
-};
+export const $location = restore(getCountryFx.doneData, null);
 
-export type LocationOverviewType = LocationType & {
-  hotels: PlaceType[];
-  totalHotelsNumber: number;
-};
+export const events = {};
 
-const setLocation = createEvent<LocationOverviewType>();
-const setLocations = createEvent<LocationType[]>();
-
-export const $location = createStore<LocationOverviewType | null>(null).on(
-  setLocation,
-  (_, locations) => locations
-);
-
-export const $locations = createStore<LocationType[]>([]).on(
-  setLocations,
-  (_, locations) => locations
-);
-
-//TODO: Dev only
-setLocations(locationsMock);
-setLocation(locationMock);
-
-export const events = {
-  setLocation,
-  setLocations,
+export const fx = {
+  getCountryFx,
 };

@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { useStore } from "effector-react";
-import { $place, PlaceOverviewType } from "entities/place/models";
+import { useGate, useStore } from "effector-react";
+import { $place } from "entities/place/models";
 import { useTranslation } from "entities/language/lib";
 import { useMemo, useRef, useState } from "react";
 import { Breadcrumb } from "shared/components/Breadcrumb";
@@ -19,11 +19,16 @@ import { ReactComponent as Restautants } from "./config/restautants-icon.svg";
 import { ReactComponent as Galery } from "./config/galery-icon.svg";
 import { ArrowUp } from "app/assets/images/ArrowUp";
 import { mainPageModel } from "pages/MainPage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import useBreakpoint from "use-breakpoint";
 import { BREAKPOINTS } from "shared/config/styles";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
+import { ImageWithError } from "shared/components/ImageWithError";
+import { gates } from "./models";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { PlaceOverviewType } from "shared/api/api";
+import { placeModel } from "entities/place";
 
 const fieldsResource: {
   localePath: Paths<LocaleObject>;
@@ -53,14 +58,18 @@ const DESKTOP_SLIDES_COUNT = 3.4;
 const MOBILE_SLIDES_COUNT = 2.4;
 
 function PlacePage() {
-  const isLoading = false;
-
   const { breakpoint } = useBreakpoint(BREAKPOINTS, "tablet");
+  const { id } = useParams();
+  const place = useStore($place);
+  const isLoading = useStore(placeModel.fx.getHotelFx.pending);
+
+  useGate(gates.pageGate, {
+    slug: id,
+  });
+
   useScrollToTop();
   const navigate = useNavigate();
 
-  // const { id } = useParams();
-  const place = useStore($place);
   const { $t, $i18n } = useTranslation();
 
   const [swiper, setSwiper] = useState<any>(null);
@@ -105,8 +114,6 @@ function PlacePage() {
     ];
   }, [$i18n, $t, isLoading, place]);
 
-  if (!place) return null;
-
   return (
     <div
       className={classNames("flex justify-center bg-black-background w-full")}
@@ -119,14 +126,16 @@ function PlacePage() {
           leftBottomElement={<Breadcrumb items={breadcrumb} />}
           childrenClassName="flex flex-col justify-around"
           absoluteElement={
-            <img
-              className="max-w-none moving-block object-cover"
-              src={place.image}
+            <ImageWithError
+              className="max-w-none object-cover"
+              errorClassName="w-full h-full"
+              successClassName="moving-block"
+              src={place?.image}
               alt="place"
             />
           }
         >
-          {isLoading ? (
+          {!place || isLoading ? (
             <div className="flex w-full justify-center items-center">
               <div className="lds-hourglass" />
             </div>
@@ -150,7 +159,7 @@ function PlacePage() {
               <BedIcon className="inline mr-3" />
               {$t("pages.place.labels.name")}
             </div>
-            {isLoading ? (
+            {!place || isLoading ? (
               <div className="md:mx-0 mt-5 md:mt-0 border border-light/50 h-64 rounded-lg w-full flex justify-center items-center">
                 <div className="lds-hourglass" />
               </div>
@@ -183,7 +192,7 @@ function PlacePage() {
                   <div
                     className="font-[Manrope] text-sm md:text-base content-editor"
                     dangerouslySetInnerHTML={{
-                      __html: place.content[objectKey][$i18n],
+                      __html: place?.content[objectKey][$i18n] || "",
                     }}
                   />
                 )}
@@ -207,7 +216,7 @@ function PlacePage() {
             onSlideChange={setSwiper}
             className="w-full h-32 lg:h-44 xl:h-72"
           >
-            {isLoading
+            {!place || isLoading
               ? Array.from({ length: 4 }).map((_, i) => (
                   <SwiperSlide
                     className="w-full h-full rounded-lg overflow-hidden border-light/50 border flex justify-center items-center"
@@ -221,7 +230,7 @@ function PlacePage() {
                     className="w-full h-full rounded overflow-hidden"
                     key={idx}
                   >
-                    <img
+                    <ImageWithError
                       className="w-full h-full object-cover"
                       src={image}
                       alt="gallery place"
@@ -264,7 +273,9 @@ function PlacePage() {
 }
 
 export default () => (
-  <ErrorBoundary>
-    <PlacePage />
-  </ErrorBoundary>
+  <ManualErrorBoundary gate={gates.errorGate}>
+    <ErrorBoundary>
+      <PlacePage />
+    </ErrorBoundary>
+  </ManualErrorBoundary>
 );

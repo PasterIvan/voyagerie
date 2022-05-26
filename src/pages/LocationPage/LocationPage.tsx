@@ -19,19 +19,20 @@ import { mainPageModel } from "pages/MainPage";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { footerModel } from "widgets/Footer";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
-import { gates, pageGate } from "./models";
+import { gates } from "./models";
 import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ImageWithError } from "shared/components/ImageWithError";
+import { locationModel } from "entities/location";
 
 function LocationPage() {
-  const isLoading = false;
+  const isLoading = useStore(locationModel.fx.getCountryFx.pending);
   const { id } = useParams();
 
-  useGate(pageGate, {
+  useGate(gates.pageGate, {
     slug: id,
   });
 
   const navigate = useNavigate();
-
   useScrollToTop();
 
   const [ref, isFocused] = useFocus();
@@ -49,16 +50,23 @@ function LocationPage() {
 
   const [beforeSuggestion, afterSuggestion] = useMemo(() => {
     const places = location?.hotels ?? [];
+    const filtered = input
+      ? places.filter((place) =>
+          place.name[$i18n]
+            .toLocaleLowerCase()
+            .includes(input.toLocaleLowerCase())
+        )
+      : places;
 
-    const firstElement = places.slice(0, 1);
-    const lastElement = places.slice(-1);
-    const middleArray = places.slice(0, -1);
+    const firstElement = filtered.slice(0, 1);
+    const lastElement = filtered.slice(-1);
+    const middleArray = filtered.slice(0, -1);
 
     return [
       firstElement.concat(middleArray.slice(1, 3)),
       middleArray.slice(3, -1).concat(lastElement),
     ];
-  }, [location?.hotels]);
+  }, [input, $i18n, location?.hotels]);
 
   const breadcrumb = useMemo(() => {
     const hasLocation = !isLoading && Boolean(location?.name);
@@ -80,15 +88,7 @@ function LocationPage() {
           ]
         : []),
     ];
-  }, [isLoading, location]);
-
-  useEffect(() => {
-    if (!isLoading && !location) {
-      navigate(RoutesPaths.NotFound);
-    }
-  }, [isLoading, location]);
-
-  if (!location) return null;
+  }, [$i18n, isLoading, location]);
 
   return (
     <div
@@ -102,42 +102,44 @@ function LocationPage() {
           leftBottomElement={<Breadcrumb items={breadcrumb} />}
           childrenClassName="flex justify-center w-full"
           absoluteElement={
-            <img
+            <ImageWithError
               alt="location"
-              className="max-w-none moving-block object-cover"
-              src={location.image}
+              className="max-w-none object-cover"
+              successClassName="moving-block"
+              errorClassName="w-full h-full"
+              src={location?.image}
             />
           }
         >
-          {isLoading ? (
+          {!location || isLoading ? (
             <div className="flex w-full justify-center items-center">
               <div className="lds-hourglass" />
             </div>
           ) : (
             <div className="w-full sm:w-auto flex flex-col items-center justify-center max-w-full">
               <Flag
-                code={location.countryCode}
+                code={location!.countryCode}
                 className="w-12 h-auto mx-auto"
               />
-              <div className="leading-none text-light text-4xl sm:text-[64px] font-normal mx-auto max-w-full md:max-w-[850px] item text-center break-words">
-                {location.name[$i18n]}
+              <div className="mt-3 leading-none text-light text-4xl sm:text-[64px] font-normal mx-auto max-w-full md:max-w-[850px] item text-center break-words">
+                {location!.name[$i18n]}
               </div>
               <div className="w-full text-light text-base font-normal mt-auto sm:mt-0 pt-6 whitespace-nowrap">
                 <div className="sm:pl-[50%]">
                   {$t("pages.location.title.text1")}
-                  {location.totalHotelsNumber
+                  {location!.totalHotelsNumber
                     ? ` ${$t("pages.location.title.insert")} ${
-                        location.totalHotelsNumber
+                        location!.totalHotelsNumber
                       }`
                     : ""}{" "}
                 </div>
                 <div className="sm:pl-[50%] whitespace-nowrap">
                   {$t("pages.location.title.text2")}{" "}
                   <span className="bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text hover:text-fill-transparent text-accent">
-                    {!isNaN(location.hotelsNumber as number) &&
-                      location.hotelsNumber !== null &&
-                      `${location.hotelsNumber} ${plural(
-                        location.hotelsNumber,
+                    {!isNaN(location!.hotelsNumber as number) &&
+                      location!.hotelsNumber !== null &&
+                      `${location!.hotelsNumber} ${plural(
+                        location!.hotelsNumber,
                         ...$t("pages.location.hotelsPlural")
                       )}`}
                   </span>
@@ -168,16 +170,24 @@ function LocationPage() {
               placeholder={$t("pages.location.search.placeholder")}
             />
           </div>
-          {isLoading
-            ? Array.from({ length: 2 }).map(() => <PlaceCardLoader />)
-            : beforeSuggestion.map((place) => (
-                <PlaceCard
-                  onClick={handlePlaceClick}
-                  key={place.slug}
-                  {...place}
-                  className="cursor-pointer"
-                />
-              ))}
+          {isLoading ? (
+            Array.from({ length: 2 }).map(() => <PlaceCardLoader />)
+          ) : !beforeSuggestion.length ? (
+            <div className="w-full h-20 flex justify-center items-center">
+              <div className="text-center text-light text-4xl">
+                {input ? $t("notFound") : $t("noData")}
+              </div>
+            </div>
+          ) : (
+            beforeSuggestion.map((place) => (
+              <PlaceCard
+                onClick={handlePlaceClick}
+                key={place.slug}
+                {...place}
+                className="cursor-pointer"
+              />
+            ))
+          )}
           <div className="flex-grow w-full items-center rounded px-6 py-7">
             <div className="gap-x-3 grid xs:grid-cols-[70px_auto] grid-rows-[auto_auto] ml-auto lg:w-1/2 items-center bg-accent rounded p-6 sm:pr-16">
               <img
