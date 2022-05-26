@@ -9,7 +9,7 @@ import { LocationCard, LocationCardLoader } from "entities/location/ui";
 import { ArrowUp } from "../../app/assets/images/ArrowUp";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useGate, useStore } from "effector-react";
 import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
@@ -28,7 +28,6 @@ function MainPage() {
       });
     },
     scrollToTop: () => {
-      console.log("super pizda");
       window.scrollTo(0, 0);
     },
   });

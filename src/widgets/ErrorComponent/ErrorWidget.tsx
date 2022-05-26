@@ -161,12 +161,18 @@ export const ErrorWidget = ({
           className="absolute cursor-pointer rotate-180 bottom-0 left-0"
         />
       </div>
-      <FlottantCube width={SquareWidths.xl} min={30} max={60} />
+      <FlottantCube
+        width={SquareWidths.xl}
+        min={30}
+        max={60}
+        quickStart={true}
+      />
       <FlottantCube
         className="invisible md:!visible"
         width={SquareWidths.lg}
         min={20}
         max={70}
+        quickStart={true}
       />
       <FlottantCube
         className="invisible md:!visible"
@@ -175,15 +181,38 @@ export const ErrorWidget = ({
         max={40}
         delay={3}
       />
+      <FlottantCube
+        className="invisible md:!visible"
+        width={SquareWidths.md}
+        min={60}
+        max={90}
+        delay={12}
+        quickStart={true}
+      />
       <FlottantCube width={SquareWidths.md} min={40} max={60} delay={6} />
       <FlottantCube width={SquareWidths.md} min={60} max={80} />
       <FlottantCube width={SquareWidths.sm} min={0} max={25} />
+      <FlottantCube width={SquareWidths.sm} min={75} max={100} />
       <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={3} />
       <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={9} />
-      <FlottantCube width={SquareWidths.sm} min={75} max={100} />
       <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={12} />
-      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={15} />
-      <FlottantCube width={SquareWidths.sm} min={75} max={100} delay={19} />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={5} />
+      <FlottantCube width={SquareWidths.sm} min={50} max={75} delay={11} />
+      <FlottantCube width={SquareWidths.sm} min={25} max={50} delay={14} />
+      <FlottantCube
+        width={SquareWidths.sm}
+        min={50}
+        max={75}
+        delay={15}
+        quickStart={true}
+      />
+      <FlottantCube
+        width={SquareWidths.sm}
+        min={75}
+        max={100}
+        delay={19}
+        quickStart={true}
+      />
     </div>
   );
 };

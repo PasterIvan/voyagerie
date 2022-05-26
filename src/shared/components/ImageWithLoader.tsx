@@ -1,14 +1,26 @@
 import classNames from "classnames";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+
+type imagePropsType = React.DetailedHTMLProps<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>;
 
 export const ImageWithLoader = ({
+  element,
   className,
+  imgClassName,
+  shouldStopOnError = true,
   src,
-  alt,
-}: { className?: string; src?: string; alt?: string } & React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->) => {
+  onLoad,
+  onError,
+  ...props
+}: {
+  shouldStopOnError?: boolean;
+  element?: (props: imagePropsType) => JSX.Element;
+  className?: string;
+  imgClassName?: string;
+} & imagePropsType) => {
   const [isImgLoaded, setIsImgLoaded] = useState(true);
   const previousSrcRef = useRef<string | undefined>();
   useEffect(() => {
@@ -19,21 +31,38 @@ export const ImageWithLoader = ({
     previousSrcRef.current = src;
   }, [src]);
 
+  const onLoadHandler = useCallback(
+    (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+      setIsImgLoaded(true);
+      onLoad?.(e);
+    },
+    [onLoad]
+  );
+
+  const onErrorHandler = useCallback(
+    (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+      if (shouldStopOnError) {
+        setIsImgLoaded(true);
+      }
+      onError?.(e);
+    },
+    [shouldStopOnError, onError]
+  );
+
+  const Element = element || "img";
+
   return (
     <div className={classNames(className, "overflow-hidden relative")}>
-      <img
-        alt={alt}
-        onLoad={() => {
-          setIsImgLoaded(true);
-        }}
-        onError={() => {
-          setIsImgLoaded(true);
-        }}
-        src={src}
+      <Element
+        onLoad={onLoadHandler}
+        onError={onErrorHandler}
         className={classNames(
+          imgClassName,
           "z-0 w-full h-full object-cover",
           !isImgLoaded && "opacity-40"
         )}
+        src={src}
+        {...props}
       />
       <div
         className={classNames(

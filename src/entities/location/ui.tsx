@@ -7,6 +7,7 @@ import React from "react";
 import { useTranslation } from "entities/language/lib";
 import Flag from "react-world-flags";
 import { ArrowIcon } from "./config/Arrow";
+import { ImageWithError } from "shared/components/ImageWithError";
 
 export const LocationCard: React.FC<
   {
@@ -27,7 +28,7 @@ export const LocationCard: React.FC<
       )}
       {...props}
     >
-      <img
+      <ImageWithError
         className={classNames(
           "transition-transform duration-500 w-full h-full object-cover group-hover:scale-110"
         )}

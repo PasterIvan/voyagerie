@@ -6,6 +6,7 @@ import {
   bounds,
   animationSizes,
   durations,
+  maxDelay,
 } from "../../config/constants";
 
 export const FlottantCube = ({
@@ -14,16 +15,19 @@ export const FlottantCube = ({
   min = 0,
   max = 100,
   delay: minDelay = 0,
+  quickStart = false,
 }: {
   className?: string;
   width: SquareWidths;
   min?: number;
   max?: number;
   delay?: number;
+  quickStart?: boolean;
 }) => {
+  const [isInitiated, setInitiated] = useState(!quickStart);
   const [reset, setReset] = useState(false);
-
   const [offAnimation, setOffAnimation] = useState(false);
+
   useEffect(() => {
     if (offAnimation) {
       setTimeout(() => {
@@ -31,6 +35,7 @@ export const FlottantCube = ({
       });
     }
   }, [offAnimation]);
+
   useEffect(() => {
     setOffAnimation(true);
   }, [reset]);
@@ -61,6 +66,7 @@ export const FlottantCube = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       resetAnimation();
+      setInitiated(true);
     }, durations[floating] * 1000 + delay * 1000 + minDelay * 1000);
 
     return () => clearTimeout(timeout);
@@ -68,12 +74,13 @@ export const FlottantCube = ({
 
   const style = useMemo(
     () => ({
-      animationDelay: `${delay}s`,
+      bottom: isInitiated ? "0" : `${(100 / maxDelay) * (maxDelay - delay)}%`,
+      animationDelay: isInitiated ? `${delay}s` : "",
       width,
       left,
       marginBottom: -width,
     }),
-    [delay, width, left]
+    [isInitiated, delay, width, left]
   );
 
   if (offAnimation) {
