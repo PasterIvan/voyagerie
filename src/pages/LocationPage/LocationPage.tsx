@@ -199,11 +199,13 @@ function LocationPage() {
                 {$t("pages.location.suggestion")}{" "}
               </div>
               <div />
-              <div
-                onClick={() => footerModel.events.scrollToContacts()}
-                className="mx-auto xs:mx-0 font-extrabold uppercase text-xs underline pt-3 cursor-pointer hover:no-underline"
-              >
-                {$t("pages.main.supportText.line2")}
+              <div className="mx-auto xs:mx-0 pt-3">
+                <button
+                  onClick={() => footerModel.events.scrollToContacts()}
+                  className="inline font-extrabold uppercase text-xs underline cursor-pointer hover:no-underline"
+                >
+                  {$t("pages.main.supportText.line2")}
+                </button>
               </div>
             </div>
           </div>
