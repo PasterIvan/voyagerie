@@ -18,6 +18,7 @@ export const ErrorWidget = ({
   code: string;
   message?: string;
 }) => {
+  const [preloaderBackground, setPreloaderBackground] = useState(false);
   const [preloader, setPreloader] = useState(true);
   const [isToggledByUser, setIsToggledByUser] = useState(false);
   const [isLight, setIsLight] = useState(false);
@@ -30,12 +31,16 @@ export const ErrorWidget = ({
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const timeoutPreloader = setTimeout(() => {
       setPreloader(false);
     }, preloaderDelay);
+    const timeoutHalfPreloader = setTimeout(() => {
+      setPreloaderBackground(true);
+    }, Math.floor(preloaderDelay / 4));
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timeoutPreloader);
+      clearTimeout(timeoutHalfPreloader);
     };
   }, []);
 
@@ -103,8 +108,9 @@ export const ErrorWidget = ({
     >
       <div
         className={classNames(
-          "absolute inset-0 bg-black h-full w-full flex justify-center items-center p-5 md:p-9 z-50 pointer-events-none transition-opacity duration-[500ms]",
-          !preloader && "opacity-0"
+          "absolute inset-0 h-full w-full flex justify-center items-center p-5 md:p-9 z-50 pointer-events-none transition-[opacity_background-color] duration-[500ms]",
+          preloaderBackground ? "bg-black" : "bg-black-background",
+          !preloader && "opacity-0 "
         )}
       >
         <div className="lds-hourglass" />

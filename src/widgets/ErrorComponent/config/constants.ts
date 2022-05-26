@@ -23,7 +23,7 @@ export const bounds = {
     delay: 4,
   },
   [SquareWidths.sm]: {
-    number: 2,
+    number: 3,
     right: false,
     delay: 0,
   },
