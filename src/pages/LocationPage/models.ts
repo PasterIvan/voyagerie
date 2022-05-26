@@ -30,6 +30,7 @@ sample({
 
   if (error.response?.status === 404) {
     errorHandler.events.notFound();
+    return;
   }
   errorHandler.events.serverError();
 });

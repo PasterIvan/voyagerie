@@ -93,6 +93,8 @@ export type LocaleObject = {
     navigation: string;
     languages: string;
     rightsReserved: string;
+    processingPolicy: string;
+    publicContract: string;
   };
   currencyConfig: {
     locale: string;

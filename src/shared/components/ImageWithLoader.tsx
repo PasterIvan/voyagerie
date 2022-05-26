@@ -14,8 +14,10 @@ export const ImageWithLoader = ({
   src,
   onLoad,
   onError,
+  isLoading,
   ...props
 }: {
+  isLoading?: boolean;
   shouldStopOnError?: boolean;
   element?: (props: imagePropsType) => JSX.Element;
   className?: string;
@@ -67,7 +69,7 @@ export const ImageWithLoader = ({
       <div
         className={classNames(
           "absolute w-full h-full top-0 left-0 flex justify-center items-center",
-          isImgLoaded && "hidden"
+          !isLoading && isImgLoaded && "hidden"
         )}
       >
         <div className="lds-hourglass" />

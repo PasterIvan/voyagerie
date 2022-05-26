@@ -8,8 +8,6 @@ const getHotelFx = createEffect<string, PlaceOverviewType, AxiosError>((slug) =>
 
 export const $place = restore(getHotelFx.doneData, null);
 
-export const events = {};
-
 export const fx = {
   getHotelFx,
 };

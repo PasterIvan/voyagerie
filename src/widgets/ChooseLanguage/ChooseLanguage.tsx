@@ -11,6 +11,8 @@ import Select, {
   StylesConfig,
 } from "react-select";
 import Flag from "react-world-flags";
+import { LocalesType } from "shared/config/locales/model";
+import { iconsConfig } from "./config";
 
 type OptionType = { value: string; label: string; code: string };
 
@@ -19,13 +21,7 @@ const IconOption = (props: OptionProps<OptionType>) => {
   return (
     <Option {...props}>
       <div className="flex justify-between items-center">
-        <Flag
-          code={props.data.code}
-          className={classNames(
-            props.isSelected && "border-[0.1px] border-black",
-            "h-auto w-[18px] inline"
-          )}
-        />
+        <img src={iconsConfig[props.data?.value as LocalesType]} />
         <span className={classNames("overflow-hidden w-0 md:w-auto mx-auto")}>
           {props.data.label}
         </span>
@@ -47,10 +43,7 @@ const IconControl = ({ children, ...props }: ControlProps<OptionType>) => {
   return (
     <Control {...props}>
       <div className="flex bg-accent w-8 h-8 justify-center items-center rounded-full">
-        <Flag
-          className="border-[0.5px] md:border-[1px] border-black w-[18px] h-auto"
-          code={value.code}
-        />
+        <img className="" src={iconsConfig[value.value]} />
       </div>{" "}
       <span className="overflow-hidden w-0 md:w-auto mx-auto text-light">
         {children}

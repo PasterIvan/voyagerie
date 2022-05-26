@@ -51,7 +51,7 @@ export const Footer = () => {
   return (
     <div
       ref={footerRef}
-      className="mt-auto overflow-hidden relative bg-black grid grid-cols-2 lg:grid-rows-[157px_216px_134px_75px] px-8 items-center"
+      className="mt-auto overflow-hidden relative bg-black grid grid-cols-2 lg:grid-rows-[157px_216px_134px_auto_auto] px-8 items-center"
     >
       <Lines className="z-0 absolute left-0 top-0" />
       <div className="justify-between sm:justify-center relative py-2 pb-4 z-10 h-full w-full col-span-2 row-span-1 flex items-center border-b border-b-light/20">
@@ -130,6 +130,24 @@ export const Footer = () => {
           )}
         </div>
       </div>
+      <div className="pt-3 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70 ">
+        <a
+          target="_blank"
+          href="/processing_policy.doc"
+          className="hover:text-accent hover:underline cursor-pointer"
+        >
+          {$t("footer.processingPolicy")}
+        </a>
+      </div>
+      <div className="pt-3 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70 ">
+        <a
+          target="_blank"
+          href="/public_contract.docx"
+          className="hover:text-accent hover:underline cursor-pointer"
+        >
+          {$t("footer.publicContract")}
+        </a>
+      </div>
       <div className="pt-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
         voyagerie © 2022 {$t("footer.rightsReserved")}
       </div>
@@ -139,6 +157,16 @@ export const Footer = () => {
     </div>
   );
 };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 try {
   const name = "alexei1999";

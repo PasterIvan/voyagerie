@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useGate, useStore } from "effector-react";
 import { useTranslation } from "entities/language/lib";
-// import { useParams } from "react-router-dom";
 import { ReactComponent as PlaneUp } from "./config/plane-up.svg";
 import { ReactComponent as PlaneDown } from "./config/plane-down.svg";
 import { ReactComponent as Calendar } from "./config/calendar.svg";
@@ -18,13 +17,13 @@ import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import { ResidenceChooser } from "./components/ResidenceChooser";
 import dayjs from "dayjs";
 import { useForm } from "effector-forms";
-import { formSchema, FormType, gate, successModal } from "./models";
+import { formSchema, FormType } from "./models/schema";
 import { Counter } from "shared/components/Counter";
 import {
   formErrorsConfig,
   ordinalNumbers,
 } from "shared/config/locales/constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "shared/components/ModalLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import { buttons, foodType } from "./config";
@@ -32,9 +31,11 @@ import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { ResidenceType } from "shared/api/api";
 import { placeModel } from "entities/place";
+import { gates, $isOpen, events } from "./models/state";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
 
 function FormPage() {
-  // const { id } = useParams();
+  const { id } = useParams();
   const isLoading = useStore(placeModel.fx.getHotelFx.pending);
 
   const { $t, $i18n } = useTranslation();
@@ -44,11 +45,12 @@ function FormPage() {
   const formRef = useRef<HTMLDivElement | null>(null);
   const previousChoosedResidenceRef = useRef<ResidenceType | null>(null);
 
-  useGate(gate, {
+  useGate(gates.pageGate, {
     scrollToForm: () => formRef.current?.scrollIntoView({ behavior: "smooth" }),
+    slug: id,
   });
 
-  const isOpen = useStore(successModal.$isOpen);
+  const isOpen = useStore($isOpen);
   const { fields, submit } = useForm(formSchema);
 
   const place = useStore($place);
@@ -60,12 +62,12 @@ function FormPage() {
     useState<ResidenceType | null>(null);
 
   useEffect(() => {
-    const closeModalHandler = successModal.events.closeModal.watch(() => {
+    const subscrabe = events.closeModal.watch(() => {
       navigate(-1);
     });
 
     return () => {
-      closeModalHandler();
+      subscrabe();
     };
   }, []);
 
@@ -119,6 +121,7 @@ function FormPage() {
   useEffect(() => {
     if (dayjs(fields.dateFrom.value).isAfter(dayjs(fields.dateTo.value))) {
       fields.dateTo.onChange(fields.dateFrom.value);
+      return;
     }
   }, [fields.dateFrom.value, fields.dateTo.value]);
 
@@ -183,26 +186,24 @@ function FormPage() {
     [$i18n, fields.childCount.value, fields.ages.value]
   );
 
-  if (!place) return null;
-
   return (
     <>
       <Modal.Layout
         withClose={false}
         isOpen={isOpen}
-        onClose={() => successModal.events.closeModal()}
+        onClose={() => events.closeModal()}
         className="max-w-3xl max-h-96 w-full h-full !m-auto"
       >
         <div className="overflow-auto w-full h-full bg-black !m-auto border border-accent relative py-4 md:py-8 px-6 md:px-11 flex flex-col">
           <AiOutlineClose
             className="z-50 text-accent hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
-            onClick={() => successModal.events.closeModal()}
+            onClick={() => events.closeModal()}
           />
           <span className="pb-4 text-[#F2F2F2] text-2xl font-normal">
             {$t("pages.form.resultModal.title")}
           </span>
           <button
-            onClick={() => successModal.events.closeModal()}
+            onClick={() => events.closeModal()}
             className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center mx-2"
           >
             {$t("pages.form.resultModal.sended")}
@@ -218,25 +219,27 @@ function FormPage() {
             containerClassName="gap-y-0 grid-cols-1 sm:grid-cols-[auto_auto] rounded-b-2xl border border-light/20 p-4"
             className="min-h-[500px]"
             leftBottomElement={
-              <Breadcrumb
-                items={[
-                  { name: $t("pages.main.name"), route: RoutesPaths.Main },
-                  {
-                    name: $t("pages.location.name"),
-                    route: RoutesPaths.Main,
-                    onClick: () => mainPageModel.events.scrollToLocations(),
-                  },
-                  {
-                    name: place.location[$i18n],
-                    route: `${RoutesPaths.Location}/${place.locationSlug}`,
-                  },
-                  {
-                    name: place.name[$i18n],
-                    route: `${RoutesPaths.Place}/${place.slug}`,
-                  },
-                  { name: $t("pages.form.orderText") },
-                ]}
-              />
+              place && (
+                <Breadcrumb
+                  items={[
+                    { name: $t("pages.main.name"), route: RoutesPaths.Main },
+                    {
+                      name: $t("pages.location.name"),
+                      route: RoutesPaths.Main,
+                      onClick: () => mainPageModel.events.scrollToLocations(),
+                    },
+                    {
+                      name: place.location[$i18n],
+                      route: `${RoutesPaths.Location}/${place?.locationSlug}`,
+                    },
+                    {
+                      name: place.name[$i18n],
+                      route: `${RoutesPaths.Place}/${place?.slug}`,
+                    },
+                    { name: $t("pages.form.orderText") },
+                  ]}
+                />
+              )
             }
             childrenClassName="flex flex-col justify-around"
             absoluteElement={
@@ -244,13 +247,19 @@ function FormPage() {
                 className="max-w-none object-cover"
                 successClassName="moving-block"
                 errorClassName="w-full h-full"
-                src={place.image}
+                src={place?.image}
               />
             }
           >
-            <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words">
-              {place.name[$i18n]}
-            </div>
+            {!place || isLoading ? (
+              <div className="flex w-full justify-center items-center">
+                <div className="lds-hourglass" />
+              </div>
+            ) : (
+              <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words capitalize">
+                {place?.name[$i18n]}
+              </div>
+            )}
           </Header>
           <div className="w-full px-4 py-8 md:py-16 flex flex-col items-center background">
             <Lines.HorizontalLine className="text-accent-dark/50 max-w-5xl">
@@ -265,12 +274,12 @@ function FormPage() {
               }}
               selectedResidence={selectedResidence}
               choosedResidence={choosedResidence}
-              residences={place.rooms}
+              residences={place?.rooms || []}
             />
             <div ref={formContainerRef} />
             <div
               className={classNames(
-                Boolean(choosedResidence)
+                Boolean(!isLoading && choosedResidence)
                   ? "py-8 md:py-16 scale-y-1"
                   : "p-0 h-0 scale-y-0",
                 "max-w-4xl w-full flex flex-col transition-[transform_padding] duration-600"
@@ -590,7 +599,9 @@ function FormPage() {
 }
 
 export default () => (
-  <ErrorBoundary>
-    <FormPage />
-  </ErrorBoundary>
+  <ManualErrorBoundary gate={gates.errorGate}>
+    <ErrorBoundary>
+      <FormPage />
+    </ErrorBoundary>
+  </ManualErrorBoundary>
 );

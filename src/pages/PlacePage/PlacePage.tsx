@@ -141,7 +141,7 @@ function PlacePage() {
             </div>
           ) : (
             <>
-              <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words">
+              <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words capitalize">
                 {place.name[$i18n]}
               </div>
               <button

@@ -106,6 +106,8 @@ export const en: LocaleObject = {
     languages: "Languages",
     navigation: "Navigation",
     rightsReserved: "All rights reserved",
+    processingPolicy: "Personal data processing policy",
+    publicContract: "Public contract",
   },
   currencyConfig: {
     locale: "en-US",

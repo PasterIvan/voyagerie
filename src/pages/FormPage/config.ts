@@ -1,7 +1,7 @@
 import { IconType } from "react-icons";
 import { CgPhone } from "react-icons/cg";
 import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
-import { FormType } from "./models";
+import { FormType } from "./models/schema";
 
 export const foodType = [
   { label: "AO", descriptionKey: "accommodationOnly" },

@@ -15,6 +15,7 @@ export const Breadcrumb = ({
         <React.Fragment key={item.name}>
           <span
             className={classNames(
+              "capitalize",
               item.route && "hover:text-accent cursor-pointer"
             )}
             onClick={() => {

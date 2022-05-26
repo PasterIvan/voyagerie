@@ -1,9 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
-import { createEvent, forward, sample } from "effector";
 import { createForm } from "effector-forms";
-import { createGate } from "effector-react";
 import { AGE_OF_MAJORITY, MIN_CHILD_AGE } from "shared/config/constants";
-import { createModalModel } from "shared/lib/store";
 
 export type FormType = {
   suggestTickets: boolean;
@@ -21,15 +18,6 @@ export type FormType = {
     isPhone: boolean;
   };
 };
-
-export const gate = createGate<{ scrollToForm: () => void }>();
-export const scrollToForm = createEvent();
-
-gate.state.watch(scrollToForm, ({ scrollToForm }) => {
-  scrollToForm();
-});
-
-export const successModal = createModalModel();
 
 export const formSchema = createForm<FormType>({
   fields: {
@@ -122,23 +110,4 @@ export const formSchema = createForm<FormType>({
     },
   },
   validateOn: ["submit"],
-});
-
-forward({
-  from: formSchema.$values,
-  to: formSchema.resetErrors,
-});
-
-sample({
-  source: formSchema.$isValid,
-  clock: formSchema.submit,
-  filter: (isValid) => isValid,
-  target: successModal.events.openModal,
-});
-
-sample({
-  source: formSchema.$isValid,
-  clock: formSchema.submit,
-  filter: (isValid) => !isValid,
-  target: scrollToForm,
 });

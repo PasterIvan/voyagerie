@@ -106,6 +106,8 @@ export const ru: LocaleObject = {
     languages: "Языки",
     navigation: "Навигация",
     rightsReserved: "Все права защищены",
+    processingPolicy: "Политика обработки персональных данных",
+    publicContract: "Публичный договор",
   },
   currencyConfig: {
     locale: "ru-RU",
@@ -118,5 +120,5 @@ export const ru: LocaleObject = {
   },
   moneyFrom: "от",
   noData: "Нет данных для отображения",
-  notFound: "Не найдено"
+  notFound: "Не найдено",
 };

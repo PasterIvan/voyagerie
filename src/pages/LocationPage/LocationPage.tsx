@@ -171,7 +171,7 @@ function LocationPage() {
             />
           </div>
           {isLoading ? (
-            Array.from({ length: 2 }).map(() => <PlaceCardLoader />)
+            Array.from({ length: 2 }).map((_, i) => <PlaceCardLoader key={i} />)
           ) : !beforeSuggestion.length ? (
             <div className="w-full h-20 flex justify-center items-center">
               <div className="text-center text-light text-4xl">
