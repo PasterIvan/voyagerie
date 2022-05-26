@@ -22,6 +22,19 @@ sample({
   target: errorHandler.events.notFound,
 });
 
+sample({
+  source: placeModel.fx.getHotelFx.failData,
+  clock: placeModel.fx.getHotelFx.failData,
+}).watch((error) => {
+  console.error(error);
+
+  if (error.response?.status === 404) {
+    errorHandler.events.notFound();
+    return;
+  }
+  errorHandler.events.serverError();
+});
+
 export const gates = { pageGate, errorGate: errorHandler.gate };
 
 export const events = {
