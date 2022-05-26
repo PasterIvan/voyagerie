@@ -80,8 +80,10 @@ export const formSchema = createForm<FormType>({
       rules: [
         {
           name: "ages-valid",
-          validator: (ages: number[]) =>
-            ages.every((age) => age > MIN_CHILD_AGE && age < AGE_OF_MAJORITY),
+          validator: (ages: number[], form) =>
+            ages
+              .slice(0, form.childCount)
+              .every((age) => age > MIN_CHILD_AGE && age < AGE_OF_MAJORITY),
         },
         {
           name: "ages-filled",
