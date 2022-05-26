@@ -24,7 +24,7 @@ sample({
 
 sample({
   source: locationModel.fx.getCountryFx.failData,
-  clock: locationModel.fx.getCountryFx.fail,
+  clock: locationModel.fx.getCountryFx.failData,
 }).watch((error) => {
   console.error(error);
 

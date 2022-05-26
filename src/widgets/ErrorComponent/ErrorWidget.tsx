@@ -102,7 +102,7 @@ export const ErrorWidget = ({
     <div
       className={classNames(
         isLight ? "bg-light" : "bg-black",
-        "overflow-hidden relative h-screen w-full flex flex-col p-5 md:p-9",
+        "overflow-hidden relative h-screen w-full flex flex-col p-5 md:p-8",
         "transition-colors duration-[2500ms]"
       )}
     >
