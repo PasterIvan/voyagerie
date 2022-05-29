@@ -50,7 +50,7 @@ function LocationPage() {
 
   const [beforeSuggestion, afterSuggestion] = useMemo(() => {
     const places = location?.hotels ?? [];
-    const filtered = input
+    const target = input
       ? places.filter((place) =>
           place.name[$i18n]
             .toLocaleLowerCase()
@@ -58,14 +58,17 @@ function LocationPage() {
         )
       : places;
 
-    const firstElement = filtered.slice(0, 1);
-    const lastElement = filtered.slice(-1);
-    const middleArray = filtered.slice(0, -1);
+    if (target.length < 2) {
+      return [target, []];
+    }
 
-    return [
-      firstElement.concat(middleArray.slice(1, 3)),
-      middleArray.slice(3, -1).concat(lastElement),
-    ];
+    if (target.length < 4) {
+      const lastElement = target.pop();
+
+      return [target, lastElement ? [lastElement] : []];
+    }
+
+    return [target.slice(0, 3), target.slice(3)];
   }, [input, $i18n, location?.hotels]);
 
   const breadcrumb = useMemo(() => {

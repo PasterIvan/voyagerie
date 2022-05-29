@@ -41,7 +41,7 @@ export const Links = ({
   return (
     <div className={className}>
       {navigateRoutesConfig.map((config) => (
-        <div
+        <button
           onClick={() => {
             config.onClick?.();
             config.route && navigate(config.route);
@@ -53,7 +53,7 @@ export const Links = ({
           )}
         >
           {$t("navbarRoutes")[config.key]}
-        </div>
+        </button>
       ))}
     </div>
   );

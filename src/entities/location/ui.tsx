@@ -41,7 +41,10 @@ export const LocationCard: React.FC<
         className="absolute top-4 sm:top-auto right-4 bottom-auto sm:bottom-4"
       />
       <div className="absolute left-5 bottom-5 grid grid-cols-[auto_auto] gap-x-3 gap-y-1 pr-5 items-center">
-        <img src={countryCode} className="h-full max-h-[15px]" />
+        <ImageWithError
+          src={countryCode}
+          className="w-12 h-12 object-contain"
+        />
         <div className="col-span-2 md:col-span-1 break-words text-[32px] text-light font-medium leading-none">
           {name[$i18n]}
         </div>
