@@ -5,6 +5,10 @@ export type CountryType = {
   countryCode: string;
   hotelsNumber: number;
   totalHotelsNumber: number;
+  description: {
+    ru: string;
+    en: string;
+  };
   name: {
     ru: string;
     en: string;

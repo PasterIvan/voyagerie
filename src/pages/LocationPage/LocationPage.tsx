@@ -127,26 +127,8 @@ function LocationPage() {
               <div className="mt-3 leading-none text-light text-4xl sm:text-[64px] font-normal mx-auto max-w-full md:max-w-[850px] item text-center break-words">
                 {location!.name[$i18n]}
               </div>
-              <div className="w-full text-light text-base font-normal mt-auto sm:mt-0 pt-6 whitespace-nowrap">
-                <div className="sm:pl-[50%]">
-                  {$t("pages.location.title.text1")}
-                  {location!.totalHotelsNumber
-                    ? ` ${$t("pages.location.title.insert")} ${
-                        location!.totalHotelsNumber
-                      }`
-                    : ""}{" "}
-                </div>
-                <div className="sm:pl-[50%] whitespace-nowrap">
-                  {$t("pages.location.title.text2")}{" "}
-                  <span className="bg-gradient-to-t from-[#FAE4BC] to-[#D6A072] bg-clip-text hover:text-fill-transparent text-accent">
-                    {!isNaN(location!.hotelsNumber as number) &&
-                      location!.hotelsNumber !== null &&
-                      `${location!.hotelsNumber} ${plural(
-                        location!.hotelsNumber,
-                        ...$t("pages.location.hotelsPlural")
-                      )}`}
-                  </span>
-                </div>
+              <div className="w-full text-light text-base font-normal mt-auto sm:mt-0 pt-6 whitespace-nowrap text-center">
+                <div>{location!.description[$i18n]}</div>
               </div>
             </div>
           )}
