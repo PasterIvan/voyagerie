@@ -48,6 +48,7 @@ export const Links = ({
           }}
           key={config.key}
           className={classNames(
+            "block",
             elementClassName,
             pathname === config.key && "underline"
           )}
