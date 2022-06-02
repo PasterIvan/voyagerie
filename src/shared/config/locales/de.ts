@@ -117,6 +117,7 @@ export const de: LocaleObject = {
     [RoutesPaths.Main]: "Startseite",
     [RoutesPaths.Location]: "Länder",
     [RoutesPaths.Help]: "Kontakt",
+    [RoutesPaths.Refresh]: "Aktualisieren Sie die Seite",
   },
   moneyFrom: "ab",
   noData: "Keine Daten",

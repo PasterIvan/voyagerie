@@ -1,3 +1,3 @@
-import { modals } from "./models";
+import { fx, gates, models } from "./models";
 
-export const modalModels = modals;
+export const modalModels = { gates, ...models, fx };

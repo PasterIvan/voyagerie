@@ -30,9 +30,16 @@ export const navigateRoutesConfig: {
 export const Links = ({
   className,
   elementClassName,
+  routesConfig = navigateRoutesConfig,
 }: {
   className?: string;
   elementClassName?: string;
+  routesConfig?: {
+    key: RoutesPaths;
+    route?: RoutesPaths | undefined;
+    className?: string | undefined;
+    onClick?: (() => void) | undefined;
+  }[];
 }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -40,7 +47,7 @@ export const Links = ({
 
   return (
     <div className={className}>
-      {navigateRoutesConfig.map((config) => (
+      {routesConfig.map((config) => (
         <button
           onClick={() => {
             config.onClick?.();

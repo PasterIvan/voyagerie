@@ -127,7 +127,7 @@ function LocationPage() {
               <div className="mt-3 leading-none text-light text-4xl sm:text-[64px] font-normal mx-auto max-w-full md:max-w-[850px] item text-center break-words">
                 {location!.name[$i18n]}
               </div>
-              <div className="w-full text-light text-base font-normal mt-auto sm:mt-0 pt-6 whitespace-nowrap text-center">
+              <div className="w-full text-light text-base font-normal pt-6 whitespace-nowrap text-center">
                 <div>{location!.description[$i18n]}</div>
               </div>
             </div>

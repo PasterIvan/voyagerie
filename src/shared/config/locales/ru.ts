@@ -117,6 +117,7 @@ export const ru: LocaleObject = {
     [RoutesPaths.Main]: "Главная",
     [RoutesPaths.Location]: "Cтраны",
     [RoutesPaths.Help]: "Контакты",
+    [RoutesPaths.Refresh]: "Обновить страницу",
   },
   moneyFrom: "от",
   noData: "Нет данных для отображения",

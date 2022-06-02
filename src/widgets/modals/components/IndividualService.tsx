@@ -1,22 +1,23 @@
 import { useStore } from "effector-react";
 import { ReactComponent as OkGirl } from "../config/ok-girl.svg";
 import { Lines } from "shared/components/Lines";
-import { modals } from "../models";
+import { $modals, fx, models } from "../models";
 import { Modal } from "shared/components/ModalLayout";
 import { questionnaireModel } from "feature/questionnaire";
 import { useTranslation } from "entities/language/lib";
-import { modalsMock } from "shared/api/modalsMock";
 
 export const IndividualService = () => {
-  const isLoading = false;
+  const isLoading = useStore(fx.getModalsFx.pending);
+  const modals = useStore($modals);
 
   const { $t, $i18n } = useTranslation();
-  const isOpen = useStore(modals.individualService.$isOpen);
+  const isOpen = useStore(models.individualService.$isOpen);
+
   return (
     <Modal.Layout
       className="max-w-[560px]"
       isOpen={isOpen}
-      onClose={() => modals.individualService.events.closeModal()}
+      onClose={() => models.individualService.events.closeModal()}
     >
       <Modal.ScrollContainer
         style={{
@@ -30,24 +31,24 @@ export const IndividualService = () => {
           <Lines.HorizontalLine className="mx-auto color-[#555350] max-w-[270px] pt-5 pb-11">
             <Lines.Star />
           </Lines.HorizontalLine>
-          {isLoading ? (
+          {isLoading || !modals?.individualService ? (
             <div className="h-36 flex justify-center items-center">
               <div className="lds-hourglass after:border-t-black after:border-b-black" />
             </div>
           ) : (
             <>
               <span className="mb-4 text-4xl font-semibold break-words md:break-normal">
-                {modalsMock.individualService.title[$i18n]}
+                {modals.individualService.title[$i18n]}
               </span>
               <div
                 className="content-editor"
                 dangerouslySetInnerHTML={{
-                  __html: modalsMock.individualService.content[$i18n] || "",
+                  __html: modals.individualService.content[$i18n] || "",
                 }}
               />
               <button
                 onClick={() => {
-                  modals.individualService.events.closeModal();
+                  models.individualService.events.closeModal();
                   questionnaireModel.modal.events.openModal();
                 }}
                 className="w-40 h-14 rounded-full bg-black text-light text-sm font-semibold mt-9 hover:text-accent"

@@ -20,4 +20,5 @@ export enum RoutesPaths {
   Help = "/help",
   NotFound = "/404",
   Error = "/500",
+  Refresh = "/refresh",
 }

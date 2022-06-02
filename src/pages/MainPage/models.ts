@@ -8,16 +8,21 @@ import {
   sample,
 } from "effector";
 import { createGate } from "effector-react";
-import { api, CountryType } from "shared/api/api";
+import { api, CountryType, MainText } from "shared/api/api";
 import { AxiosError } from "axios";
 import { createErrorHandler } from "shared/lib/store";
+import { modalModels } from "widgets/modals";
+import { questionnaireModel } from "feature/questionnaire";
 
 const errorHandler = createErrorHandler();
+
+const getMainTextFx = createEffect<void, MainText>(api.getMainText);
 
 const getCountriesFx = createEffect<void, CountryType[], AxiosError>(
   api.getCountries
 );
 export const $items = restore(getCountriesFx.doneData, null);
+export const $text = restore(getMainTextFx.doneData, null);
 
 const scrollToLocations = createEvent();
 const onScrolled = createEvent();
@@ -32,13 +37,23 @@ const mainGate = createGate<{
 }>();
 
 forward({
-  from: getCountriesFx.fail,
+  from: [
+    getCountriesFx.fail,
+    getMainTextFx.fail,
+    modalModels.fx.getModalsFx.fail,
+    questionnaireModel.fx.getQuestions.fail,
+  ],
   to: errorHandler.events.serverError,
 });
 
 forward({
   from: mainGate.open,
-  to: getCountriesFx,
+  to: [
+    getCountriesFx,
+    getMainTextFx,
+    modalModels.fx.getModalsFx,
+    questionnaireModel.fx.getQuestions,
+  ],
 });
 
 sample({
@@ -76,4 +91,5 @@ export const gates = {
 
 export const fx = {
   getCountriesFx,
+  getMainTextFx,
 };

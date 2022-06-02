@@ -116,7 +116,8 @@ export const en: LocaleObject = {
   navbarRoutes: {
     [RoutesPaths.Main]: "Home",
     [RoutesPaths.Location]: "Countries",
-    [RoutesPaths.Help]: "Contact",
+    [RoutesPaths.Help]: "Contacts",
+    [RoutesPaths.Refresh]: "Refresh page",
   },
   moneyFrom: "from",
   noData: "No data",

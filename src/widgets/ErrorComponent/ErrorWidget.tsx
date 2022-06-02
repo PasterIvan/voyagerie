@@ -10,6 +10,8 @@ import { FlottantCube } from "widgets/ErrorComponent/components/FlottantCube/Flo
 import { footerModel } from "widgets/Footer";
 import { Links } from "widgets/Links/Links";
 import { ArrowUp } from "./components/ArrowUp";
+import { useLocation } from "react-router-dom";
+import { RoutesPaths } from "shared/config/constants";
 
 export const ErrorWidget = ({
   code,
@@ -18,6 +20,8 @@ export const ErrorWidget = ({
   code: string;
   message?: string;
 }) => {
+  const { pathname } = useLocation();
+
   const [preloaderBackground, setPreloaderBackground] = useState(false);
   const [preloader, setPreloader] = useState(true);
   const [isToggledByUser, setIsToggledByUser] = useState(false);
@@ -98,6 +102,8 @@ export const ErrorWidget = ({
     };
   }, [isLight, isToggledByUser, isLightTurnedOff]);
 
+  const isMainPage = pathname === RoutesPaths.Main;
+
   return (
     <div
       className={classNames(
@@ -116,6 +122,24 @@ export const ErrorWidget = ({
         <div className="lds-hourglass" />
       </div>
       <Links
+        routesConfig={
+          isMainPage
+            ? [
+                {
+                  key: RoutesPaths.Refresh,
+                  onClick: () => {
+                    document.location.reload();
+                  },
+                },
+                {
+                  key: RoutesPaths.Help,
+                  onClick: () => {
+                    footerModel.events.scrollToContacts();
+                  },
+                },
+              ]
+            : undefined
+        }
         elementClassName={classNames(
           "transition-colors duration-[2500ms] hover:transition-none",
           {

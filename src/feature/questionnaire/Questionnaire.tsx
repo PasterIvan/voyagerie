@@ -1,19 +1,19 @@
 import { useStore } from "effector-react";
 import { Modal } from "shared/components/ModalLayout";
-import { modal } from "./model";
+import { $questions, fx, modal } from "./model";
 import { ReactComponent as DocsIcon } from "./config/docs-icon.svg";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import classNames from "classnames";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { useTranslation } from "entities/language/lib";
-import { questionaireMock } from "shared/api/questionaireMock";
 
 export const Questionnaire = () => {
-  const steps = questionaireMock;
+  const isLoading = useStore(fx.getQuestions.pending);
 
-  const stepPercentLength = Math.floor(100 / steps.length);
-  const isLoading = false;
+  const steps = useStore($questions);
+
+  const stepPercentLength = steps ? Math.floor(100 / steps.length) : 0;
 
   const [inputs, setInputs] = useState<Record<number, string | undefined>>(
     () => ({})
@@ -27,14 +27,17 @@ export const Questionnaire = () => {
   const [isShownError, setIsShownError] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
-  const currentFields = useMemo(() => steps[currentStep], [currentStep]);
+  const currentFields = useMemo(
+    () => steps && steps[currentStep],
+    [steps, currentStep]
+  );
 
-  const shouldValidate = currentFields.isRequired;
+  const shouldValidate = currentFields?.isRequired;
   const isPrevEnabled = currentStep > 0;
-  const isNextEnabled = currentStep < steps.length - 1;
+  const isNextEnabled = steps && currentStep < steps.length - 1;
   const input = inputs[currentStep];
 
-  const isLastStep = currentStep === steps.length - 1;
+  const isLastStep = steps && currentStep === steps.length - 1;
   const isInputsValid = useMemo(
     () => Object.values(inputs).every(Boolean),
     [inputs]
@@ -43,6 +46,9 @@ export const Questionnaire = () => {
   const canFinish = isInputsValid && isLastStep && isValid;
 
   useEffect(() => {
+    if (isLoading) return;
+    if (!currentFields) return;
+
     if (!shouldValidate && !isValid) {
       setIsValid(true);
       return;
@@ -53,11 +59,13 @@ export const Questionnaire = () => {
     }
 
     setIsValid(true);
-  }, [isValid, currentStep, shouldValidate, input]);
+  }, [currentFields, isLoading, isValid, currentStep, shouldValidate, input]);
 
   useEffect(() => {
+    if (isLoading) return;
+
     setIsShownError(false);
-  }, [currentStep]);
+  }, [isLoading, currentStep]);
 
   const onResetForm = () => {
     setInputs({});
@@ -99,7 +107,7 @@ export const Questionnaire = () => {
             <div>{$t("questionarie.label")}</div>
           </div>
           <div className="justify-self-end flex items-center">
-            {!isLoading && (
+            {steps && !isLoading && (
               <>
                 ({currentStep + 1}/{steps.length})
               </>
@@ -117,7 +125,7 @@ export const Questionnaire = () => {
           style={{ width: 100 - currentStep * stepPercentLength + "%" }}
         />
         <div className="p-4 md:p-11 flex flex-col flex-grow">
-          {isLoading ? (
+          {!currentFields || isLoading ? (
             <div className="w-full h-full flex justify-center items-center">
               <div className="lds-hourglass" />
             </div>
