@@ -122,4 +122,5 @@ export const fr: LocaleObject = {
   moneyFrom: "à partir de",
   noData: "Aucune donnée",
   notFound: "Non trouvé",
+  pleaseFillInput: "Veuillez remplir le champ",
 };

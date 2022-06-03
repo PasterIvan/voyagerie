@@ -10,9 +10,11 @@ const NotFoundPage = React.lazy(
 );
 
 export const ManualErrorBoundary = ({
+  isMain = false,
   children,
   gate,
 }: {
+  isMain?: boolean | undefined;
   gate: Gate<{
     notFoundHandler: () => void;
     serverErrorHandler: () => void;
@@ -32,11 +34,11 @@ export const ManualErrorBoundary = ({
   });
 
   if (isNotFound) {
-    return withSuspense(<NotFoundPage />, <PagePreloader />);
+    return withSuspense(<NotFoundPage isMain={isMain} />, <PagePreloader />);
   }
 
   if (isServerError) {
-    return withSuspense(<ErrorPage />, <PagePreloader />);
+    return withSuspense(<ErrorPage isMain={isMain} />, <PagePreloader />);
   }
 
   return <>{children}</>;

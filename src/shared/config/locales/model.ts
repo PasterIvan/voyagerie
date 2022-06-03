@@ -104,6 +104,7 @@ export type LocaleObject = {
   moneyFrom: string;
   noData: string;
   notFound: string;
+  pleaseFillInput: string;
 };
 
 export type LocalesType = typeof activeLocales[number];

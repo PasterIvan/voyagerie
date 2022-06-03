@@ -5,7 +5,7 @@ import { RoutesPaths } from "shared/config/constants";
 import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { ErrorWidget } from "widgets/ErrorComponent/ErrorWidget";
 
-export default () => {
+export default ({ isMain }: { isMain?: boolean | undefined }) => {
   const navigate = useNavigate();
   useScrollToTop();
   const { $t } = useTranslation();
@@ -24,5 +24,7 @@ export default () => {
     };
   }, []);
 
-  return <ErrorWidget code="500" message={$t("pages.p500.label")} />;
+  return (
+    <ErrorWidget isMain={isMain} code="500" message={$t("pages.p500.label")} />
+  );
 };

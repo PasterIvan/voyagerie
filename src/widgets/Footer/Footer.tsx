@@ -12,12 +12,16 @@ import { ReactComponent as Lines } from "./config/lines-footer.svg";
 import { useEffect, useRef } from "react";
 import { Links } from "widgets/Links/Links";
 import { scrollToContacts, scrollToFooter } from "./models";
-import { infoMock } from "shared/api/infoMock";
+import { $contacts } from "entities/contacts/models";
+import { useStore } from "effector-react";
+import { contactsModel } from "entities/contacts";
 
 const onScrollToTop = createEvent();
 
 export const Footer = () => {
-  const isLoading = false;
+  const contacts = useStore($contacts);
+
+  const isLoading = useStore(contactsModel.fx.getContactsFx.pending);
 
   const footerRef = useRef<null | HTMLDivElement>(null);
   const contactsRef = useRef<null | HTMLDivElement>(null);
@@ -92,19 +96,19 @@ export const Footer = () => {
         className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-r border-light/20"
       >
         <div className="flex items-center justify-center h-full w-full">
-          {isLoading ? (
+          {!contacts || isLoading ? (
             <div className="lds-hourglass" />
           ) : (
             <>
               <PhoneSmall
                 className="cursor-pointer"
-                onClick={() => window.open("tel:" + infoMock.phone)}
+                onClick={() => window.open("tel:" + contacts.phone)}
               />
               <a
-                href={"tel:" + infoMock.phone}
+                href={"tel:" + contacts.phone}
                 className="text-lg md:text-2xl font-bold text-light ml-3 hover:text-accent"
               >
-                {infoMock.phone}
+                {contacts.phone}
               </a>
             </>
           )}
@@ -112,19 +116,19 @@ export const Footer = () => {
       </div>
       <div className="py-6 z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1 border-y lg:border-l border-light/20">
         <div className="flex items-center justify-center h-full w-full break-words overflow-hidden">
-          {isLoading ? (
+          {!contacts || isLoading ? (
             <div className="lds-hourglass" />
           ) : (
             <>
               <EmailSmall
                 className="flex-shrink-0 inline cursor-pointer"
-                onClick={() => window.open("mailto:" + infoMock.email)}
+                onClick={() => window.open("mailto:" + contacts.email)}
               />
               <a
-                href={"mailto:" + infoMock.email}
+                href={"mailto:" + contacts.email}
                 className="overflow-hidden uppercase text-lg md:text-2xl font-bold text-light ml-3 hover:text-accent overflow-ellipsis break-words"
               >
-                {infoMock.email}
+                {contacts.email}
               </a>
             </>
           )}
@@ -152,7 +156,7 @@ export const Footer = () => {
         voyagerie © 2022 {$t("footer.rightsReserved")}
       </div>
       <div className="py-3 md:pt-6 z-10 text-base col-span-2 lg:col-span-1 font-medium text-light/70">
-        {infoMock.address[$i18n]}
+        {contacts && contacts.address[$i18n]}
       </div>
     </div>
   );

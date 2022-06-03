@@ -2,7 +2,7 @@ import { useStore } from "effector-react";
 import { Modal } from "shared/components/ModalLayout";
 import { $questions, fx, modal } from "./model";
 import { ReactComponent as DocsIcon } from "./config/docs-icon.svg";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -168,7 +168,7 @@ export const Questionnaire = () => {
                     !isShownError && "hidden"
                   )}
                 >
-                  Пожалуйста, заполните все обязательные поля
+                  {$t("pleaseFillInput")}
                 </span>
               </div>
               <div className="flex-shrink-0 w-full flex md:mt-auto justify-between">

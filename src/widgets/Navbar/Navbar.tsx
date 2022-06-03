@@ -6,10 +6,13 @@ import { RoutesPaths } from "shared/config/constants";
 import { Links } from "widgets/Links/Links";
 import { Lines } from "shared/components/Lines";
 import { ChooseLanguage } from "widgets/ChooseLanguage/ChooseLanguage";
-import { infoMock } from "shared/api/infoMock";
+import { $contacts } from "entities/contacts/models";
+import { useStore } from "effector-react";
 
 export const Navbar = ({ className }: { className?: string }) => {
   const isLoading = false;
+
+  const contacts = useStore($contacts);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -38,16 +41,16 @@ export const Navbar = ({ className }: { className?: string }) => {
       <div className="block lg:hidden order-2" />
       <div className="ml-auto order-3 flex col-span-1">
         <ChooseLanguage />
-        {!isLoading && (
+        {contacts && !isLoading && (
           <div
-            onClick={() => window.open("tel:" + infoMock.phone)}
+            onClick={() => window.open("tel:" + contacts.phone)}
             className="flex-shrink-0 hidden lg:flex cursor-pointer bg-[#180F0B80] hover:bg-black rounded-full h-14 items-center p-3 ml-4"
           >
             <div className="bg-accent w-8 h-8 flex justify-center items-center rounded-full">
               <Telephone />
             </div>
             <span className="text-sm font-bold text-light mx-3">
-              {infoMock.phone}
+              {contacts.phone}
             </span>
           </div>
         )}

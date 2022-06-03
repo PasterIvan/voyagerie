@@ -14,9 +14,11 @@ import { useLocation } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
 
 export const ErrorWidget = ({
+  isMain,
   code,
   message,
 }: {
+  isMain?: boolean;
   code: string;
   message?: string;
 }) => {
@@ -102,7 +104,7 @@ export const ErrorWidget = ({
     };
   }, [isLight, isToggledByUser, isLightTurnedOff]);
 
-  const isMainPage = pathname === RoutesPaths.Main;
+  const isMainPage = isMain || pathname === RoutesPaths.Main;
 
   return (
     <div

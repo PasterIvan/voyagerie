@@ -122,4 +122,5 @@ export const ru: LocaleObject = {
   moneyFrom: "от",
   noData: "Нет данных для отображения",
   notFound: "Не найдено",
+  pleaseFillInput: "Пожалуйста, заполните все обязательные поля",
 };

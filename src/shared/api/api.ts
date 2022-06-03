@@ -114,6 +114,18 @@ const getQuestions = (): Promise<Questions> => {
   return baseApi.get(`questions`).then((response) => response.data);
 };
 
+export type Contacts = {
+  email: string;
+  phone: string;
+  address: {
+    ru: string;
+    en: string;
+  };
+};
+const getContacts = (): Promise<Contacts> => {
+  return baseApi.get(`contacts`).then((response) => response.data);
+};
+
 export const api = {
   getCountries,
   getCountry,
@@ -121,4 +133,5 @@ export const api = {
   getMainText,
   getModalsText,
   getQuestions,
+  getContacts,
 };
