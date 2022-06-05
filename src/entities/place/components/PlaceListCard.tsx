@@ -52,7 +52,7 @@ export function PlaceListCard({
           )}
         >
           от{" "}
-          {price.toLocaleString("en-US", {
+          {price?.toLocaleString("en-US", {
             style: "currency",
             currency: "USD",
           })}

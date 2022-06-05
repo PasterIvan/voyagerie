@@ -73,7 +73,7 @@ export const PlaceCard: React.FC<
           </div>
           <span className="text-base font-medium text-light ml-auto">
             {$t("moneyFrom")}{" "}
-            {cost.toLocaleString("en-US", {
+            {cost?.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}

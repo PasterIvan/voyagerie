@@ -309,7 +309,7 @@ function FormPage() {
                     )}
                   >
                     {$t("moneyFrom")}{" "}
-                    {choosedResidence?.price.toLocaleString("en-US", {
+                    {choosedResidence?.price?.toLocaleString("en-US", {
                       style: "currency",
                       currency: "USD",
                     })}
