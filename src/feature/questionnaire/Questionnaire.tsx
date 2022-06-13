@@ -1,15 +1,22 @@
-import { useStore } from "effector-react";
+import { useGate, useStore } from "effector-react";
 import { Modal } from "shared/components/ModalLayout";
-import { $questions, fx, modal } from "./model";
+import { $questions, fx, gates, modal } from "./model";
 import { ReactComponent as DocsIcon } from "./config/docs-icon.svg";
 import { useEffect, useMemo, useState } from "react";
 import classNames from "classnames";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import { useTranslation } from "entities/language/lib";
+import { toast } from "react-toastify";
 
 export const Questionnaire = () => {
-  const isLoading = useStore(fx.getQuestions.pending);
+  const { $t, $i18n } = useTranslation();
+  const [isSuccessScreen, setIsSuccessScreen] = useState(false);
+
+  const isQuestionsLoading = useStore(fx.getQuestions.pending);
+  const isSending = useStore(fx.sendQuestionary.pending);
+
+  const isLoading = isQuestionsLoading || isSending;
 
   const steps = useStore($questions);
 
@@ -18,7 +25,6 @@ export const Questionnaire = () => {
   const [inputs, setInputs] = useState<Record<number, string | undefined>>(
     () => ({})
   );
-  const { $t, $i18n } = useTranslation();
 
   const isOpen = useStore(modal.$isOpen);
   const [isFocused, setIsFocused] = useState(false);
@@ -89,9 +95,50 @@ export const Questionnaire = () => {
   const onFinishHandler = () => {
     if (!canFinish) return;
 
-    onResetForm();
-    modal.events.closeModal();
+    fx.sendQuestionary(inputs);
   };
+
+  useGate(gates.pageGate, {
+    successSendCallback: () => {
+      onResetForm();
+      setIsSuccessScreen(true);
+    },
+    failedSendCallback: () => {
+      toast($t("toasts.sendServerError"), {
+        type: "error",
+      });
+    },
+  });
+
+  useEffect(() => {
+    const modalCloseWatcher = modal.events.closeModal.watch(() => {
+      setIsSuccessScreen(false);
+    });
+
+    return () => modalCloseWatcher.unsubscribe();
+  }, []);
+
+  const successComponent = isSuccessScreen && (
+    <>
+      <span className="pb-4 text-[#F2F2F2] text-2xl font-normal">
+        {$t("pages.form.resultModal.title")}
+      </span>
+      <button
+        onClick={() => modal.events.closeModal()}
+        className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center mx-2"
+      >
+        {$t("pages.form.resultModal.sended")}
+      </button>
+    </>
+  );
+
+  const loadingComponent =
+    !currentFields ||
+    (isLoading && (
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="lds-hourglass" />
+      </div>
+    ));
 
   return (
     <Modal.Layout
@@ -107,7 +154,7 @@ export const Questionnaire = () => {
             <div>{$t("questionarie.label")}</div>
           </div>
           <div className="justify-self-end flex items-center">
-            {steps && !isLoading && (
+            {steps && !isLoading && !isSuccessScreen && (
               <>
                 ({currentStep + 1}/{steps.length})
               </>
@@ -121,15 +168,14 @@ export const Questionnaire = () => {
           </div>
         </div>
         <div
-          className="transition-all duration-700 ease-out flex-shrink-0 h-[5px] ml-auto col-span-2 bg-[#CBCBCB]"
+          className={classNames(
+            "transition-all duration-700 ease-out flex-shrink-0 h-[5px] ml-auto col-span-2 bg-[#CBCBCB]",
+            isLoading && "opacity-0"
+          )}
           style={{ width: 100 - currentStep * stepPercentLength + "%" }}
         />
         <div className="p-4 md:p-11 flex flex-col flex-grow">
-          {!currentFields || isLoading ? (
-            <div className="w-full h-full flex justify-center items-center">
-              <div className="lds-hourglass" />
-            </div>
-          ) : (
+          {successComponent || loadingComponent || (
             <>
               <div className="text-[#F2F2F2] text-2xl mt-auto md:mt-0">
                 {currentFields.question[$i18n]}

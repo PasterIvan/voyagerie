@@ -43,6 +43,7 @@ export const de: LocaleObject = {
     },
     place: {
       button: "Wählen Sie einen Zimmertyp in diesem Hotel",
+      disabledButton: "Keine Zimmer verfügbar",
       name: "Hotels",
       labels: {
         name: "Hotel",
@@ -118,6 +119,9 @@ export const de: LocaleObject = {
     [RoutesPaths.Location]: "Länder",
     [RoutesPaths.Help]: "Kontakt",
     [RoutesPaths.Refresh]: "Aktualisieren Sie die Seite",
+  },
+  toasts: {
+    sendServerError: "Serverfehler. Bitte versuchen Sie es später erneut.",
   },
   moneyFrom: "ab",
   noData: "Keine Daten",

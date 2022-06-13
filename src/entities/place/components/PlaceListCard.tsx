@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslation } from "entities/language/lib";
 
 export function PlaceListCard({
   className,
@@ -15,6 +16,8 @@ export function PlaceListCard({
   name: string;
   price: number;
 }) {
+  const { $t } = useTranslation();
+
   return (
     <div
       className={classNames(
@@ -51,7 +54,7 @@ export function PlaceListCard({
             "mt-auto rounded-tl-md px-2 py-1 leading-none ml-auto  text-sm font-medium"
           )}
         >
-          от{" "}
+          {price && $t("moneyFrom") + " "}
           {price?.toLocaleString("en-US", {
             style: "currency",
             currency: "USD",

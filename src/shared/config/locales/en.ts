@@ -43,6 +43,7 @@ export const en: LocaleObject = {
     },
     place: {
       button: "Choose a room in this hotel",
+      disabledButton: "No available rooms",
       name: "Hotels",
       labels: {
         name: "Place",
@@ -112,6 +113,9 @@ export const en: LocaleObject = {
   currencyConfig: {
     locale: "en-US",
     currency: "USD",
+  },
+  toasts: {
+    sendServerError: "Something went wrong. Please try again later.",
   },
   navbarRoutes: {
     [RoutesPaths.Main]: "Home",

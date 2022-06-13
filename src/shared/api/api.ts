@@ -126,6 +126,12 @@ const getContacts = (): Promise<Contacts> => {
   return baseApi.get(`contacts`).then((response) => response.data);
 };
 
+const sendQuestionary = (
+  data: Record<number, string | undefined>
+): Promise<void> => {
+  return baseApi.post(`research`, data);
+};
+
 export const api = {
   getCountries,
   getCountry,
@@ -134,4 +140,5 @@ export const api = {
   getModalsText,
   getQuestions,
   getContacts,
+  sendQuestionary,
 };

@@ -43,6 +43,7 @@ export const ru: LocaleObject = {
     },
     place: {
       button: "Выбрать номер в этом отеле",
+      disabledButton: "Нет доступных номеров",
       name: "Отели",
       labels: {
         name: "Про отель",
@@ -112,6 +113,9 @@ export const ru: LocaleObject = {
   currencyConfig: {
     locale: "ru-RU",
     currency: "RUB",
+  },
+  toasts: {
+    sendServerError: "Что-то пошло не так. Попробуйте еще раз",
   },
   navbarRoutes: {
     [RoutesPaths.Main]: "Главная",

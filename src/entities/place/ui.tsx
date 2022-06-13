@@ -72,7 +72,7 @@ export const PlaceCard: React.FC<
             </span>
           </div>
           <span className="text-base font-medium text-light ml-auto">
-            {$t("moneyFrom")}{" "}
+            {cost && $t("moneyFrom") + " "}
             {cost?.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",

@@ -308,7 +308,7 @@ function FormPage() {
                       "mt-auto bg-accent text-black rounded-md px-2 py-1 leading-none text-sm font-medium"
                     )}
                   >
-                    {$t("moneyFrom")}{" "}
+                    {choosedResidence?.price && $t("moneyFrom") + " "}
                     {choosedResidence?.price?.toLocaleString("en-US", {
                       style: "currency",
                       currency: "USD",

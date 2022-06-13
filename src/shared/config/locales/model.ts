@@ -31,6 +31,7 @@ export type LocaleObject = {
     };
     place: {
       button: string;
+      disabledButton: string;
       name: string;
       labels: {
         name: string;
@@ -99,6 +100,9 @@ export type LocaleObject = {
   currencyConfig: {
     locale: string;
     currency: string;
+  };
+  toasts: {
+    sendServerError: string;
   };
   navbarRoutes: { [Key in RoutesPaths]?: string };
   moneyFrom: string;

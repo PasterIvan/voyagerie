@@ -144,12 +144,18 @@ function PlacePage() {
               <div className="text-light text-4xl sm:text-[64px] font-normal mx-auto md:max-w-[850px] item text-center leading-0 sm:leading-[70px] max-w-full break-words capitalize">
                 {place.name[$i18n]}
               </div>
-              <button
-                onClick={chooseHandler}
-                className="my-6 px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
-              >
-                {$t("pages.place.button")}
-              </button>
+              {place.rooms?.length ? (
+                <button
+                  onClick={chooseHandler}
+                  className="my-6 px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+                >
+                  {$t("pages.place.button")}
+                </button>
+              ) : (
+                <button className="my-6 px-7 mx-auto uppercase text-xs font-bold h-14 bg-black-background text-light cursor-not-allowed rounded-[100px]">
+                  {$t("pages.place.disabledButton")}
+                </button>
+              )}
             </>
           )}
         </Header>
@@ -200,71 +206,81 @@ function PlacePage() {
             ))}
           </div>
           <Lines.HorizontalLine className="my-6 text-light/20" />
-          <div className="text-accent text-lg font-medium pb-6 flex items-center">
-            <Galery className="mr-3" />
-            {$t("pages.place.labels.galery")}
-          </div>
-          <Swiper
-            // @ts-ignore
-            ref={swiperRef}
-            slidesPerView={
-              breakpoint !== "mobile"
-                ? DESKTOP_SLIDES_COUNT
-                : MOBILE_SLIDES_COUNT
-            }
-            spaceBetween={20}
-            onSlideChange={setSwiper}
-            className="w-full h-32 lg:h-44 xl:h-72"
-          >
-            {!place || isLoading
-              ? Array.from({ length: 4 }).map((_, i) => (
-                  <SwiperSlide
-                    className="w-full h-full rounded-lg overflow-hidden border-light/50 border flex justify-center items-center"
-                    key={i}
-                  >
-                    <div className="lds-hourglass" />
-                  </SwiperSlide>
-                ))
-              : place.gallery.map((image, idx) => (
-                  <SwiperSlide
-                    className="w-full h-full rounded overflow-hidden"
-                    key={idx}
-                  >
-                    <ImageWithError
-                      className="w-full h-full object-cover"
-                      src={image}
-                      alt="gallery place"
-                    />
-                  </SwiperSlide>
-                ))}
-          </Swiper>
-          <div className="flex justify-between w-32 py-8 mx-auto select-none">
-            <ArrowUp
-              canHover={swiper?.activeIndex !== 0}
-              className={classNames("-rotate-90 cursor-pointer")}
-              onClick={() => {
-                swiperRef.current?.swiper.slidePrev();
-              }}
-            />
-            <ArrowUp
-              canHover={swiper?.activeIndex !== 0}
-              className={classNames("rotate-90 cursor-pointer")}
-              onClick={() => {
-                swiperRef.current?.swiper.slideNext();
-              }}
-            />
-          </div>
+          {(isLoading || place?.gallery.length) && (
+            <>
+              <div className="text-accent text-lg font-medium pb-6 flex items-center">
+                <Galery className="mr-3" />
+                {$t("pages.place.labels.galery")}
+              </div>
+              <Swiper
+                // @ts-ignore
+                ref={swiperRef}
+                slidesPerView={
+                  breakpoint !== "mobile"
+                    ? DESKTOP_SLIDES_COUNT
+                    : MOBILE_SLIDES_COUNT
+                }
+                spaceBetween={20}
+                onSlideChange={setSwiper}
+                className="w-full h-32 lg:h-44 xl:h-72"
+              >
+                {!place || isLoading
+                  ? Array.from({ length: 4 }).map((_, i) => (
+                      <SwiperSlide
+                        className="w-full h-full rounded-lg overflow-hidden border-light/50 border flex justify-center items-center"
+                        key={i}
+                      >
+                        <div className="lds-hourglass" />
+                      </SwiperSlide>
+                    ))
+                  : place.gallery.map((image, idx) => (
+                      <SwiperSlide
+                        className="w-full h-full rounded overflow-hidden"
+                        key={idx}
+                      >
+                        <ImageWithError
+                          className="w-full h-full object-cover"
+                          src={image}
+                          alt="gallery place"
+                        />
+                      </SwiperSlide>
+                    ))}
+              </Swiper>
+              <div className="flex justify-between w-32 py-8 mx-auto select-none">
+                <ArrowUp
+                  canHover={swiper?.activeIndex !== 0}
+                  className={classNames("-rotate-90 cursor-pointer")}
+                  onClick={() => {
+                    swiperRef.current?.swiper.slidePrev();
+                  }}
+                />
+                <ArrowUp
+                  canHover={swiper?.activeIndex !== 0}
+                  className={classNames("rotate-90 cursor-pointer")}
+                  onClick={() => {
+                    swiperRef.current?.swiper.slideNext();
+                  }}
+                />
+              </div>
+            </>
+          )}
           <Lines.HorizontalLine className="text-light/20" />
           <div className="w-full flex py-16">
-            <button
-              onClick={chooseHandler}
-              className={classNames(
-                isLoading && "cursor-not-allowed",
-                "px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
-              )}
-            >
-              {$t("pages.place.button")}
-            </button>
+            {place?.rooms?.length ? (
+              <button
+                onClick={chooseHandler}
+                className={classNames(
+                  isLoading && "cursor-not-allowed",
+                  "px-7 mx-auto uppercase text-xs font-bold h-14 bg-gradient-to-b from-brown-background to-[#D6A072] hover:bg-none hover:bg-black rounded-[100px] hover:text-light transition-colors duration-500"
+                )}
+              >
+                {$t("pages.place.button")}
+              </button>
+            ) : (
+              <button className="my-6 px-7 mx-auto uppercase text-xs font-bold h-14 bg-black-background text-light cursor-not-allowed rounded-[100px]">
+                {$t("pages.place.disabledButton")}
+              </button>
+            )}
           </div>
         </div>
       </div>
