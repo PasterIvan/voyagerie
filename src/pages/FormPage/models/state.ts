@@ -1,15 +1,24 @@
 import { Console } from "console";
-import { sample, restore, forward, createEvent } from "effector";
+import { sample, restore, forward, createEvent, createEffect } from "effector";
 import { createGate } from "effector-react";
 import { locationModel } from "entities/location";
 import { placeModel } from "entities/place";
+import { api } from "shared/api";
 import { createErrorHandler, createModalModel } from "shared/lib/store";
 import { formSchema } from "./schema";
 
 const errorHandler = createErrorHandler();
 
-const pageGate = createGate<{ scrollToForm: () => void; slug?: string }>();
+const sendFormFx = createEffect(api.sendForm);
+
+const pageGate = createGate<{
+  scrollToForm: () => void;
+  slug?: string;
+  sendErrorHandler?: () => void;
+  sendSuccessHandler?: () => void;
+}>();
 const scrollToForm = createEvent();
+const sendForm = createEvent();
 
 sample({
   source: restore(pageGate.open, null),
@@ -46,6 +55,10 @@ export const events = {
   ...errorHandler.events,
 };
 
+export const fx = {
+  sendFormFx,
+};
+
 forward({
   from: formSchema.$values,
   to: formSchema.resetErrors,
@@ -55,7 +68,7 @@ sample({
   source: formSchema.$isValid,
   clock: formSchema.submit,
   filter: (isValid) => isValid,
-  target: successModal.events.openModal,
+  target: sendForm,
 });
 
 sample({
@@ -76,4 +89,24 @@ sample({
     return;
   }
   errorHandler.events.serverError();
+});
+
+sample({
+  source: formSchema.$values,
+  clock: sendForm,
+  target: sendFormFx,
+});
+
+sample({
+  source: pageGate.state,
+  clock: fx.sendFormFx.fail,
+}).watch(({ sendErrorHandler }) => {
+  sendErrorHandler?.();
+});
+
+sample({
+  source: pageGate.state,
+  clock: fx.sendFormFx.done,
+}).watch(() => {
+  events.openModal();
 });

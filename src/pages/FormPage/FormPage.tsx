@@ -31,10 +31,12 @@ import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { ResidenceType } from "shared/api/api";
 import { placeModel } from "entities/place";
-import { gates, $isOpen, events } from "./models/state";
+import { gates, $isOpen, events, fx } from "./models/state";
 import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { toast } from "react-toastify";
 
 function FormPage() {
+  const isSending = useStore(fx.sendFormFx.pending);
   const { id } = useParams();
   const isLoading = useStore(placeModel.fx.getHotelFx.pending);
 
@@ -44,11 +46,6 @@ function FormPage() {
   const formContainerRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLDivElement | null>(null);
   const previousChoosedResidenceRef = useRef<ResidenceType | null>(null);
-
-  useGate(gates.pageGate, {
-    scrollToForm: () => formRef.current?.scrollIntoView({ behavior: "smooth" }),
-    slug: id,
-  });
 
   const isOpen = useStore($isOpen);
   const { fields, submit } = useForm(formSchema);
@@ -186,6 +183,16 @@ function FormPage() {
     [$i18n, fields.childCount.value, fields.ages.value]
   );
 
+  useGate(gates.pageGate, {
+    scrollToForm: () => formRef.current?.scrollIntoView({ behavior: "smooth" }),
+    slug: id,
+    sendErrorHandler: () => {
+      toast($t("toasts.sendServerError"), {
+        type: "error",
+      });
+    },
+  });
+
   return (
     <>
       <Modal.Layout
@@ -194,7 +201,7 @@ function FormPage() {
         onClose={() => events.closeModal()}
         className="max-w-3xl max-h-96 w-full h-full !m-auto"
       >
-        <div className="overflow-auto w-full h-full bg-black !m-auto border border-accent relative py-4 md:py-8 px-6 md:px-11 flex flex-col">
+        <div className="overflow-auto md:overflow-hidden w-full h-full bg-black !m-auto border border-accent relative py-4 md:py-8 px-6 md:px-11 flex flex-col">
           <AiOutlineClose
             className="z-50 text-accent hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
             onClick={() => events.closeModal()}
@@ -578,16 +585,25 @@ function FormPage() {
                   )}
                 </div>
                 <button
-                  onClick={() => navigate(-1)}
-                  className="mt-4 md:mt-0 col-span-2 md:col-span-1 order-[14] md:order-[13] transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 hover:border-light rounded w-full text-accent  hover:bg-black hover:text-light"
+                  onClick={() => !isSending && navigate(-1)}
+                  className={classNames(
+                    isSending
+                      ? "bg-black-background text-light cursor-not-allowed"
+                      : "hover:bg-black hover:text-light hover:border-light",
+                    "mt-4 md:mt-0 col-span-2 md:col-span-1 order-[14] md:order-[13] transition-colors duration-700 text-2xl font-medium h-16 border border-accent/50 rounded w-full text-accent"
+                  )}
                 >
                   {$t("pages.form.buttons.back")}
                 </button>
                 <button
-                  onClick={() => submit()}
-                  className="col-span-2 md:col-span-1 order-[13] md:order-[14] transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent"
+                  onClick={() => !isSending && submit()}
+                  className="group col-span-2 md:col-span-1 order-[13] md:order-[14] transition-colors duration-700 text-2xl font-medium h-16 border bg-light rounded w-full text-black hover:border-black hover:text-black hover:bg-accent"
                 >
-                  {$t("pages.form.buttons.order")}
+                  {!isSending ? (
+                    $t("pages.form.buttons.order")
+                  ) : (
+                    <div className="lds-hourglass !w-auto !h-auto after:border-[20px] after:border-t-black after:border-b-black group-hover:after:border-t-light group-hover:after:border-b-light transition-colors duration-700" />
+                  )}
                 </button>
               </div>
             </div>

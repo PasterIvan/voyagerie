@@ -1,3 +1,4 @@
+import { FormType } from "pages/FormPage/models/schema";
 import { baseApi } from "./base";
 
 export type CountryType = {
@@ -132,6 +133,10 @@ const sendQuestionary = (
   return baseApi.post(`research`, data);
 };
 
+const sendForm = (data: FormType): Promise<void> => {
+  return baseApi.post(`order`, data);
+};
+
 export const api = {
   getCountries,
   getCountry,
@@ -141,4 +146,5 @@ export const api = {
   getQuestions,
   getContacts,
   sendQuestionary,
+  sendForm,
 };
