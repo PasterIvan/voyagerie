@@ -17,6 +17,7 @@ import { iconsConfig } from "./config";
 type OptionType = { value: string; label: string; code: string };
 
 const { Option, Control } = _components;
+
 const IconOption = (props: OptionProps<OptionType>) => {
   return (
     <Option {...props}>
@@ -29,7 +30,12 @@ const IconOption = (props: OptionProps<OptionType>) => {
     </Option>
   );
 };
-const IconControl = ({ children, ...props }: ControlProps<OptionType>) => {
+
+const IconControl = ({
+  children,
+  className,
+  ...props
+}: ControlProps<OptionType>) => {
   const language = useStore($currentLanguage);
   const value = useMemo(
     () => ({
@@ -41,7 +47,7 @@ const IconControl = ({ children, ...props }: ControlProps<OptionType>) => {
   );
 
   return (
-    <Control {...props}>
+    <Control className={classNames("!h-auto", className)} {...props}>
       <div className="flex bg-accent w-8 h-8 justify-center items-center rounded-full">
         <img className="" src={iconsConfig[value.value]} />
       </div>{" "}

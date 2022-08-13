@@ -2,12 +2,12 @@ import { ReactComponent as Logo } from "app/assets/images/logo.svg";
 import { ReactComponent as Telephone } from "app/assets/images/telephone.svg";
 import classNames from "classnames";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RoutesPaths } from "shared/config/constants";
 import { Links } from "widgets/Links/Links";
 import { Lines } from "shared/components/Lines";
 import { ChooseLanguage } from "widgets/ChooseLanguage/ChooseLanguage";
 import { $contacts } from "entities/contacts/models";
 import { useStore } from "effector-react";
+import { RoutesPaths } from "../../shared/config/constants";
 
 export const Navbar = ({ className }: { className?: string }) => {
   const isLoading = false;
@@ -35,7 +35,7 @@ export const Navbar = ({ className }: { className?: string }) => {
       />
       <Links
         elementClassName="text-xs font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent"
-        className="lg:order-2 order-5 flex-grow w-full flex justify-around lg:justify-center col-span-3 lg:col-span-1 lg:py-0 self-center"
+        className="flex-wrap lg:order-2 order-5 flex-grow w-full flex justify-around lg:justify-center col-span-3 lg:col-span-1 lg:py-0 self-center"
       />
       <Lines.Line className="lg:hidden order-4 text-light/20 col-span-3 -mx-4 my-4" />
       <div className="block lg:hidden order-2" />

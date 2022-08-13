@@ -36,19 +36,20 @@ import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundar
 import { toast } from "react-toastify";
 
 function FormPage() {
+  useScrollToTop();
+
   const isSending = useStore(fx.sendFormFx.pending);
   const { id } = useParams();
   const isLoading = useStore(placeModel.fx.getHotelFx.pending);
 
   const { $t, $i18n } = useTranslation();
-  useScrollToTop();
 
   const formContainerRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLDivElement | null>(null);
   const previousChoosedResidenceRef = useRef<ResidenceType | null>(null);
 
   const isOpen = useStore($isOpen);
-  const { fields, submit } = useForm(formSchema);
+  const { fields, submit, reset } = useForm(formSchema);
 
   const place = useStore($place);
   const navigate = useNavigate();
@@ -60,6 +61,8 @@ function FormPage() {
 
   useEffect(() => {
     const subscrabe = events.closeModal.watch(() => {
+      reset();
+      fields.ages.onChange([]);
       navigate(-1);
     });
 
@@ -539,8 +542,10 @@ function FormPage() {
                     {fields.ages.hasError() && (
                       <span className="text-[#e36e0e] text-xs">
                         {fields.ages.errorText({
-                          "ages-valid":
-                            formErrorsConfig.ages["ages-valid"][$i18n],
+                          "min-ages-valid":
+                            formErrorsConfig.ages["min-ages-valid"][$i18n],
+                          "max-ages-valid":
+                            formErrorsConfig.ages["max-ages-valid"][$i18n],
                           "ages-filled":
                             formErrorsConfig.ages["ages-filled"][$i18n],
                         })}

@@ -69,7 +69,10 @@ export const Footer = () => {
         <div className="text-light/70 text-2xl font-bold uppercase lg:pr-20 mb-4">
           {$t("footer.navigation")}
         </div>
-        <Links elementClassName="w-full text-center lg:text-left text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent" />
+        <Links
+          className="flex-wrap"
+          elementClassName="w-full text-center lg:text-left text-lg font-semibold text-light mb-1 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent"
+        />
       </div>
       <div className="py-6 flex flex-col lg:flex-row items-center lg:items-start z-10 h-full w-full col-span-2 lg:col-span-1 row-span-1">
         <div className="text-light/70 text-2xl font-bold uppercase lg:pr-20 mb-4">

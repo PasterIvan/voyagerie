@@ -150,7 +150,7 @@ export const ErrorWidget = ({
           },
           "text-md md:text-xl font-bold uppercase text-light mx-4 underline-offset-1 cursor-pointer bg-gradient-to-t hover:from-[#FAE4BC] hover:to-[#D6A072] hover:bg-clip-text hover:text-fill-transparent hover:text-accent"
         )}
-        className="z-10 flex-grow-0 w-full flex justify-around lg:justify-center"
+        className="flex-wrap z-10 flex-grow-0 w-full flex justify-around lg:justify-center"
       />
       <div className="z-10 flex flex-col flex-grow justify-center items-center relative">
         <div className="flex w-full justify-center items-center">

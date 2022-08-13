@@ -1,3 +1,5 @@
+import { AGE_OF_MAJORITY, MIN_CHILD_AGE } from "../constants";
+
 export const ordinalNumbers = {
   ru: [
     "первый",
@@ -91,11 +93,17 @@ export const formErrorsConfig = {
     },
   },
   ages: {
-    "ages-valid": {
-      ru: "Неккоректный возраст детей",
-      en: "Incorrect age of children",
-      de: "Falsche Altersangabe",
-      fr: "Âge incorrect des enfants",
+    "min-ages-valid": {
+      ru: `Возраст детей не может быть меньше ${MIN_CHILD_AGE}`,
+      en: `Children's age should be more than ${MIN_CHILD_AGE}`,
+      de: `Die Altersangabe für Kinder darf nicht kleiner als ${MIN_CHILD_AGE} sein`,
+      fr: `L'âge des enfants ne peut pas être inférieur à ${MIN_CHILD_AGE}`,
+    },
+    "max-ages-valid": {
+      ru: `Возраст детей не может быть больше ${AGE_OF_MAJORITY}`,
+      en: `Children's age should be less than ${AGE_OF_MAJORITY}`,
+      de: `Die Altersangabe für Kinder darf nicht größer als ${AGE_OF_MAJORITY} sein`,
+      fr: `L'âge des enfants ne peut pas être supérieur à ${AGE_OF_MAJORITY}`,
     },
     "ages-filled": {
       ru: "Не все возрасты введены",

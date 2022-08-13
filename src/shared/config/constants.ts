@@ -1,7 +1,7 @@
 import { LanguageType } from "entities/language/models";
 
 export const AGE_OF_MAJORITY = 18;
-export const MIN_CHILD_AGE = 3;
+export const MIN_CHILD_AGE = 1;
 
 export const activeLocales = ["ru", "en"] as const;
 export const defaultLocale: typeof activeLocales[number] = activeLocales[1];

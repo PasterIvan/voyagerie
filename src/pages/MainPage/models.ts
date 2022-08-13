@@ -69,6 +69,7 @@ sample({
   source: combine([restore(mainGate.open, null), $shouldScroll]),
   clock: mainGate.open,
   filter: ([state]) =>
+    //@ts-ignore
     Boolean(state && state.scrollToLocationsHandler && state.scrollToTop),
 }).watch(([state, shouldScroll]) => {
   if (shouldScroll) {

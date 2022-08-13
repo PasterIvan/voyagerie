@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
-export function useHover(): any {
+const _array: [] = [];
+export function useHover(deps: React.DependencyList | undefined = _array): any {
   const [value, setValue] = useState(false);
   const ref = useRef<Node>(null);
   const handleMouseOver = () => setValue(true);
@@ -15,6 +16,6 @@ export function useHover(): any {
         node.removeEventListener("mouseout", handleMouseOut);
       };
     }
-  }, []);
+  }, deps);
   return [ref, value];
 }
