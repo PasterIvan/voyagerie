@@ -127,6 +127,7 @@ function PlacePage() {
           childrenClassName="flex flex-col justify-around"
           absoluteElement={
             <ImageWithError
+              hideOnError
               className="max-w-none object-cover"
               errorClassName="w-full h-full"
               successClassName="moving-block"

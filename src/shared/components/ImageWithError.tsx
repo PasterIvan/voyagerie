@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import placeholderImg from "app/assets/images/placeholder-image.svg";
 import classNames from "classnames";
@@ -17,14 +17,20 @@ export const ImageWithError = ({
   className,
   successClassName,
   errorClassName,
+  hideOnError = false,
   ...props
 }: {
+  hideOnError?: boolean;
   placeholder?: string;
   successClassName?: string;
   errorClassName?: string;
   element?: (props: imagePropsType) => JSX.Element;
 } & imagePropsType) => {
   const [isError, setError] = useState(false);
+
+  useEffect(() => {
+    setError(false);
+  }, [src]);
 
   const onLoadHandler = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -46,6 +52,7 @@ export const ImageWithError = ({
   return (
     <Element
       className={classNames(
+        hideOnError && isError ? "hidden" : "",
         className,
         !isError && successClassName,
         isError && errorClassName

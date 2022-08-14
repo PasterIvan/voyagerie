@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 type imagePropsType = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,

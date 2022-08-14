@@ -125,7 +125,7 @@ export const Questionnaire = () => {
       </span>
       <button
         onClick={() => modal.events.closeModal()}
-        className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center mx-2"
+        className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 px-2 text-center md:mx-2"
       >
         {$t("pages.form.resultModal.sended")}
       </button>

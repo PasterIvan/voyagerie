@@ -4,11 +4,9 @@ import { useTranslation } from "entities/language/lib";
 import { placeModel } from "entities/place";
 import { PlaceListCard } from "entities/place/components/PlaceListCard";
 import { useEffect, useRef, useState } from "react";
-import { BsWindowSidebar } from "react-icons/bs";
 import { ResidenceType } from "shared/api/api";
+import { ImageWithError } from "shared/components/ImageWithError";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
-import { useHover } from "shared/lib/hooks/useHover";
-import { usePropRef } from "shared/lib/hooks/usePropRef";
 import SimpleBar from "simplebar-react";
 
 export function ResidenceChooser({
@@ -37,21 +35,6 @@ export function ResidenceChooser({
 
   const hasDescription = Boolean(selectedResidence?.description[$i18n]);
   const contentRef = useRef<SimpleBar | null>(null);
-
-  const [ref, isHovered] = useHover([hasDescription]);
-
-  const expandedRef = usePropRef(expanded);
-  useEffect(() => {
-    if (isHovered || !expanded) {
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      expandedRef.current && setExpanded(false);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [isHovered, expanded]);
 
   useEffect(() => {
     try {
@@ -143,6 +126,7 @@ export function ResidenceChooser({
         </SimpleBar>
         <div className="pb-4 md:pb-0 flex-shrink-0 h-[300px] md:h-auto order-1 md:order-2 md:basis-3/5 flex flex-col">
           <ImageWithLoader
+            element={ImageWithError}
             isLoading={!selectedResidence}
             className={classNames(
               !residences.length && "h-[500px]",
@@ -152,7 +136,6 @@ export function ResidenceChooser({
           />
           {hasDescription ? (
             <div
-              ref={ref}
               onClick={() => canExpand && setExpanded(!expanded)}
               className={classNames(
                 expanded ? "max-h-[80%]" : "max-h-20",

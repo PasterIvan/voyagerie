@@ -214,7 +214,7 @@ function FormPage() {
           </span>
           <button
             onClick={() => events.closeModal()}
-            className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 text-center mx-2"
+            className="my-auto w-full bg-accent hover:bg-black text-black hover:text-accent hover:border-accent hover:border text-xl font-light py-6 px-2 text-center md:mx-2"
           >
             {$t("pages.form.resultModal.sended")}
           </button>
@@ -254,6 +254,7 @@ function FormPage() {
             childrenClassName="flex flex-col justify-around"
             absoluteElement={
               <ImageWithError
+                hideOnError
                 className="max-w-none object-cover"
                 successClassName="moving-block"
                 errorClassName="w-full h-full"
@@ -300,6 +301,7 @@ function FormPage() {
               </div>
               <div className="flex flex-col md:flex-row">
                 <ImageWithLoader
+                  element={ImageWithError}
                   className="mx-auto md:mx-0 w-full md:w-52 h-40 rounded shrink-0"
                   src={choosedResidence?.image}
                 />

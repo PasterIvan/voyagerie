@@ -2,14 +2,12 @@ import classNames from "classnames";
 import { useGate, useStore } from "effector-react";
 import { useTranslation } from "entities/language/lib";
 import { $location } from "entities/location/models";
-// import { useParams } from "react-router-dom";
-import plural from "plural-ru";
 import { ReactComponent as SerchLogo } from "app/assets/images/search.svg";
 import { useFocus } from "shared/lib/hooks/useFocus";
 import { PlaceCard, PlaceCardLoader } from "entities/place/ui";
 
 import chillLogo from "./config/images/chill.svg";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RoutesPaths } from "shared/config/constants";
 import { Header } from "widgets/Header/Header";
@@ -106,6 +104,7 @@ function LocationPage() {
           childrenClassName="flex justify-center w-full"
           absoluteElement={
             <ImageWithError
+              hideOnError
               alt="location"
               className="max-w-none object-cover"
               successClassName="moving-block"
