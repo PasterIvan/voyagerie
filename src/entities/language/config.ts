@@ -20,6 +20,7 @@ const DEFAULT_LANGUAGE: LanguageType =
   LANGUAGES[0];
 
 const options = {
+  localStorageKey: "language",
   languages: LANGUAGES,
   defaultLanguage: DEFAULT_LANGUAGE,
 };

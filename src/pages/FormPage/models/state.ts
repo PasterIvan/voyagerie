@@ -1,7 +1,5 @@
-import { Console } from "console";
 import { sample, restore, forward, createEvent, createEffect } from "effector";
 import { createGate } from "effector-react";
-import { locationModel } from "entities/location";
 import { placeModel } from "entities/place";
 import { api } from "shared/api";
 import { createErrorHandler, createModalModel } from "shared/lib/store";

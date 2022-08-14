@@ -41,3 +41,23 @@ export const createErrorHandler = () => {
 
   return { gate, events: { serverError, notFound } };
 };
+
+export const getObjectFromLocalStorage = (key: string) => {
+  const item = localStorage.getItem(key);
+
+  if (item) {
+    try {
+      return JSON.parse(item);
+    } catch {
+      return null;
+    }
+  }
+};
+
+export const setObjectToLocalStorage = (key: string, value: any) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    console.error(e);
+  }
+};

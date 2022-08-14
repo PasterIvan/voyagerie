@@ -14,7 +14,7 @@ import { useGate, useStore } from "effector-react";
 import { mainPageModel } from ".";
 import { questionnaireModel } from "feature/questionnaire";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
-import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 import { $items, fx, gates } from "./models";
 
 function MainPage() {

@@ -10,7 +10,6 @@ import Select, {
   OptionProps,
   StylesConfig,
 } from "react-select";
-import Flag from "react-world-flags";
 import { LocalesType } from "shared/config/locales/model";
 import { iconsConfig } from "./config";
 

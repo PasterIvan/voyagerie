@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useTranslation } from "entities/language/lib";
 import plural from "plural-ru";
-import { transferIcons } from "./config";
+import { transferIcons } from "../config";
 import { useHover } from "shared/lib/hooks/useHover";
 import { ArrowIcon } from "entities/location/config/Arrow";
 import { pluralConfig } from "shared/config/locales/constants";
@@ -88,25 +88,3 @@ export const PlaceCard: React.FC<
     </div>
   );
 };
-
-export const PlaceCardLoader = ({
-  bottomBorder = true,
-  topBorder = false,
-}: {
-  bottomBorder?: boolean;
-  topBorder?: boolean;
-}) => (
-  <div className="px-7 group w-full h-72 md:h-80 rounded">
-    <div
-      className={classNames(
-        bottomBorder && "border-b border-b-light/20",
-        topBorder && "border-t border-t-light/20",
-        "gap-x-10 lg:gap-x-0 py-7 w-full h-full relative"
-      )}
-    >
-      <div className="w-full h-full flex justify-center items-center">
-        <div className="lds-hourglass" />
-      </div>
-    </div>
-  </div>
-);

@@ -3,7 +3,7 @@ import { Routing } from "../pages/Routing/Routing";
 import { withProviders } from "./providers";
 import { Footer } from "widgets/Footer/Footer";
 import { Modals } from "widgets/modals/components";
-import { Questionnaire } from "feature/questionnaire/Questionnaire";
+import { Questionnaire } from "feature/questionnaire/ui";
 
 import "dayjs/locale/ru";
 

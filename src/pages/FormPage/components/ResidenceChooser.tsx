@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { ResidenceType } from "shared/api/api";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
+import { usePropRef } from "shared/lib/hooks/usePropRef";
 import SimpleBar from "simplebar-react";
 
 export function ResidenceChooser({
@@ -24,6 +25,7 @@ export function ResidenceChooser({
 }) {
   const [expanded, setExpanded] = useState(false);
   const [canExpand, setCanExpand] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const isLoading = useStore(placeModel.fx.getHotelFx.pending);
   const { $t, $i18n } = useTranslation();
@@ -35,6 +37,33 @@ export function ResidenceChooser({
 
   const hasDescription = Boolean(selectedResidence?.description[$i18n]);
   const contentRef = useRef<SimpleBar | null>(null);
+
+  const mountedRef = usePropRef(mounted);
+  const attemptsRef = useRef(0);
+  useEffect(() => {
+    if (mountedRef.current) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (mountedRef.current || attemptsRef.current > 10) {
+        clearInterval(interval);
+        return;
+      }
+
+      if (!contentRef.current) {
+        attemptsRef.current++;
+        return;
+      }
+
+      setMounted(true);
+      clearTimeout(interval);
+    }, 10);
+
+    return () => {
+      clearTimeout(interval);
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -75,11 +104,11 @@ export function ResidenceChooser({
         //@ts-ignore
         contentRef.current?.contentWrapperEl.offsetHeight;
 
-      setCanExpand(hasDescription && hasScroll);
+      setCanExpand(hasDescription && (hasScroll || expanded));
     });
 
     return () => clearTimeout(timeout);
-  }, [hasDescription, selectedResidence]);
+  }, [mounted, hasDescription, selectedResidence]);
 
   if (isLoading) {
     return (

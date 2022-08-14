@@ -5,7 +5,7 @@ import { withSuspense } from "shared/lib/hoc/withSuspence";
 import { PagePreloader } from "shared/components/PagePreloader";
 import { useGate } from "effector-react";
 import { gates } from "./models";
-import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 
 const NotFoundPage = React.lazy(() => import("../NotFoundPage/NotFoundPage"));
 const ErrorPage = React.lazy(() => import("../ErrorPage/ErrorPage"));

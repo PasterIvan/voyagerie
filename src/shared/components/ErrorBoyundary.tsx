@@ -14,7 +14,6 @@ export class ErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError() {
-    // Обновить состояние с тем, чтобы следующий рендер показал запасной UI.
     return { hasError: true };
   }
 

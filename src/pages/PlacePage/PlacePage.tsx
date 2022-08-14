@@ -26,7 +26,7 @@ import { BREAKPOINTS } from "shared/config/styles";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { gates } from "./models";
-import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 import { PlaceOverviewType } from "shared/api/api";
 import { placeModel } from "entities/place";
 

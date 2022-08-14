@@ -32,7 +32,7 @@ import { ImageWithError } from "shared/components/ImageWithError";
 import { ResidenceType } from "shared/api/api";
 import { placeModel } from "entities/place";
 import { gates, $isOpen, events, fx } from "./models/state";
-import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 import { toast } from "react-toastify";
 
 function FormPage() {
@@ -86,6 +86,33 @@ function FormPage() {
     }, {} as Record<keyof FormType["buttons"], boolean>);
   }, [fields.contacts?.value]);
 
+  useEffect(() => {
+    if (dayjs(fields.dateFrom.value).isAfter(dayjs(fields.dateTo.value))) {
+      fields.dateTo.onChange(fields.dateFrom.value);
+      return;
+    }
+  }, [fields.dateFrom.value, fields.dateTo.value]);
+
+  useEffect(() => {
+    if (!fields.foodType.value) {
+      fields.foodType.onChange(foodType[0].label);
+    }
+  }, [fields.foodType.value]);
+
+  useEffect(() => {
+    if (!selectedResidence && place?.rooms?.length) {
+      setSelectedResidence(place.rooms[0]);
+    }
+  }, [selectedResidence, place?.rooms]);
+
+  useEffect(() => {
+    if (!previousChoosedResidenceRef.current && choosedResidence) {
+      formContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    previousChoosedResidenceRef.current = choosedResidence;
+  }, [choosedResidence]);
+
   const buttonElements = useMemo(() => {
     return Object.values(buttons).map(
       ({ hoverClassName, activeClassName, icon: Icon, field }, i, arr) => (
@@ -117,33 +144,6 @@ function FormPage() {
       )
     );
   }, [fields.buttons.value, buttonSuggestions]);
-
-  useEffect(() => {
-    if (dayjs(fields.dateFrom.value).isAfter(dayjs(fields.dateTo.value))) {
-      fields.dateTo.onChange(fields.dateFrom.value);
-      return;
-    }
-  }, [fields.dateFrom.value, fields.dateTo.value]);
-
-  useEffect(() => {
-    if (!fields.foodType.value) {
-      fields.foodType.onChange(foodType[0].label);
-    }
-  }, [fields.foodType.value]);
-
-  useEffect(() => {
-    if (!selectedResidence && place?.rooms?.length) {
-      setSelectedResidence(place.rooms[0]);
-    }
-  }, [selectedResidence, place?.rooms]);
-
-  useEffect(() => {
-    if (!previousChoosedResidenceRef.current && choosedResidence) {
-      formContainerRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-
-    previousChoosedResidenceRef.current = choosedResidence;
-  }, [choosedResidence]);
 
   const inputs = useMemo(
     () =>

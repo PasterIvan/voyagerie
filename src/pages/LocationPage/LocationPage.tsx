@@ -4,7 +4,7 @@ import { useTranslation } from "entities/language/lib";
 import { $location } from "entities/location/models";
 import { ReactComponent as SerchLogo } from "app/assets/images/search.svg";
 import { useFocus } from "shared/lib/hooks/useFocus";
-import { PlaceCard, PlaceCardLoader } from "entities/place/ui";
+import { PlaceCard, } from "entities/place/components/PlaceCard";
 
 import chillLogo from "./config/images/chill.svg";
 import { useCallback, useMemo, useState } from "react";
@@ -18,9 +18,10 @@ import { useScrollToTop } from "shared/lib/hooks/useScrollToTop";
 import { footerModel } from "widgets/Footer";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
 import { gates } from "./models";
-import { ManualErrorBoundary } from "widgets/ErrorComponent/EffectorErrorBoundary";
+import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { locationModel } from "entities/location";
+import { PlaceCardLoader } from "entities/place/components/PlaceCardLoader";
 
 function LocationPage() {
   const isLoading = useStore(locationModel.fx.getCountryFx.pending);
