@@ -10,6 +10,7 @@ import "dayjs/locale/ru";
 import { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import { ErrorBoundary } from "shared/components/ErrorBoyundary";
+import { PreviewImageModal } from "widgets/PreviewImageModal";
 
 registerLocale("ru", ru);
 
@@ -22,6 +23,7 @@ declare global {
 function App() {
   return (
     <div className="min-h-screen bg-black flex flex-col">
+      <PreviewImageModal />
       <Questionnaire />
       <Modals />
       <Routing />

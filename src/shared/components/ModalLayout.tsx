@@ -29,6 +29,7 @@ const ScrollContainer = ({
 const Layout = ({
   children,
   onClose,
+  shouldHideClose = true,
   withClose = true,
   overlayClassName,
   iconClassName,
@@ -41,6 +42,7 @@ const Layout = ({
   className?: string;
   iconClassName?: string;
   withClose?: boolean;
+  shouldHideClose?: boolean;
 } & Omit<
   ReactModal.Props,
   "onRequestClose" | "overlayClassName" | "className"
@@ -62,7 +64,8 @@ const Layout = ({
         <AiOutlineClose
           className={classNames(
             iconClassName,
-            "z-50 inline lg:hidden hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
+            shouldHideClose && "lg:hidden",
+            "z-50 inline hover:text-light cursor-pointer absolute w-8 h-8 right-4 top-4"
           )}
           onClick={onClose}
         />

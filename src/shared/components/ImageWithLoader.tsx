@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { usePropRef } from "shared/lib/hooks/usePropRef";
 
 type imagePropsType = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
@@ -8,21 +9,30 @@ type imagePropsType = React.DetailedHTMLProps<
 
 export const ImageWithLoader = ({
   element,
+  wrapperClassName,
   className,
-  imgClassName,
   shouldStopOnError = true,
+  loadOnEmpty = false,
   src,
   onLoad,
   onError,
   isLoading,
+  onClick,
+  children,
   ...props
 }: {
   isLoading?: boolean;
+  loadOnEmpty?: boolean;
   shouldStopOnError?: boolean;
   element?: (props: imagePropsType) => JSX.Element;
+  wrapperClassName?: string;
   className?: string;
-  imgClassName?: string;
-} & imagePropsType) => {
+  children?: React.ReactNode;
+  onClick?: (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    options: Record<string, string | boolean | number | undefined | null>
+  ) => void;
+} & Omit<imagePropsType, "onClick">) => {
   const [isImgLoaded, setIsImgLoaded] = useState(true);
   const previousSrcRef = useRef<string | undefined>();
   useEffect(() => {
@@ -33,33 +43,53 @@ export const ImageWithLoader = ({
     previousSrcRef.current = src;
   }, [src]);
 
+  const onClickRef = usePropRef(onClick);
+  const onClickHandler = useCallback(
+    (
+      e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+      options: Record<string, string | boolean | number>
+    ) => {
+      onClickRef.current?.(e, { ...options, isImgLoaded, src });
+    },
+    [isImgLoaded, onLoad]
+  );
+
+  const onLoadRef = usePropRef(onLoad);
   const onLoadHandler = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
       setIsImgLoaded(true);
-      onLoad?.(e);
+      onLoadRef.current?.(e);
     },
-    [onLoad]
+    []
   );
 
+  useEffect(() => {
+    if (isImgLoaded && loadOnEmpty && !src) {
+      setIsImgLoaded(false);
+    }
+  }, [isImgLoaded, loadOnEmpty, src]);
+
+  const onErrorRef = usePropRef(onError);
   const onErrorHandler = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
       if (shouldStopOnError) {
         setIsImgLoaded(true);
       }
-      onError?.(e);
+      onErrorRef.current?.(e);
     },
-    [shouldStopOnError, onError]
+    [shouldStopOnError]
   );
 
   const Element = element || "img";
 
   return (
-    <div className={classNames(className, "overflow-hidden relative")}>
+    <div className={classNames(wrapperClassName, "overflow-hidden relative")}>
       <Element
+        onClick={onClickHandler as imagePropsType["onClick"]}
         onLoad={onLoadHandler}
         onError={onErrorHandler}
         className={classNames(
-          imgClassName,
+          className,
           "z-0 w-full h-full object-cover",
           !isImgLoaded && "opacity-40"
         )}
@@ -74,6 +104,7 @@ export const ImageWithLoader = ({
       >
         <div className="lds-hourglass" />
       </div>
+      {children}
     </div>
   );
 };

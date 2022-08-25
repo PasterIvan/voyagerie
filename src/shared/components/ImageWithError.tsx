@@ -1,7 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 import placeholderImg from "app/assets/images/placeholder-image.svg";
 import classNames from "classnames";
+import { usePropRef } from "shared/lib/hooks/usePropRef";
 
 type imagePropsType = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
@@ -18,6 +19,7 @@ export const ImageWithError = ({
   successClassName,
   errorClassName,
   hideOnError = false,
+  onClick,
   ...props
 }: {
   hideOnError?: boolean;
@@ -25,24 +27,41 @@ export const ImageWithError = ({
   successClassName?: string;
   errorClassName?: string;
   element?: (props: imagePropsType) => JSX.Element;
-} & imagePropsType) => {
+  onClick?: (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    options: Record<string, string | boolean | number | undefined | null>
+  ) => void;
+} & Omit<imagePropsType, "onClick">) => {
   const [isError, setError] = useState(false);
 
   useEffect(() => {
     setError(false);
   }, [src]);
 
+  const onLoadRef = usePropRef(onLoad);
   const onLoadHandler = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-      onLoad?.(e);
+      onLoadRef.current?.(e);
     },
-    [isError, onLoad]
+    [isError]
   );
 
+  const onClickRef = usePropRef(onClick);
+  const onClickHandler = useCallback(
+    (
+      e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+      options: Record<string, string | boolean | number>
+    ) => {
+      onClickRef.current?.(e, { ...options, hasError: isError, src });
+    },
+    [isError]
+  );
+
+  const onErrorRef = usePropRef(onError);
   const onErrorHandler = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
       setError(true);
-      onError?.(e);
+      onErrorRef.current?.(e);
     },
     [onError]
   );
@@ -59,6 +78,7 @@ export const ImageWithError = ({
       )}
       onLoad={onLoadHandler}
       onError={onErrorHandler}
+      onClick={onClickHandler as imagePropsType["onClick"]}
       src={isError ? placeholder : src}
       {...props}
     />

@@ -4,7 +4,7 @@ import { useTranslation } from "entities/language/lib";
 import { $location } from "entities/location/models";
 import { ReactComponent as SerchLogo } from "app/assets/images/search.svg";
 import { useFocus } from "shared/lib/hooks/useFocus";
-import { PlaceCard, } from "entities/place/components/PlaceCard";
+import { PlaceCard } from "entities/place/components/PlaceCard";
 
 import chillLogo from "./config/images/chill.svg";
 import { useCallback, useMemo, useState } from "react";

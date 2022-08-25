@@ -29,6 +29,7 @@ import { gates } from "./models";
 import { ManualErrorBoundary } from "widgets/ErrorComponent/ManualErrorBoundary";
 import { PlaceOverviewType } from "shared/api/api";
 import { placeModel } from "entities/place";
+import { previewModalModel } from "widgets/PreviewImageModal";
 
 const fieldsResource: {
   localePath: Paths<LocaleObject>;
@@ -240,7 +241,16 @@ function PlacePage() {
                         key={idx}
                       >
                         <ImageWithError
+                          onClick={(_, { hasError }) => {
+                            if (hasError) {
+                              return;
+                            }
+
+                            previewModalModel.events.setImagePreview(image);
+                            previewModalModel.events.openModal();
+                          }}
                           className="w-full h-full object-cover"
+                          successClassName="cursor-pointer"
                           src={image}
                           alt="gallery place"
                         />

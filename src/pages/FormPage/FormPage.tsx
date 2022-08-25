@@ -302,7 +302,7 @@ function FormPage() {
               <div className="flex flex-col md:flex-row">
                 <ImageWithLoader
                   element={ImageWithError}
-                  className="mx-auto md:mx-0 w-full md:w-52 h-40 rounded shrink-0"
+                  wrapperClassName="mx-auto md:mx-0 w-full md:w-52 h-40 rounded shrink-0"
                   src={choosedResidence?.image}
                 />
                 <div className="mt-6 md:mt-0 min-h-40 pl-0 md:pl-10 flex flex-col justify-start items-start pb-1 max-w-xl">

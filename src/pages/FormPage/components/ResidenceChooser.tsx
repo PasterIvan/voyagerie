@@ -4,11 +4,13 @@ import { useTranslation } from "entities/language/lib";
 import { placeModel } from "entities/place";
 import { PlaceListCard } from "entities/place/components/PlaceListCard";
 import { useEffect, useRef, useState } from "react";
+import { BsXLg } from "react-icons/bs";
 import { ResidenceType } from "shared/api/api";
 import { ImageWithError } from "shared/components/ImageWithError";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import { usePropRef } from "shared/lib/hooks/usePropRef";
 import SimpleBar from "simplebar-react";
+import { previewModalModel } from "widgets/PreviewImageModal";
 
 export function ResidenceChooser({
   selectedResidence,
@@ -155,9 +157,15 @@ export function ResidenceChooser({
         </SimpleBar>
         <div className="pb-4 md:pb-0 flex-shrink-0 h-[300px] md:h-auto order-1 md:order-2 md:basis-3/5 flex flex-col">
           <ImageWithLoader
+            onClick={(_, { hasError }) => {
+              if (!selectedResidence?.image || hasError) return;
+
+              previewModalModel.events.setImagePreview(selectedResidence.image);
+              previewModalModel.events.openModal();
+            }}
             element={ImageWithError}
             isLoading={!selectedResidence}
-            className={classNames(
+            wrapperClassName={classNames(
               !residences.length && "h-[500px]",
               "w-full flex-grow rounded-t-md border border-accent border-b-0"
             )}
