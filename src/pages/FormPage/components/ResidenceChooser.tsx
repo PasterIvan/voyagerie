@@ -10,6 +10,7 @@ import { ImageWithError } from "shared/components/ImageWithError";
 import { ImageWithLoader } from "shared/components/ImageWithLoader";
 import { usePropRef } from "shared/lib/hooks/usePropRef";
 import SimpleBar from "simplebar-react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { previewModalModel } from "widgets/PreviewImageModal";
 
 export function ResidenceChooser({
@@ -129,7 +130,7 @@ export function ResidenceChooser({
         <SimpleBar
           direction="rtl"
           data-simplebar-direction="rtl"
-          className="pt-4 md:pt-0 md:h-auto order-2 md:order-1 flex-grow md:basis-2/5 pb-4 md:pb-0 pl-0 md:pl-4 w-full"
+          className="flex-shrink-0 pt-4 md:pt-0 md:h-auto order-2 md:order-1 flex-grow md:basis-2/5 md:w-2/5 pb-4 md:pb-0 pl-0 md:pl-4 w-full"
         >
           <div className={classNames("gap-x-4 flex md:flex-col items-stretch")}>
             {!residences.length ? (
@@ -155,22 +156,49 @@ export function ResidenceChooser({
             )}
           </div>
         </SimpleBar>
-        <div className="pb-4 md:pb-0 flex-shrink-0 h-[300px] md:h-auto order-1 md:order-2 md:basis-3/5 flex flex-col">
-          <ImageWithLoader
-            onClick={(_, { hasError }) => {
-              if (!selectedResidence?.image || hasError) return;
+        <div className="max-w-full pb-4 md:pb-0 flex-shrink-0 h-[300px] md:h-auto order-1 md:order-2 md:basis-3/5 md:w-3/5 flex flex-col">
+          {selectedResidence?.images ? (
+            <div className="flex basis-0 overflow-hidden flex-grow rounded-t-md border border-accent border-b-0">
+              <Swiper loop slidesPerView={1} className="w-full z-0">
+                {selectedResidence.images.map((image, i) => (
+                  <SwiperSlide key={i} className="h-full">
+                    <ImageWithLoader
+                      successClassName={classNames("cursor-pointer")}
+                      onClick={(_, { hasError }) => {
+                        if (!image || hasError) return;
 
-              previewModalModel.events.setImagePreview(selectedResidence.image);
-              previewModalModel.events.openModal();
-            }}
-            element={ImageWithError}
-            isLoading={!selectedResidence}
-            wrapperClassName={classNames(
-              !residences.length && "h-[500px]",
-              "w-full flex-grow rounded-t-md border border-accent border-b-0"
-            )}
-            src={selectedResidence?.image}
-          />
+                        previewModalModel.events.setImagePreview(image);
+                        previewModalModel.events.openModal();
+                      }}
+                      element={ImageWithError}
+                      isLoading={!selectedResidence}
+                      wrapperClassName={classNames("h-full w-full")}
+                      src={image}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <ImageWithLoader
+              onClick={(_, { hasError }) => {
+                if (!selectedResidence?.image || hasError) return;
+
+                previewModalModel.events.setImagePreview(
+                  selectedResidence.image
+                );
+                previewModalModel.events.openModal();
+              }}
+              element={ImageWithError}
+              isLoading={!selectedResidence}
+              successClassName={classNames("cursor-pointer")}
+              wrapperClassName={classNames(
+                !residences.length && "h-[500px]",
+                "w-full flex-grow rounded-t-md border border-accent border-b-0"
+              )}
+              src={selectedResidence?.image}
+            />
+          )}
           {hasDescription ? (
             <div
               onClick={() => canExpand && setExpanded(!expanded)}

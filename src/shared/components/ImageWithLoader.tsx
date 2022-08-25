@@ -32,7 +32,8 @@ export const ImageWithLoader = ({
     event: React.MouseEvent<HTMLImageElement, MouseEvent>,
     options: Record<string, string | boolean | number | undefined | null>
   ) => void;
-} & Omit<imagePropsType, "onClick">) => {
+} & Omit<imagePropsType, "onClick"> &
+  Record<string, any>) => {
   const [isImgLoaded, setIsImgLoaded] = useState(true);
   const previousSrcRef = useRef<string | undefined>();
   useEffect(() => {

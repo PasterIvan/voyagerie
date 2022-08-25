@@ -42,6 +42,7 @@ export type ResidenceType = {
   id: string;
   name: Record<string, string>;
   image: string;
+  images: string[];
   price: number;
   description: Record<string, string>;
 };
