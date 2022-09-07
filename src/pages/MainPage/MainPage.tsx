@@ -45,10 +45,10 @@ function MainPage() {
     >
       <div className="flex flex-col items-center w-full">
         <Header
-          childrenClassName="flex flex-col justify-around"
+          childrenClassName="flex flex-col justify-evenly"
           containerClassName="rounded-b-2xl border border-light/20 p-4"
           ref={headerRef}
-          className="min-h-[500px] lg:h-screen lg:max-h-[800px]"
+          className="min-h-[500px] lg:h-screen h-[100vh]"
           leftBottomElement={
             <ArrowUp
               className="cursor-pointer rotate-180"
@@ -57,9 +57,10 @@ function MainPage() {
           }
           absoluteElement={
             <video
-              autoPlay
-              muted
-              loop
+                autoPlay
+                loop
+                muted
+                playsInline
               className="object-cover h-full w-full"
               src="https://dl.dropboxusercontent.com/s/qli8luo7yveajm5/production%20ID_4069480.mp4?dl=0"
             />

@@ -67,6 +67,7 @@ export const en: LocaleObject = {
         comments: "Comments and wishes",
         contacts: "Where to send the offer",
         foodType: "Food type",
+        info: "By clicking on the submit button, you consent to the processing of personal data.",
       },
       buttons: {
         back: "Back",
@@ -87,7 +88,7 @@ export const en: LocaleObject = {
         adults: "Adults",
         childs: "Children",
         child: "Child",
-        childSuggestion: "Enter the age of each child",
+        childSuggestion: "Enter the age of each child, years",
       },
       placeholders: {
         comment:

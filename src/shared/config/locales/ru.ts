@@ -67,6 +67,7 @@ export const ru: LocaleObject = {
         comments: "Комментарии и пожелания",
         contacts: "Куда вам отправить предложение",
         foodType: "Тип питания",
+        info: "Нажимая на кнопку отправить, Вы даете согласие на обработку персональных данных.",
       },
       buttons: {
         back: "Назад",
@@ -87,7 +88,7 @@ export const ru: LocaleObject = {
         adults: "Взрослые",
         childs: "Дети",
         child: "Ребенок",
-        childSuggestion: "Укажите возраст каждого из детей",
+        childSuggestion: "Укажите возраст каждого из детей, лет",
       },
       placeholders: {
         comment:

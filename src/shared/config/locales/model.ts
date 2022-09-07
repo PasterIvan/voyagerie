@@ -55,6 +55,7 @@ export type LocaleObject = {
         foodType: string;
         comments: string;
         contacts: string;
+        info: string
       };
       datePicker: {
         arraive: string;

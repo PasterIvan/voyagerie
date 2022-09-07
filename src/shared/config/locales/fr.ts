@@ -67,6 +67,7 @@ export const fr: LocaleObject = {
         foodType: "Type de repas",
         comments: "Commentaires",
         contacts: "Contacts",
+        info: "En cliquant sur le bouton envoyer, vous consentez au traitement des données personnelles.",
       },
       datePicker: {
         arraive: "Date d'arrivée",
@@ -77,7 +78,7 @@ export const fr: LocaleObject = {
         adults: "Adultes",
         childs: "Enfants",
         child: "Enfant",
-        childSuggestion: "Entrez l'âge de chaque enfant",
+        childSuggestion: "Entrez l'âge de chaque enfant, années",
       },
       foodType: {
         accommodationOnly: "Hébergement seulement",

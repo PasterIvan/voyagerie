@@ -591,6 +591,9 @@ function FormPage() {
                     </span>
                   )}
                 </div>
+                <div className="order-12 pb-4 text-accent font-medium text-lg col-span-2">
+                  {$t("pages.form.labels.info")}
+                </div>
                 <button
                   onClick={() => !isSending && navigate(-1)}
                   className={classNames(

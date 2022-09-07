@@ -68,7 +68,7 @@ export const PlaceCard: React.FC<
             <Icon className="mr-2" />
             <span className="text-accent">
               {time}{" "}
-              {plural(time, ...((pluralConfig[$i18n] as any)[timeType] || []))}
+              {/*{plural(time, ...((pluralConfig[$i18n] as any)[timeType] || []))}*/}
             </span>
           </div>
           <span className="text-base font-medium text-light ml-auto">
